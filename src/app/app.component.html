@@ -2,16 +2,40 @@
   A simple primary alert—check it out!
 </div>
 
-<h1 class="title">{{ title }}</h1>
-<p>name: {{ heroName }}</p>
-
-<p>job: {{ job }}</p>
-<p>getVal: {{ getVal() }}</p>
+<!--<img [src]="madaoPic" [alt]="user" />-->
+<!--<img bind-src="madaoPic" bind-alt="user" />-->
 
 
-<p>The sum of 1 + 1 is {{1 + 1}}.</p>
-<p>price的7折 {{price * 0.7}}.</p>
-<p>与方法结合 {{price * 0.7 + getVal()}}.</p>
 
-<p>性别：{{ gender === 0 ? '男' : '女' }}</p>
-<!--{{ title = 'aaa' }}-->
+<table class="table-bordered">
+  <tr>
+    <th>name</th>
+    <th>phone</th>
+    <th>age</th>
+  </tr>
+  <tr>
+    <td>张三</td>
+    <td>13398490594</td>
+    <td>33</td>
+  </tr>
+  <tr>
+    <td [colSpan]="colspan">李四</td>
+    <td>15079049984</td>
+    <td>22</td>
+  </tr>
+</table>
+
+<button class="btn btn-primary" [disabled]="isDisabled">click</button>
+
+
+<p [attr.data-title]="customTitle">一段文字</p>
+<p [title]="customTitle2">又是一段文2</p>
+<p [attr.title]="customTitle3">又是一段文字3</p>
+
+
+
+<!--<img src="{{ user2.pic }}" alt="{{ user2.name }}" />-->
+
+
+<img [src]="'madaoPic'" [alt]="user" />
+<img src="madaoPic" [alt]="'user' + user2.pic" />

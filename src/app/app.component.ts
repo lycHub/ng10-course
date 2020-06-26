@@ -17,16 +17,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'hero';
-  heroName = '盖伦';
-  price = 6300;
+  user = 'madao';
+  madaoPic = '../assets/images/madao.jpg';
+  colspan = 3;
+  isDisabled = true;
+  customTitle = 'custom-title';
+  customTitle2 = '又是个title2';
+  customTitle3 = '又是个title3';
 
-  gender = 0;
 
-  get job(): string {
-    return '战士';
-  }
-
-  getVal(): number {
-    return 33;
-  }
+  user2 = {
+    name: 'madao',
+    pic: this.madaoPic
+  };
 }
