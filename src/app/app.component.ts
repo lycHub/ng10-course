@@ -18,4 +18,15 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'hero';
   heroName = '盖伦';
+  price = 6300;
+
+  gender = 0;
+
+  get job(): string {
+    return '战士';
+  }
+
+  getVal(): number {
+    return 33;
+  }
 }

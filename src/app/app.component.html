@@ -5,6 +5,13 @@
 <h1 class="title">{{ title }}</h1>
 <p>name: {{ heroName }}</p>
 
+<p>job: {{ job }}</p>
+<p>getVal: {{ getVal() }}</p>
 
 
-嵌套的 view
+<p>The sum of 1 + 1 is {{1 + 1}}.</p>
+<p>price的7折 {{price * 0.7}}.</p>
+<p>与方法结合 {{price * 0.7 + getVal()}}.</p>
+
+<p>性别：{{ gender === 0 ? '男' : '女' }}</p>
+<!--{{ title = 'aaa' }}-->
