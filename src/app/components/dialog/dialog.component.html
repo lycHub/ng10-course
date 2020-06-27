@@ -1,0 +1,10 @@
+<p (click)="onClick('aaaa', $event)">dialog works!</p>
+
+
+<div class="wrap" (click)="clickParent()" style="width: 200px;height: 200px; background-color: #0c5460;">
+<!--  <div (click)="clickChild($event)" class="child" style="width: 100px;height: 100px; background-color: #ff8f77;"></div>-->
+  <div (click)="$event.stopPropagation();" class="child" style="width: 100px;height: 100px; background-color: #ff8f77;"></div>
+</div>
+
+
+<input type="text" (input)="onInput($event)" />

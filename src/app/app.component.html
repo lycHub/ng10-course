@@ -2,47 +2,4 @@
   A simple primary alert—check it out!
 </div>
 
-<section>
-  <h3>绑定单个class</h3>
-  <button type="button" class="btn" [class.btn-primary]="isPrimary">Primary</button>
-  <button type="button" class="btn" [class.btn-primary]="'ddddd'">Primary</button>
-  <button type="button" class="btn" [class.btn-primary]="0">Primary</button>
-  <button type="button" class="btn" [class.btn-primary]="null">Primary</button>
-  <button type="button" class="btn" [class.btn-secondary]="true">secondary</button>
-  <button type="button" class="btn" [class.btn-danger]="'啦啦啦'">danger</button>
-  <button type="button" class="btn" [class.btn-danger]="undefined">danger</button>
-</section>
-
-<section>
-  <h3>绑定多个class</h3>
-  <button type="button" [class]="btnCls">btnCls</button>
-  <button type="button" [class]="btnCls2">btnCls2</button>
-  <button type="button" [class]="btnCls3">btnCls3</button>
-  
-  <!--  NgClass也可以做同样的事情 -->
-  <button type="button" [ngClass]="btnCls">btnCls</button>
-  <button type="button" [ngClass]="btnCls2">btnCls2</button>
-  <button type="button" [ngClass]="btnCls3">btnCls3</button>
-</section>
-
-
-<section>
-  <h3>绑定单个style</h3>
-  <p [style.color]="'#f60'">一段文字</p>
-  <p [style.border]="'1px solid'" [style.width]="'100px'">一段文字</p>
-  <p [style.border]="'1px solid'" [style.height.px]="200">一段文字</p>
-</section>
-
-<section>
-  <h3>绑定多个style</h3>
-  <p [style]="style1">style1</p>
-  <p [style]="style2">style2</p>
-  <p [style]="style3">style3</p>
-  <!-- 也可以用内置指令ngStyle, 但不推荐，以后可能会弃用 -->
-<!--  <p [ngStyle]="style1">style1</p>-->
-<!--  <p [ngStyle]="style2">style2</p>-->
-  <p [ngStyle]="style3">style3</p>
-</section>
-
-
-<div [ngStyle]="{ 'font-size': '44px' }">test ng style</div>
+<app-dialog></app-dialog>
