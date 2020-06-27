@@ -17,17 +17,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'hero';
-  user = 'madao';
-  madaoPic = '../assets/images/madao.jpg';
-  colspan = 3;
-  isDisabled = true;
-  customTitle = 'custom-title';
-  customTitle2 = '又是个title2';
-  customTitle3 = '又是个title3';
+  isPrimary = true;
+  btnCls = 'btn btn-primary';
+  btnCls2 = ['btn', 'btn-info'];
+  btnCls3 = {
+    btn: true,
+    'btn-secondary': true
+  };
 
-
-  user2 = {
-    name: 'madao',
-    pic: this.madaoPic
+  style1 = 'color: red; border: 1px solid';
+  // style2 = ['color', '#BF3349'];
+  style2 = ['width', '100px']; // 有问题 ？
+  style3 = {
+    color: '#BF3349',
+    backgroundColor: '#E0FF95' // background-color 也可以
   };
 }
