@@ -1,5 +1,11 @@
 <div class="alert alert-danger" role="alert">
   A simple primary alert—check it out!
 </div>
-
-<app-dialog></app-dialog>
+<button class="btn btn-primary" (click)="showModal = true">show modal</button>
+<app-dialog
+  [visible]="showModal"
+  title="一个标题static"
+  (confirm)="onConfirm()"
+  (hide)="onClose()"
+  (backdropClick)="onClose()">
+</app-dialog>

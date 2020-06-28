@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'hero';
+  showModal = false;
+  onConfirm() {
+    console.log('接收 onConfirm');
+  }
+  onClose() {
+    this.showModal = false;
+  }
 }

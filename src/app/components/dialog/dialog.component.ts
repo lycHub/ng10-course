@@ -1,31 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss']
+  // inputs: ['show'],
+  // outputs: ['closed']
 })
 export class DialogComponent implements OnInit {
-
+  // show = false;
+  // closed = new EventEmitter<void>();
+  @Input('visible') show = false;
+  @Input() title = '';
+  @Input() confirmLable = '确定';
+  @Input() cancelLabel = '取消';
+  @Output('hide') closed = new EventEmitter<void>();
+  @Output() backdropClick = new EventEmitter<void>();
+  @Output() confirm = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onClick(str: string, event: MouseEvent): void {
-    console.log('onClick', str);
-    console.log('onClick event', event.target);
-  }
+  /*onBackdropClick() {
+    console.log('backdropClick');
+  }*/
 
-  clickParent() {
-    console.log('clickParent');
+  onConfirm() {
+    this.confirm.emit();
   }
-  clickChild(event: MouseEvent) {
-    event.stopPropagation();
-    console.log('clickChild');
-  }
-
-  onInput(event: KeyboardEvent) {
-    console.log('onInput', (event.target as HTMLInputElement).value);
+  onClose() {
+    // event.stopPropagation();
+    // this.show = false;
+    this.closed.emit();
   }
 }
