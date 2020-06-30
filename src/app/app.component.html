@@ -1,11 +1,6 @@
-<div class="alert alert-danger" role="alert">
-  A simple primary alert—check it out!
-</div>
-<button class="btn btn-primary" (click)="showModal = true">show modal</button>
-<app-dialog
-  [visible]="showModal"
-  title="一个标题static"
-  (confirm)="onConfirm()"
-  (hide)="onClose()"
-  (backdropClick)="onClose()">
-</app-dialog>
+<!--<app-sizer [size]="size" (change)="size = $event"></app-sizer>-->
+<app-sizer [(size)]="size"></app-sizer>
+
+<p>
+  <label [style.font-size.px]="size">app FontSize: {{size}}px</label>
+</p>
