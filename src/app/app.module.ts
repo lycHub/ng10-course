@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import {DialogComponent} from './components/dialog/dialog.component';
 import { SizerComponent } from './components/sizer/sizer.component';
 import {FormsModule} from '@angular/forms';
+import { IfComponent } from './components/if/if.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DialogComponent,
-    SizerComponent
+    SizerComponent,
+    IfComponent
   ],
   imports: [
     BrowserModule,

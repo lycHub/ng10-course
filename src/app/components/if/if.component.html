@@ -1,0 +1,45 @@
+<button (click)="showBlock = !showBlock">toggle visible</button>
+<div class="jumbotron" *ngIf="showBlock else elseBlock">
+  <h1 class="display-4">Hello, world!</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+</div>
+
+
+<ng-template #firstBlock>
+  <p> showBlock为假时显示 </p>
+</ng-template>
+
+
+<button (click)="showBlock2 = !showBlock2">toggle showBlock2</button>
+<!--<div class="block" *ngIf="showBlock2">
+  又是一段block
+</div>-->
+<ng-template [ngIf]="showBlock2" [ngIfElse]="elseBlock2">
+  <div class="block">
+    又是一段block
+  </div>
+</ng-template>
+
+
+<ng-template #elseBlock2>
+  <p> showBlock2为假时显示 </p>
+</ng-template>
+
+
+<section>
+  <h3>ngIfThen</h3>
+  <button (click)="condition = !condition">toggle condition</button>
+  <div *ngIf="condition; then thenBlock else elseBlock3">
+    dadadafsfsdfsd
+    <p>fsfsdf</p>
+    <p>fsfsdf</p>
+    <p>fsfsdf</p>
+    <p>fsfsdf</p>
+    <p>fsfsdf</p>
+  </div>
+  <ng-template #thenBlock>condition为true时显示</ng-template>
+  <ng-template #elseBlock3>condition为false时显示</ng-template>
+</section>
