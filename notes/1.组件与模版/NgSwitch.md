@@ -18,6 +18,10 @@ import {Component} from '@angular/core';
       <input type="radio" name="fruit" value="grape" id="grape" [(ngModel)]="fruit" />
       <label for="grape">🍇</label>
     </p>
+    <p>
+      <input type="radio" name="fruit" value="other" id="other" [(ngModel)]="fruit" />
+      <label for="other">other</label>
+    </p>
     
     selected fruit: {{ fruit }}
     
