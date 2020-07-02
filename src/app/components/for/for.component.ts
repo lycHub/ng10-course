@@ -19,13 +19,10 @@ interface Hero {
       }
   `]
 })
-export class ForComponent implements OnInit {
+export class ForComponent {
   value = '';
   heros: Hero[] = Heros;
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   add() {
     this.heros.push({
