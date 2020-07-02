@@ -1,5 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
-import {NgModel} from '@angular/forms';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +6,5 @@ import {NgModel} from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
+  size = 16;
 }

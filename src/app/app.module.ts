@@ -8,6 +8,7 @@ import { SizerComponent } from './components/sizer/sizer.component';
 import {FormsModule} from '@angular/forms';
 import { IfComponent } from './components/if/if.component';
 import { SwitchComponent } from './components/switch/switch.component';
+import { ForComponent } from './components/for/for.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SwitchComponent } from './components/switch/switch.component';
     DialogComponent,
     SizerComponent,
     IfComponent,
-    SwitchComponent
+    SwitchComponent,
+    ForComponent
   ],
   imports: [
     BrowserModule,
