@@ -1,0 +1,9 @@
+<!--<input #phone placeholder="phone number" />-->
+<input class="form-control" ref-phone placeholder="phone number" />
+<button class="btn btn-primary" (click)="callPhone(phone.value)">Call</button>
+
+
+<p>引用组件：</p>
+<button class="btn btn-primary" (click)="sizer.inc()">inc</button>
+<app-sizer [(size)]="fontSize" #sizer></app-sizer>
+fontSize: {{ fontSize }}

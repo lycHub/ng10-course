@@ -9,6 +9,7 @@ import {FormsModule} from '@angular/forms';
 import { IfComponent } from './components/if/if.component';
 import { SwitchComponent } from './components/switch/switch.component';
 import { ForComponent } from './components/for/for.component';
+import { TplVarComponent } from './components/tpl-var/tpl-var.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ForComponent } from './components/for/for.component';
     SizerComponent,
     IfComponent,
     SwitchComponent,
-    ForComponent
+    ForComponent,
+    TplVarComponent
   ],
   imports: [
     BrowserModule,
