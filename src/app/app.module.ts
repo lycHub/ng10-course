@@ -10,6 +10,7 @@ import { IfComponent } from './components/if/if.component';
 import { SwitchComponent } from './components/switch/switch.component';
 import { ForComponent } from './components/for/for.component';
 import { TplVarComponent } from './components/tpl-var/tpl-var.component';
+import { TplOperatorsComponent } from './components/tpl-operators/tpl-operators.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TplVarComponent } from './components/tpl-var/tpl-var.component';
     IfComponent,
     SwitchComponent,
     ForComponent,
-    TplVarComponent
+    TplVarComponent,
+    TplOperatorsComponent
   ],
   imports: [
     BrowserModule,
