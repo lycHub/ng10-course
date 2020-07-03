@@ -1,0 +1,18 @@
+<p>Title through uppercase pipe: {{title | uppercase}}</p>
+<p>Title through uppercase and lowercase pipe: {{title | uppercase | lowercase}}</p>
+<p>json: {{ obj | json }}</p>
+
+
+<section>
+  <h3>带参数</h3>
+<!--  <p>Manufacture date with date format pipe: {{now | date:'longDate'}}</p>-->
+  <p>原始: {{now}}</p>
+  <p>经过date管道: {{now | date}}</p>
+  <p>接收参数: {{now | date: 'yyyy-MM-dd'}}</p>
+  <p>接收参数: {{now | date: 'longDate'}}</p>
+</section>
+
+
+<section>
+  <h3>安全导航运算符</h3>
+</section>
