@@ -1,3 +1,6 @@
 <div class="demo-sec">
-  <app-tpl-operators></app-tpl-operators>
+  <div class="panel">
+    <button class="btn btn-primary" (click)="setList()">reset list</button>
+    <app-transfer-panel [search]="true" [list]="list" (changed)="onChanged($event)"></app-transfer-panel>
+  </div>
 </div>

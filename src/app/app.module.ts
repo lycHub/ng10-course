@@ -11,6 +11,7 @@ import { SwitchComponent } from './components/switch/switch.component';
 import { ForComponent } from './components/for/for.component';
 import { TplVarComponent } from './components/tpl-var/tpl-var.component';
 import { TplOperatorsComponent } from './components/tpl-operators/tpl-operators.component';
+import { TransferPanelComponent } from './components/transfer-panel/transfer-panel.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TplOperatorsComponent } from './components/tpl-operators/tpl-operators.
     SwitchComponent,
     ForComponent,
     TplVarComponent,
-    TplOperatorsComponent
+    TplOperatorsComponent,
+    TransferPanelComponent
   ],
   imports: [
     BrowserModule,
