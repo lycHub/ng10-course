@@ -1,0 +1,72 @@
+<div class="heros">
+  <div class="card">
+    <div class="card-body">
+      <form>
+        <div class="form-row">
+          <div class="col">
+            <input [(ngModel)]="searchParams.name" type="text" name="name" class="form-control" placeholder="姓名" />
+          </div>
+          <div class="col">
+            <select
+              class="form-control"
+              name="job"
+              [(ngModel)]="searchParams.job">
+              <option value="">职业</option>
+              <option value="0">法师</option>
+              <option value="1">战士</option>
+              <option value="2">刺客</option>
+              <option value="3">射手</option>
+              <option value="4">坦克</option>
+            </select>
+          </div>
+          <div class="col">
+            <select [(ngModel)]="searchParams.sort" name="sort" class="form-control">
+              <option value="desc">降序</option>
+              <option value="asc">升序</option>
+            </select>
+          </div>
+          <div class="col">
+            <button class="btn btn-primary" (click)="search()">搜索</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary btn-add" >新增</button>
+  <div class="card">
+    <div class="card-body">
+      <table *ngIf="heros.length else empty" class="table table-striped table-hover text-center">
+        <thead>
+        <tr>
+          <th scope="col">姓名</th>
+          <th scope="col">性别</th>
+          <th scope="col">年龄</th>
+          <th scope="col">职业</th>
+          <th scope="col">邮箱</th>
+          <th scope="col">创建时间</th>
+          <th scope="col">简介</th>
+          <th scope="col">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of heros">
+          <th scope="row">{{ item.name }}</th>
+          <th>{{ item.genderText }}</th>
+          <th>{{ item.age }}</th>
+          <td>{{ item.jobText }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.createTime }}</td>
+          <td>{{ item.brief }}</td>
+          <td class="actions">
+            <button type="button" class="btn btn-primary btn-modify">修改</button>
+            <button type="button" class="btn btn-danger">删除</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <ng-template #empty>
+        <p class="text-center">empty</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

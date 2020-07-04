@@ -3,15 +3,17 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {DialogComponent} from './components/dialog/dialog.component';
-import { SizerComponent } from './components/sizer/sizer.component';
+import {DialogComponent} from './demos/components/dialog/dialog.component';
+import { SizerComponent } from './demos/components/sizer/sizer.component';
 import {FormsModule} from '@angular/forms';
-import { IfComponent } from './components/if/if.component';
-import { SwitchComponent } from './components/switch/switch.component';
-import { ForComponent } from './components/for/for.component';
-import { TplVarComponent } from './components/tpl-var/tpl-var.component';
-import { TplOperatorsComponent } from './components/tpl-operators/tpl-operators.component';
-import { TransferPanelComponent } from './components/transfer-panel/transfer-panel.component';
+import { IfComponent } from './demos/components/if/if.component';
+import { SwitchComponent } from './demos/components/switch/switch.component';
+import { ForComponent } from './demos/components/for/for.component';
+import { TplVarComponent } from './demos/components/tpl-var/tpl-var.component';
+import { TplOperatorsComponent } from './demos/components/tpl-operators/tpl-operators.component';
+import { TransferPanelComponent } from './demos/components/transfer-panel/transfer-panel.component';
+import { LayoutComponent } from './pages/layout/layout.component';
+import { HerosComponent } from './pages/heros/heros.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { TransferPanelComponent } from './components/transfer-panel/transfer-pan
     ForComponent,
     TplVarComponent,
     TplOperatorsComponent,
-    TransferPanelComponent
+    TransferPanelComponent,
+    LayoutComponent,
+    HerosComponent
   ],
   imports: [
     BrowserModule,
