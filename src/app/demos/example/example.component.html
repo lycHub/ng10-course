@@ -1,5 +1,9 @@
 <div class="demo">
   <section class="m-auto">
-    <app-tpl-container></app-tpl-container>
+    <app-tpl-outlet [render]="customTpl"></app-tpl-outlet>
   </section>
 </div>
+
+<ng-template #customTpl let-def let-val="value">
+  <b>customTpl rendered! def: {{ def }}; value: {{ val }}</b>
+</ng-template>

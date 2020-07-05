@@ -1,0 +1,15 @@
+<div class="outlet">
+  <h3>template outlet</h3>
+  <div class="contents">
+<!--    <ng-container [ngTemplateOutlet]="render || defaultTpl" [ngTemplateOutletContext]="myContext"></ng-container>-->
+<!--    <ng-container *ngTemplateOutlet="render || defaultTpl; context: myContext"></ng-container>-->
+  
+    <!--   用在ng-template上也可以   -->
+        <ng-template *ngTemplateOutlet="render || defaultTpl; context: myContext"></ng-template>
+<!--        <ng-template [ngTemplateOutlet]="render || defaultTpl" [ngTemplateOutletContext]="myContext"></ng-template>-->
+  </div>
+</div>
+
+<ng-template #defaultTpl let-def>
+  <span>一段content def -- {{ def }}</span>
+</ng-template>
