@@ -1,9 +1,9 @@
-```typescript
-import {AfterViewInit, Component, EmbeddedViewRef, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EmbeddedViewRef, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 
 @Component({
   selector: 'app-tpl-container',
-  templateUrl: './tpl-container.component.html'
+  templateUrl: './tpl-container.component.html',
+  styleUrls: ['./tpl-container.component.scss']
 })
 export class TplContainerComponent implements OnInit, AfterViewInit {
   // 获取模板中的元素(组件、ng-template、dom)
@@ -71,53 +71,3 @@ export class TplContainerComponent implements OnInit, AfterViewInit {
   }
 
 }
-
-```
-
-```angular2html
-<div class="box" #box>
-  <button class="btn btn-primary mr-1" (click)="insert(secondTpl)">insert second</button>
-  <button class="btn btn-primary mr-1" (click)="insert(thirdTpl)">insert third</button>
-  <button class="btn btn-primary mr-1" (click)="insert(fourthTpl)">insert fourth</button>
-  <button class="btn btn-primary mr-1" (click)="insertAll()">insert all</button>
-  <button class="btn btn-secondary mr-1" (click)="insertFree()">insert free</button>
-  <button class="btn btn-info mr-1" (click)="getOne()">get one</button>
-  <button class="btn btn-success mr-1" (click)="move()">move free</button>
-  <button class="btn btn-success mr-1" (click)="move2To4()">把第二个移动到第四个位置上</button>
-  <button class="btn btn-success" (click)="move2ToOther()">把第二个移动到其他容器中</button>
-  <p>长度：{{ firstContain?.length }}</p>
-</div>
-<ng-template #firstTpl>
-  <p>first tpl content</p>
-</ng-template>
-
-
-<ng-template #secondTpl>
-  <p>第二段template</p>
-</ng-template>
-
-<ng-template #thirdTpl>
-  <p>第三段template</p>
-</ng-template>
-
-<ng-template #fourthTpl>
-  <p>第四段template</p>
-</ng-template>
-
-<ng-template #freeTpl>
-  <p>自由的template</p>
-</ng-template>
-
-<p>
-  first container:
-  <ng-container #firstContainer></ng-container>
-</p>
-
-<hr>
-
-<p>
-  second container:
-  <ng-container #secondContainer></ng-container>
-</p>
-
-```

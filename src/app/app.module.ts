@@ -18,6 +18,7 @@ import { HighlightDirective } from './demos/directives/highlight.directive';
 import { ExampleComponent } from './demos/example/example.component';
 import { StructuralComponent } from './demos/components/structural/structural.component';
 import { UnlessDirective } from './demos/directives/unless.directive';
+import { TplContainerComponent } from './demos/components/tpl-container/tpl-container.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { UnlessDirective } from './demos/directives/unless.directive';
     HighlightDirective,
     ExampleComponent,
     StructuralComponent,
-    UnlessDirective
+    UnlessDirective,
+    TplContainerComponent
   ],
   imports: [
     BrowserModule,

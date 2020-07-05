@@ -98,7 +98,8 @@
 <section>
   <h3>unless</h3>
   <button class="btn btn-primary" (click)="showUnless = !showUnless">toggle unless {{ showUnless }}</button>
-  <p *appUnless="showUnless">测试unless driective -- {{ showUnless }}</p>
-  <p *appUnless="showUnless as un">测试unless driective alias un -- {{ un }}</p>
   <p *appUnless="showUnless; let un; let attr=attr;">测试unless driective alias let un -- {{ un }} attr: {{ attr }}</p>
+  <ng-template [appUnless]="showUnless" let-ar="attr" let-un>
+    <p>测试unless driective alias let un -- {{ un }} attr: {{ ar }}</p>
+  </ng-template>
 </section>
