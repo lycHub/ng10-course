@@ -27,8 +27,8 @@
   <p>第四段template</p>
 </ng-template>
 
-<ng-template #freeTpl>
-  <p>自由的template</p>
+<ng-template #freeTpl let-fr="free" let-def>
+  <p>自由的template -- fr: {{ fr }} def: {{ def }}</p>
 </ng-template>
 
 <p>
