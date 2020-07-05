@@ -1,0 +1,14 @@
+<div class="shadow">
+  <h3>hello shadow</h3>
+  <div class="head bg-primary">
+    <ng-content select=".head"></ng-content>
+  </div>
+  <div class="body">
+    <ng-content select="[content]"></ng-content>
+    <ng-content select="article"></ng-content>
+    <ng-content></ng-content>
+  </div>
+  <div class="head bg-danger">
+    <ng-content select=".foot"></ng-content>
+  </div>
+</div>

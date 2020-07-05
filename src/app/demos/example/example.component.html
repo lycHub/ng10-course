@@ -1,9 +1,27 @@
 <div class="demo">
   <section class="m-auto">
-    <app-tpl-outlet [render]="customTpl"></app-tpl-outlet>
+    <app-shadow>
+      <div class="head">
+        这里是头部的内容
+      </div>
+      <div content>
+        这是content 属性选中的内容
+      </div>
+      <article>
+        这是article 标签选中的内容
+      </article>
+      <div class="body">
+        <h2>example</h2>
+        这里是默认的主体内容
+      </div>
+      <div class="foot">
+        这里是底部的内容
+      </div>
+    </app-shadow>
   </section>
 </div>
 
-<ng-template #customTpl let-def let-val="value">
-  <b>customTpl rendered! def: {{ def }}; value: {{ val }}</b>
-</ng-template>
+
+<app-dialog [visible]="true">
+  主体内容
+</app-dialog>
