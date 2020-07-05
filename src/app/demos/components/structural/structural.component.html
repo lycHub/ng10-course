@@ -1,0 +1,104 @@
+<p *ngIf="show as s">test ngif alias -- {{ s }}</p>
+<p *ngIf="show; let f">test ngif alias f -- {{ f }}</p>
+<!--<ng-template [ngIf]="show" let-s>
+  <p>test ngif alias &#45;&#45; {{ s }}</p>
+</ng-template>-->
+
+<!--
+  创建一个内嵌的视图，并把这个视图插入到一个视图容器中
+  <ng-container>
+  <ng-template>
+    <p>test ngif alias &#45;&#45; {{ s }}</p>
+  </ng-template>
+</ng-container>
+-->
+
+<!--<div class="content" [ngSwitch]="fruit">
+  <p *ngSwitchCase="'apple'">这是苹果</p>
+  <p *ngSwitchCase="'pear'">这是梨</p>
+  <p *ngSwitchCase="'grape'">这是葡萄</p>
+  <p *ngSwitchDefault>啥都不是</p>
+</div>-->
+
+
+<!--<div class="content" [ngSwitch]="fruit">
+  <ng-template ngSwitchCase="apple">
+    <p>这是苹果</p>
+  </ng-template>
+  <ng-template ngSwitchCase="pear">
+    <p>这是梨</p>
+  </ng-template>
+  <ng-template ngSwitchCase="grape">
+    <p>这是葡萄</p>
+  </ng-template>
+  <ng-template ngSwitchDefault>
+    <p>啥都不是</p>
+  </ng-template>
+</div>-->
+
+<!--
+<ul class="list">
+  <li
+    *ngFor="let item of heros; index as i; count as len; let ev = even; let od = odd; let f = first; let l = last; trackBy: trackByHero"
+    [class.even]="ev"
+    [class.odd]="od">
+    <p>index: {{ i }}</p>
+    <p>count: {{ len }}</p>
+    <p>name: {{ item.name }}</p>
+    <p>first: {{ f }} &#45;&#45; last: {{ l }}</p>
+    <hr>
+  </li>
+</ul>-->
+
+
+<ul class="list">
+  <ng-template
+    ngFor
+    [ngForOf]="heros"
+    let-item
+    let-i="index"
+    let-len="count"
+    let-ev="even"
+    let-od="odd"
+    let-f="first"
+    let-l="last"
+    [ngForTrackBy]="trackByHero">
+    <li [class.even]="ev" [class.odd]="od">
+      <p>index: {{ i }}</p>
+      <p>count: {{ len }}</p>
+      <p>name: {{ item.name }}</p>
+      <p>first: {{ f }} -- last: {{ l }}</p>
+      <hr>
+    </li>
+  </ng-template>
+</ul>
+
+
+<p>Hip!</p>
+<ng-template [ngIf]="true">
+  <!-- 不可见 -->
+  <p>Mid!</p>
+</ng-template>
+<p>Hooray!</p>
+
+
+<p>
+  UPDATE src/app/app.module.ts (1634 bytes)
+  <ng-container *ngIf="show">
+    liyichaodeMacBook-Pro% ng g c demos/components/structural --skipTests
+  </ng-container>
+  CREATE src/app/demos/components/structural/structural.component.scss (0 bytes)
+  CREATE src/app/demos/components/structural/structural.component.html (25 bytes)
+  CREATE src/app/demos/components/structural/structural.component.ts (292 bytes)
+  UPDATE src/app/app.module.ts (1749 bytes)
+</p>
+<button class="btn btn-primary" (click)="show = !show">toggle</button>
+
+
+<section>
+  <h3>unless</h3>
+  <button class="btn btn-primary" (click)="showUnless = !showUnless">toggle unless {{ showUnless }}</button>
+  <p *appUnless="showUnless">测试unless driective -- {{ showUnless }}</p>
+  <p *appUnless="showUnless as un">测试unless driective alias un -- {{ un }}</p>
+  <p *appUnless="showUnless; let un; let attr=attr;">测试unless driective alias let un -- {{ un }} attr: {{ attr }}</p>
+</section>

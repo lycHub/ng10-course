@@ -15,6 +15,9 @@ import { TransferPanelComponent } from './demos/components/transfer-panel/transf
 import { LayoutComponent } from './pages/layout/layout.component';
 import { HerosComponent } from './pages/heros/heros.component';
 import { HighlightDirective } from './demos/directives/highlight.directive';
+import { ExampleComponent } from './demos/example/example.component';
+import { StructuralComponent } from './demos/components/structural/structural.component';
+import { UnlessDirective } from './demos/directives/unless.directive';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { HighlightDirective } from './demos/directives/highlight.directive';
     TransferPanelComponent,
     LayoutComponent,
     HerosComponent,
-    HighlightDirective
+    HighlightDirective,
+    ExampleComponent,
+    StructuralComponent,
+    UnlessDirective
   ],
   imports: [
     BrowserModule,
