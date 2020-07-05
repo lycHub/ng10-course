@@ -9,7 +9,10 @@ import { Component, Input, TemplateRef } from '@angular/core';
                <!--   用在ng-template上也可以   -->
                <!--      <ng-template *ngTemplateOutlet="render || defaultTpl; context: myContext"></ng-template>-->
                <!--      <ng-template [ngTemplateOutlet]="render || defaultTpl" [ngTemplateOutletContext]="myContext"></ng-template>-->
-             </div>`
+             </div>
+            <ng-template #customTpl let-def let-val="value">
+              <b>customTpl rendered! def: {{ def }}; value: {{ val }}</b>
+            </ng-template>`
 })
 export class TplOutletComponent  {
   @Input () render: TemplateRef<any>;
