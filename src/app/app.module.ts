@@ -21,6 +21,8 @@ import { UnlessDirective } from './demos/directives/unless.directive';
 import { TplContainerComponent } from './demos/components/tpl-container/tpl-container.component';
 import { TplOutletComponent } from './demos/components/tpl-outlet/tpl-outlet.component';
 import { ShadowComponent } from './demos/components/shadow/shadow.component';
+import { ViewChildComponent } from './demos/components/view-child/view-child.component';
+import { PanelComponent } from './demos/components/view-child/panel/panel.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { ShadowComponent } from './demos/components/shadow/shadow.component';
     UnlessDirective,
     TplContainerComponent,
     TplOutletComponent,
-    ShadowComponent
+    ShadowComponent,
+    ViewChildComponent,
+    PanelComponent
   ],
   imports: [
     BrowserModule,

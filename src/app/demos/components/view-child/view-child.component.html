@@ -1,0 +1,22 @@
+<div class="view-child">
+  <div class="box" #box>
+    一个盒子
+  </div>
+  <div class="box" #box>
+    2个盒子
+  </div>
+  <div class="box" #box>
+    3个盒子
+  </div>
+  <div class="box" #box>
+    4个盒子
+  </div>
+  <hr>
+  <button class="btn btn-primary" (click)="showChildOne = !showChildOne">toggle child one</button>
+  <app-panel></app-panel>
+  <app-panel></app-panel>
+  <app-panel></app-panel>
+  <app-panel *ngIf="showChildOne"></app-panel>
+  <app-panel></app-panel>
+  <app-panel #panel></app-panel>
+</div>
