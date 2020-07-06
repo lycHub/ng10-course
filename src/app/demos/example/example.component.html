@@ -1,5 +1,31 @@
 <div class="demo">
   <section class="m-auto">
-    <app-view-child></app-view-child>
+    <app-content-child>
+      <div class="content">
+        <span #span>这是默认的投影内容</span>
+        <app-content-panel></app-content-panel>
+      </div>
+      <ul #list>
+        <li>aaa</li>
+        <li>aaa</li>
+        <li>aaa</li>
+        <li>aaa</li>
+      </ul>
+      <ul #list>
+        <li>aaa</li>
+        <li>aaa</li>
+        <li>aaa</li>
+        <li>aaa</li>
+      </ul>
+      <div #list>
+        list div
+      </div>
+      <app-content-panel></app-content-panel>
+      <app-content-panel></app-content-panel>
+      <app-content-panel></app-content-panel>
+      <section>
+        <app-content-panel></app-content-panel>
+      </section>
+    </app-content-child>
   </section>
 </div>

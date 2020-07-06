@@ -1,5 +1,5 @@
 ## ContentChild
-**用法类似ViewChild, 获取投影中到组件或指令，但无法获取元素dom等**
+**用法类似ViewChild, 获取投影中到组件或指令还有元素dom等**
 
 ### 获取投影中但组件
 ```typescript
