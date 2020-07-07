@@ -25,6 +25,9 @@ import { ViewChildComponent } from './demos/components/view-child/view-child.com
 import { PanelComponent } from './demos/components/view-child/panel/panel.component';
 import { ContentChildComponent } from './demos/components/content-child/content-child.component';
 import {ContentPanelComponent} from './demos/components/content-child/panel/panel.component';
+import { PipeComponent } from './demos/components/pipe/pipe.component';
+import { ExponentialStrengthPipe } from './demos/pipes/exponential-strength.pipe';
+import { FlyingHeroesImpurePipe } from './demos/pipes/flying-heroes-impure.pipe';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import {ContentPanelComponent} from './demos/components/content-child/panel/pane
     ViewChildComponent,
     PanelComponent,
     ContentChildComponent,
-    ContentPanelComponent
+    ContentPanelComponent,
+    PipeComponent,
+    ExponentialStrengthPipe,
+    FlyingHeroesImpurePipe
   ],
   imports: [
     BrowserModule,

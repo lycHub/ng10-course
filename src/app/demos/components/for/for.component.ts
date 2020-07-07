@@ -1,10 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import Heros from './hero';
-
-export interface Hero {
-  id: string;
-  name: string;
-}
+import { Component } from '@angular/core';
+import {Hero} from '../../types';
+import { HEROES } from '../../hero';
 
 @Component({
   selector: 'app-for',
@@ -21,7 +17,7 @@ export interface Hero {
 })
 export class ForComponent {
   value = '';
-  heros: Hero[] = Heros;
+  heros: Hero[] = HEROES;
   constructor() { }
 
   add() {

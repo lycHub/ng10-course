@@ -1,0 +1,29 @@
+<div class="pipe">
+  <p>Object</p>
+  <div *ngFor="let item of object | keyvalue">
+    {{item.key}}:{{item.value}}
+  </div>
+  <p>Map</p>
+  <div *ngFor="let item of map | keyvalue">
+    {{item.key}}:{{item.value}}
+  </div>
+</div>
+
+
+<section>
+  <h3>指数倍增管道</h3>
+  <div>Normal power: <input [(ngModel)]="power"></div>
+  <div>Boost factor: <input [(ngModel)]="factor"></div>
+<!--  <p>Super power boost: {{ 2 | exponentialStrength: 5 }}</p>-->
+  <p>Super power boost: {{ power | exponentialStrength: factor }}</p>
+</section>
+
+
+<section>
+  <h3>非纯管道</h3>
+  <input type="text" #box (keyup.enter)="addHero(box.value)" placeholder="hero name" />
+  <button (click)="reset()">Reset</button>
+  <div *ngFor="let hero of (heroes | flyingHeroesImpure)">
+    {{hero.name}}
+  </div>
+</section>

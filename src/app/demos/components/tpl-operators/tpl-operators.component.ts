@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Hero} from '../for/for.component';
+import {Hero} from '../../types';
 
 @Component({
   selector: 'app-tpl-operators',
