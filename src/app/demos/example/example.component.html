@@ -1,9 +1,6 @@
 <div class="demo">
   <section class="m-auto">
-    <button class="btn btn-primary" (click)="showLife = !showLife">toggle life</button>
-    <button (click)="$event;">click</button>
-    <app-life-cycle title="一个title" *ngIf="showLife">
-      <div><b>content 内容</b></div>
-    </app-life-cycle>
+    <app-change></app-change>
+    <app-transfer-panel [list]="showList"></app-transfer-panel>
   </section>
 </div>

@@ -1,0 +1,8 @@
+<div class="change">
+  <h2>这是change组件</h2>
+  <p> heroName: {{ heroName }} </p>
+  <div class="sec">
+    <button class="btn btn-primary" (click)="arms = '长剑'">改变武器</button>
+    <app-change-child [arms]="arms" (childInit)="heroName = '龙归'"></app-change-child>
+  </div>
+</div>

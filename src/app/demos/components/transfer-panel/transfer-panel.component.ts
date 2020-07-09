@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {TransferItem} from './types';
 
 @Component({
   selector: 'app-transfer-panel',
   templateUrl: './transfer-panel.component.html',
-  styleUrls: ['./transfer-panel.component.scss']
+  styleUrls: ['./transfer-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TransferPanelComponent implements OnInit, OnChanges {
   @Input() list: TransferItem[] = [];

@@ -29,6 +29,9 @@ import { PipeComponent } from './demos/components/pipe/pipe.component';
 import { ExponentialStrengthPipe } from './demos/pipes/exponential-strength.pipe';
 import { FlyingHeroesImpurePipe } from './demos/pipes/flying-heroes-impure.pipe';
 import { LifeCycleComponent } from './demos/components/life-cycle/life-cycle.component';
+import { ChangeComponent } from './demos/components/change-detection/change/change.component';
+import { ChangeChildComponent } from './demos/components/change-detection/change-child/change-child.component';
+import { ChangeGrandsonComponent } from './demos/components/change-detection/change-grandson/change-grandson.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,10 @@ import { LifeCycleComponent } from './demos/components/life-cycle/life-cycle.com
     PipeComponent,
     ExponentialStrengthPipe,
     FlyingHeroesImpurePipe,
-    LifeCycleComponent
+    LifeCycleComponent,
+    ChangeComponent,
+    ChangeChildComponent,
+    ChangeGrandsonComponent
   ],
   imports: [
     BrowserModule,
