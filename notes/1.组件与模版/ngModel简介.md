@@ -31,4 +31,4 @@ imports数组只会出现在@NgModule装饰器中，一个模块想要正常工�
 该数组中的每个组件，都作为组件树的根（根组件），后续所有组件都是基于根组件的(如图)。
 虽然也可以在宿主页面中放多个组件，但是大多数应用只有一个组件树，并且只从一个根组件开始引导。
 这个根组件通常叫做 AppComponent，并且位于根模块的 bootstrap 数组中。
-![Image](./component-tree.png)
+![Image](./images/component-tree.png)
