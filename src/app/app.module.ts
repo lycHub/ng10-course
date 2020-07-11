@@ -32,6 +32,7 @@ import { LifeCycleComponent } from './demos/components/life-cycle/life-cycle.com
 import { ChangeComponent } from './demos/components/change-detection/change/change.component';
 import { ChangeChildComponent } from './demos/components/change-detection/change-child/change-child.component';
 import { ChangeGrandsonComponent } from './demos/components/change-detection/change-grandson/change-grandson.component';
+import { StyleComponent } from './demos/components/style/style.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ChangeGrandsonComponent } from './demos/components/change-detection/cha
     LifeCycleComponent,
     ChangeComponent,
     ChangeChildComponent,
-    ChangeGrandsonComponent
+    ChangeGrandsonComponent,
+    StyleComponent
   ],
   imports: [
     BrowserModule,

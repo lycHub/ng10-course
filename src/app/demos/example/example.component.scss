@@ -1,4 +1,21 @@
 .demo .m-auto {
   width: 800px;
   margin-top: 30px!important;
+  .style-host {
+    display: block;
+    background: #005cbf;
+  }
+}
+
+.test-mode {
+  height: 80px;
+  line-height: 80px;
+  background-color: red;
+}
+
+
+.common {
+  color: #47ed90;
+  font-weight: 800;
+  border: 5px solid #71fa63;
 }
