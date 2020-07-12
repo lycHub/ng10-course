@@ -1,8 +1,6 @@
 <div class="demo">
   <section class="m-auto">
-    <app-transfer [sourceData]="list" [search]="true" [customTpl]="myTpl"></app-transfer>
+    <button class="btn btn-primary" (click)="showAlart()">show Alert</button>
   </section>
 </div>
-<ng-template #myTpl let-value>
-  <b>custom tpl--{{ value }}</b>
-</ng-template>
+<!--    <app-alert></app-alert>-->

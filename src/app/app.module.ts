@@ -34,6 +34,7 @@ import { ChangeChildComponent } from './demos/components/change-detection/change
 import { ChangeGrandsonComponent } from './demos/components/change-detection/change-grandson/change-grandson.component';
 import { StyleComponent } from './demos/components/style/style.component';
 import { TransferComponent } from './demos/components/transfer/transfer.component';
+import { AlertComponent } from './demos/components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -67,8 +68,10 @@ import { TransferComponent } from './demos/components/transfer/transfer.componen
     ChangeChildComponent,
     ChangeGrandsonComponent,
     StyleComponent,
-    TransferComponent
+    TransferComponent,
+    AlertComponent
   ],
+  // entryComponents: [AlertComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
