@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef} from '@angular/core';
 import {Direction, TransferItem} from './types';
 import cloneDeep from 'lodash.clonedeep';
 
@@ -11,8 +11,11 @@ import cloneDeep from 'lodash.clonedeep';
 export class TransferComponent implements OnInit, OnChanges {
   @Input() sourceData: TransferItem[];
   @Input() search = false;
+  @Input() customTpl: TemplateRef<any>;
   leftDatas: TransferItem[] = [];
   rightDatas: TransferItem[] = [];
+  leftShowList: TransferItem[] = [];
+  rightShowList: TransferItem[] = [];
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -22,9 +25,11 @@ export class TransferComponent implements OnInit, OnChanges {
         if (!item.direction || item.direction === 'left') {
           item.direction = 'left';
           this.leftDatas.push(item);
+          this.leftShowList.push(item);
         } else {
           item.direction = 'right';
           this.rightDatas.push(item);
+          this.rightShowList.push(item);
         }
       });
     }
@@ -34,31 +39,37 @@ export class TransferComponent implements OnInit, OnChanges {
 
   to(direction: Direction) {
     if (direction === 'left') {
-      this.trueMove('rightDatas', 'leftDatas');
+      this.trueMove('right', 'left');
     } else {
-      this.trueMove('leftDatas', 'rightDatas');
+      this.trueMove('left', 'right');
     }
   }
 
-  private trueMove(
-    from: 'leftDatas' | 'rightDatas',
-    to: 'leftDatas' | 'rightDatas'
-  ) {
-    const moveList: TransferItem[] = cloneDeep(this[from])
+  private trueMove(from: Direction, to: Direction) {
+    const moveList: TransferItem[] = cloneDeep(this[from + 'ShowList'])
       .filter(item => item.checked)
       .map(item => {
         item.checked = false;
         return item;
       });
-    console.log('moveList', moveList);
-    this[to] = this[to].concat(moveList);
+    // console.log('moveList', moveList);
+    this[to + 'ShowList'] = this[to + 'ShowList'].concat(moveList);
     // console.log('from', this[from]);
-    this[from] = this[from].filter(item => !item.checked);
+    this[from + 'ShowList'] = this[from + 'ShowList'].filter(item => !item.checked);
+
+    this[to + 'Datas'] = this[to + 'Datas'].concat(moveList);
+    this[from + 'Datas'] = this[from + 'Datas'].filter(item => {
+      return moveList.findIndex(mItem => mItem.key === item.key) === -1;
+    });
+  }
+
+  onFiltered(value: string, direction: Direction) {
+    this[direction + 'ShowList'] = this[direction + 'Datas'].filter(item => item.value.includes(value));
   }
 
   onSelect(index: number, direction: Direction) {
-    this[direction + 'Datas'][index].checked = !this[direction + 'Datas'][index].checked;
-    this[direction + 'Datas'] = this[direction + 'Datas'].slice();
+    this[direction + 'ShowList'][index].checked = !this[direction + 'ShowList'][index].checked;
+    this[direction + 'ShowList'] = this[direction + 'ShowList'].slice();
     // console.log(this.leftDatas);
   }
 

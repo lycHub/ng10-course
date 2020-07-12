@@ -1,12 +1,22 @@
 <div class="transfer">
   <div class="panel-wrap">
-    <app-transfer-panel [list]="leftDatas" [search]="search" (select)="onSelect($event, 'left')"></app-transfer-panel>
+    <app-transfer-panel
+      [list]="leftShowList"
+      [search]="search"
+      (filtered)="onFiltered($event, 'left')"
+      (select)="onSelect($event, 'left')">
+    </app-transfer-panel>
   </div>
   <div class="operations">
     <button class="btn btn-primary" (click)="to('right')" [disabled]="disableBtn('right')">&gt;</button>
     <button class="btn btn-primary" (click)="to('left')" [disabled]="disableBtn('left')">&lt;</button>
   </div>
   <div class="panel-wrap">
-    <app-transfer-panel [list]="rightDatas" [search]="search" (select)="onSelect($event, 'right')"></app-transfer-panel>
+    <app-transfer-panel
+      [list]="rightShowList"
+      [search]="search"
+      (filtered)="onFiltered($event, 'right')"
+      (select)="onSelect($event, 'right')">
+    </app-transfer-panel>
   </div>
 </div>

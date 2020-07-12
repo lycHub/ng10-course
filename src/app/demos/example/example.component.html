@@ -1,5 +1,8 @@
 <div class="demo">
   <section class="m-auto">
-    <app-transfer [sourceData]="list" [search]="true"></app-transfer>
+    <app-transfer [sourceData]="list" [search]="true" [customTpl]="myTpl"></app-transfer>
   </section>
 </div>
+<ng-template #myTpl let-value>
+  <b>custom tpl--{{ value }}</b>
+</ng-template>

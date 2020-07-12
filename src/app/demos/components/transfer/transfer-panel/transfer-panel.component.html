@@ -1,7 +1,7 @@
 <div class="transfer-panel border rounded">
   <div class="head pl-3">
     <p>
-      <span *ngIf="selecteds.length">{{ selecteds.length }} /</span> {{ showList.length }} 项
+      <span *ngIf="selecteds.length">{{ selecteds.length }} /</span> {{ list.length }} 项
     </p>
   </div>
   <div class="search-box p-2" *ngIf="search">
@@ -11,9 +11,12 @@
     <li
       class="list-item text-truncate list-group-item-action"
       [class.active]="targetIndex(item.key) > -1"
-      *ngFor="let item of showList; index as i"
+      *ngFor="let item of list; index as i"
       (click)="itemClick(i)">
-      {{ item.value }}
+      <ng-container *ngTemplateOutlet="parent.customTpl || defaultTpl; context: {$implicit: item.value, item: item}"></ng-container>
+      <ng-template #defaultTpl>
+        {{ item.value }}
+      </ng-template>
     </li>
   </ul>
 </div>
