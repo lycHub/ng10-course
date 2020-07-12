@@ -28,7 +28,7 @@ export class TransferComponent implements OnInit, OnChanges {
   leftDatas: TransferItem[] = [];
   rightDatas: TransferItem[] = [];
   @Output() changed = new EventEmitter<TransferResult>();
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     const { dataSource } = changes;
