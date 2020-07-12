@@ -11,8 +11,8 @@
     <li
       class="list-item text-truncate list-group-item-action"
       [class.active]="targetIndex(item.key) > -1"
-      *ngFor="let item of showList;"
-      (click)="itemClick(item)">
+      *ngFor="let item of showList; index as i"
+      (click)="itemClick(i)">
       {{ item.value }}
     </li>
   </ul>

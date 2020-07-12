@@ -11,7 +11,7 @@ import { SwitchComponent } from './demos/components/switch/switch.component';
 import { ForComponent } from './demos/components/for/for.component';
 import { TplVarComponent } from './demos/components/tpl-var/tpl-var.component';
 import { TplOperatorsComponent } from './demos/components/tpl-operators/tpl-operators.component';
-import { TransferPanelComponent } from './demos/components/transfer-panel/transfer-panel.component';
+import { TransferPanelComponent } from './demos/components/transfer/transfer-panel/transfer-panel.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { HerosComponent } from './pages/heros/heros.component';
 import { HighlightDirective } from './demos/directives/highlight.directive';
@@ -33,6 +33,7 @@ import { ChangeComponent } from './demos/components/change-detection/change/chan
 import { ChangeChildComponent } from './demos/components/change-detection/change-child/change-child.component';
 import { ChangeGrandsonComponent } from './demos/components/change-detection/change-grandson/change-grandson.component';
 import { StyleComponent } from './demos/components/style/style.component';
+import { TransferComponent } from './demos/components/transfer/transfer.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { StyleComponent } from './demos/components/style/style.component';
     ChangeComponent,
     ChangeChildComponent,
     ChangeGrandsonComponent,
-    StyleComponent
+    StyleComponent,
+    TransferComponent
   ],
   imports: [
     BrowserModule,

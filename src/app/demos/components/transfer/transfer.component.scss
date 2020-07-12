@@ -1,0 +1,16 @@
+.transfer {
+  display: flex;
+  align-items: center;
+  .panel-wrap {
+    width: 200px;
+  }
+  .operations {
+    margin: 0 10px;
+    .btn {
+      display: block;
+      &:first-child {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {TransferItem} from '../components/transfer-panel/types';
+import {TransferItem} from '../components/transfer/types';
 
 @Component({
   selector: 'app-example',
@@ -9,9 +9,7 @@ import {TransferItem} from '../components/transfer-panel/types';
   encapsulation: ViewEncapsulation.None
 })
 export class ExampleComponent implements OnInit {
-  showLife = true;
-
-  showList: TransferItem[] = [];
+  list: TransferItem[] = [];
   constructor() {
   }
 
@@ -20,10 +18,10 @@ export class ExampleComponent implements OnInit {
   }
 
   setList() {
-    this.showList = [];
+    this.list = [];
     const prefix = 'item' + Date.now().toString().slice(-3);
     for (let i = 0; i < 20; i++) {
-      this.showList.push({
+      this.list.push({
         key: prefix + '_' + i,
         value: `${prefix}${i + 1}`,
         checked: i % 6 === 0
