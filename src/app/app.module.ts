@@ -5,6 +5,9 @@ import { AppComponent } from './app.component';
 import {DemosModule} from './demos/demos.module';
 import {PagesModule} from './pages/pages.module';
 import {HeroService} from './services/hero.service';
+import {LoggerService} from './services/logger.service';
+import {UserService} from './services/user.service';
+import {UserLoggerService} from './services/user-logger.service';
 
 @NgModule({
   declarations: [
@@ -17,8 +20,19 @@ import {HeroService} from './services/hero.service';
     PagesModule
   ],
   providers: [
-    // {provide: HeroService, useClass: HeroService}
-    // HeroService
+    // LoggerService,
+    UserService,
+    // { provide: LoggerService, useClass: UserLoggerService }
+    // UserLoggerService,
+    {
+      provide: UserLoggerService,
+      useFactory(userServe: UserService) {
+        return new UserLoggerService(userServe, 'factory msg');
+      },
+      deps: [UserService]
+    },
+    // { provide: LoggerService, useExisting: UserLoggerService },
+    { provide: 'httpApi', useValue: '123.com' },
   ],
   bootstrap: [AppComponent]
 })
