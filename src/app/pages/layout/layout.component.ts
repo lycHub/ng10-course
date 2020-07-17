@@ -1,6 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
-import {LoggerService} from '../../services/logger.service';
-import {UserLoggerService} from '../../services/user-logger.service';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-layout',
@@ -10,11 +8,8 @@ import {UserLoggerService} from '../../services/user-logger.service';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor(private loggerServe: UserLoggerService, @Inject('httpApi') readonly api) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    this.loggerServe.log('layout');
-    console.log('api', this.api);
-  }
+  ngOnInit(): void {}
 
 }
