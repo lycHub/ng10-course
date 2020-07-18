@@ -27,8 +27,10 @@ import {TransferComponent} from './transfer/transfer.component';
 import {AlertComponent} from './alert/alert.component';
 import {PipeModule} from '../pipes/pipe.module';
 import {FormsModule} from '@angular/forms';
+import { FlowerComponent } from './test-service/flower/flower.component';
 
-const declarations = [
+@NgModule({
+  declarations: [
     // FlyingHeroesImpurePipe,
     DialogComponent,
     SizerComponent,
@@ -54,16 +56,42 @@ const declarations = [
     ChangeGrandsonComponent,
     StyleComponent,
     TransferComponent,
-    AlertComponent
-  ];
-
-@NgModule({
-  declarations,
+    AlertComponent,
+    FlowerComponent
+  ],
   imports: [
     CommonModule,
     PipeModule,
     FormsModule
   ],
-  exports: declarations
+  exports: [
+    // FlyingHeroesImpurePipe,
+    DialogComponent,
+    SizerComponent,
+    IfComponent,
+    SwitchComponent,
+    ForComponent,
+    TplVarComponent,
+    TplOperatorsComponent,
+    TransferPanelComponent,
+    ExampleComponent,
+    StructuralComponent,
+    TplContainerComponent,
+    TplOutletComponent,
+    ShadowComponent,
+    ViewChildComponent,
+    PanelComponent,
+    ContentChildComponent,
+    ContentPanelComponent,
+    PipeComponent,
+    LifeCycleComponent,
+    ChangeComponent,
+    ChangeChildComponent,
+    ChangeGrandsonComponent,
+    StyleComponent,
+    TransferComponent,
+    AlertComponent,
+    FlowerComponent
+  ],
 })
 export class ComponentsModule { }
