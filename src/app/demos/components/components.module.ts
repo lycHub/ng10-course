@@ -33,6 +33,10 @@ import { MobileListComponent } from './test-service/mobile/mobile-list/mobile-li
 import { MobileItemComponent } from './test-service/mobile/mobile-item/mobile-item.component';
 import { MobileDirective } from './test-service/mobile/mobile.directive';
 import { MobileContentComponent } from './test-service/mobile/mobile-list/mobile-content/mobile-content.component';
+import { AlexComponent } from './test-service/alex/alex.component';
+import { CathyComponent } from './test-service/alex/cathy/cathy.component';
+import { CraigComponent } from './test-service/alex/craig/craig.component';
+import { CarolComponent } from './test-service/alex/carol/carol.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +71,11 @@ import { MobileContentComponent } from './test-service/mobile/mobile-list/mobile
     MobileListComponent,
     MobileItemComponent,
     MobileDirective,
-    MobileContentComponent
+    MobileContentComponent,
+    AlexComponent,
+    CathyComponent,
+    CraigComponent,
+    CarolComponent
   ],
   imports: [
     CommonModule,
