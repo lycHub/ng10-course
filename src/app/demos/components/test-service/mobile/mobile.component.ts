@@ -15,7 +15,7 @@ import {MobileService} from './mobile.service';
   `,
   styles: [
   ],
-  providers: [MobileService]
+  // providers: [MobileService]
 })
 export class MobileComponent implements OnInit {
 

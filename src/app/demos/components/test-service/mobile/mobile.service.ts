@@ -6,9 +6,7 @@ export interface Mobile {
   name: string;
 }
 
-@Injectable({
-  providedIn: ComponentsModule
-})
+@Injectable()
 export class MobileService {
   private mobiles: Mobile[] = [
     {
@@ -24,7 +22,9 @@ export class MobileService {
       name: 'oppo'
     }
   ]
-  constructor() { }
+  constructor() {
+    console.log('new Mobile service');
+  }
   getMoibles() {
     return this.mobiles;
   }

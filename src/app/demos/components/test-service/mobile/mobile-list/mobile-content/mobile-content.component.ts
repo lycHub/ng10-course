@@ -1,5 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Host, Inject, OnInit, Self} from '@angular/core';
 import {listToken} from '../mobile-list.component';
+import {MobileService} from '../../mobile.service';
 
 @Component({
   selector: 'app-mobile-content',
@@ -10,13 +11,12 @@ import {listToken} from '../mobile-list.component';
 <!--      listVal: {{ listVal }}-->
     </p>
   `,
-  styles: [
-  ]
+  providers: [MobileService]
 })
 export class MobileContentComponent implements OnInit {
 
-  constructor() {
-    // console.log('listVal', this.listVal);
+  constructor(private mobileServe: MobileService) {
+    console.log('content', this.mobileServe.getMoibles());
   }
 
   ngOnInit(): void {

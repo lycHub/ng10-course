@@ -9,7 +9,7 @@ import {MobileService} from './demos/components/test-service/mobile/mobile.servi
 })
 export class AppComponent {
   color = 'green';
-  constructor(private mobileServe: MobileService) {
-    console.log('app', this.mobileServe.getMoibles());
+  constructor() {
+    // console.log('app', this.mobileServe.getMoibles());
   }
 }

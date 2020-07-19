@@ -15,9 +15,9 @@ import {listToken} from '../mobile-list/mobile-list.component';
 })
 export class MobileItemComponent implements OnInit {
   mobile: Mobile;
-  constructor(@Inject(listToken) readonly listVal: string) {
+  constructor() {
     // this.mobile = this.mobileServe.getMoible('m2');
-    console.log('view item', this.listVal);
+    // console.log('view item', this.listVal);
   }
 
   ngOnInit(): void {

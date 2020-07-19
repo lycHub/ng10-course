@@ -8,6 +8,7 @@ import {LoggerService} from './demos/components/test-service/logger.service';
 import {BetterLoggerService} from './demos/components/test-service/better-logger.service';
 import {APP_CONFIG} from './demos/components/test-service/token';
 import {FlowerService} from './demos/components/test-service/flower.service';
+import {MobileService} from './demos/components/test-service/mobile/mobile.service';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {FlowerService} from './demos/components/test-service/flower.service';
     PagesModule
   ],
   providers: [
+    // MobileService,
     // LoggerService
     BetterLoggerService,
     // { provide: LoggerService, useExisting: BetterLoggerService }

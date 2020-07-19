@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {LoggerService} from '../logger.service';
 import {APP_CONFIG} from '../token';
 import {FlowerService} from '../flower.service';
+import {MobileService} from '../mobile/mobile.service';
 
 @Component({
   selector: 'app-flower',
@@ -12,6 +13,7 @@ import {FlowerService} from '../flower.service';
   `,
   styles: [
   ],
+  providers: [MobileService]
 })
 export class FlowerComponent implements OnInit {
 
@@ -19,14 +21,12 @@ export class FlowerComponent implements OnInit {
     private loggerServe: LoggerService,
     @Inject('httpApi') private uri: string,
     @Inject(APP_CONFIG) private tokenValue: string,
-    private flowerServe: FlowerService
+    private flowerServe: FlowerService,
+    private mobileServe: MobileService
   ) { }
 
   ngOnInit(): void {
-    // console.log(this.loggerServe);
-    // console.log('uri', this.uri);
-    // console.log('tokenValue', this.tokenValue);
-    this.flowerServe.logFlower();
+    console.log('flower', this.mobileServe.getMoibles());
   }
 
 }
