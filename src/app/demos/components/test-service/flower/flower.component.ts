@@ -11,7 +11,7 @@ import {FlowerService} from '../flower.service';
     </p>
   `,
   styles: [
-  ]
+  ],
 })
 export class FlowerComponent implements OnInit {
 

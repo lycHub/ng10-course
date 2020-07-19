@@ -29,7 +29,7 @@ import {FlowerService} from './demos/components/test-service/flower.service';
     {
       provide: FlowerService,
       useFactory(betterServe: BetterLoggerService) {
-        return new FlowerService(betterServe.flower);
+        return new FlowerService(betterServe);
       },
       deps: [BetterLoggerService]
     }

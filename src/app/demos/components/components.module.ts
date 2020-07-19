@@ -28,6 +28,11 @@ import {AlertComponent} from './alert/alert.component';
 import {PipeModule} from '../pipes/pipe.module';
 import {FormsModule} from '@angular/forms';
 import { FlowerComponent } from './test-service/flower/flower.component';
+import { MobileComponent } from './test-service/mobile/mobile.component';
+import { MobileListComponent } from './test-service/mobile/mobile-list/mobile-list.component';
+import { MobileItemComponent } from './test-service/mobile/mobile-item/mobile-item.component';
+import { MobileDirective } from './test-service/mobile/mobile.directive';
+import { MobileContentComponent } from './test-service/mobile/mobile-list/mobile-content/mobile-content.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +62,12 @@ import { FlowerComponent } from './test-service/flower/flower.component';
     StyleComponent,
     TransferComponent,
     AlertComponent,
-    FlowerComponent
+    FlowerComponent,
+    MobileComponent,
+    MobileListComponent,
+    MobileItemComponent,
+    MobileDirective,
+    MobileContentComponent
   ],
   imports: [
     CommonModule,
@@ -92,6 +102,6 @@ import { FlowerComponent } from './test-service/flower/flower.component';
     TransferComponent,
     AlertComponent,
     FlowerComponent
-  ],
+  ]
 })
 export class ComponentsModule { }

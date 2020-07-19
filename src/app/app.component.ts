@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MobileService} from './demos/components/test-service/mobile/mobile.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 })
 export class AppComponent {
   color = 'green';
-  constructor() {
+  constructor(private mobileServe: MobileService) {
+    console.log('app', this.mobileServe.getMoibles());
   }
 }
