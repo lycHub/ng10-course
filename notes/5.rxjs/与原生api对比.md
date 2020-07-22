@@ -1,3 +1,6 @@
+
+> [30天精通rxjs](https://blog.jerry-hong.com/series/rxjs/thirty-days-RxJS-00)
+
 ## vs Promise
 Observable和Promise的不同点
 1. 可观察对象是声明式的，在被订阅之前，它不会开始执行。承诺是在创建时就立即执行的。这让可观察对象可用于定义那些应该按需执行的菜谱。

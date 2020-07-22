@@ -3,9 +3,12 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {MobileService} from '../components/test-service/mobile/mobile.service';
-import {fromEvent} from 'rxjs';
-import {map, scan, throttleTime} from 'rxjs/operators';
+import {from, concat, fromEvent, interval, Observable} from 'rxjs';
+import {filter, map, reduce, tap} from 'rxjs/operators';
+
+const sub = interval(1000).subscribe(res => {
+  console.log('interval', res);
+});
 
 @Component({
   selector: 'app-example',
@@ -19,12 +22,49 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    fromEvent(document, 'click')
-      .pipe(
-        throttleTime(1000),
-        map((event: MouseEvent) => event.clientX),
-        scan((count, clientX) => count + clientX, 0)
-      )
-      .subscribe(count => console.log(count));
+
+  }
+
+  newPromise() {
+    const p = new Promise(resolve => {
+      console.log('initial a promise'); // 立即触发
+      resolve(['a', 'b', 'c']);
+    }).then(res => {
+      console.log('第一个then');
+      return res;
+    }).then(res => {
+      console.log('第2个then');
+      return res;
+    });
+  }
+  newObservable() {
+    const o = new Observable(subscriber => {
+      console.log('initial a newObservable'); // 不触发
+      subscriber.next(['a', 'b', 'c']);
+    }).pipe(
+      map(res => {
+        console.log('第一个map');
+        return res;
+      }),
+      map(res => {
+        console.log('第2个map');
+        return res;
+      })
+    );
+  }
+  cancelObservable() {
+    sub.unsubscribe();
+  }
+  concat() {
+    const arr$ = from([2, 11, 44]);
+    const arr2$ = from([1, 6, 4]);
+    concat(arr$, arr2$).pipe(
+      reduce((s, v) => s + v, 0),
+      tap(item => {
+        console.log('tap', item);
+      })
+    ).subscribe(res => {
+      console.log('concat', res);
+    });
   }
 }
