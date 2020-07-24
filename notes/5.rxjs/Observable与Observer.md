@@ -96,7 +96,8 @@ const observable = new Observable(function subscribe(subscriber) {
 });
 ```
 
-## 订阅Observables
+## Observer
+Observer用户获取到Observable推送的值，Observers是一系列回调函数，也就是Observable.subscribe的回调函数
 ```text
 Observable.subscribe(x => console.log(x));
 ```
@@ -108,11 +109,7 @@ Observable.subscribe方法有三个回调函数，上面写的只是其中最常
 - "Complete": 推送结束时触发(即使出现error)，不会收到任何值
 
 
-**Observable.subscribe和new Observable(function subscribe(subscriber) {...})
-这两个函数都叫subscribe，在程序的角度它们是不同的，但在概念上是相同的**
-
-
-### 显示的结束推送
+### 手动结束推送
 ```typescript
 import { Observable } from 'rxjs';
 
