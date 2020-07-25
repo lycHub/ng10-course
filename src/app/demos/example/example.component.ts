@@ -3,15 +3,24 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {interval, Observable} from 'rxjs';
+import {interval, Observable, of} from 'rxjs';
+import {mapTo} from 'rxjs/operators';
 
-const observable1 = interval(500);
-const observable2 = interval(300);
-
-const subscription = observable1.subscribe(x => console.log('first: ' + x));
-const childSubscription = observable2.subscribe(x => console.log('second: ' + x));
-
-subscription.add(childSubscription);
+function map(source: Observable<string>, callback: (item: string) => string) {
+  return new Observable(observer => {
+    return source.subscribe(
+      value => {
+        try{
+          observer.next(callback(value));
+        } catch (e) {
+          observer.error(e);
+        }
+      },
+      (err) => { observer.error(err); },
+      () => { observer.complete(); }
+    );
+  });
+}
 
 @Component({
   selector: 'app-example',
@@ -28,13 +37,17 @@ export class ExampleComponent implements OnInit {
 
   }
   newObservable() {
-    /*const observable$ = interval(1000);
-    const subscription = observable$.subscribe(x => console.log(x));
-    setTimeout(() => {
-      subscription.unsubscribe();
-    }, 3000);*/
+    const people = of('Jerry', 'Anna');
+    const helloPeople$ = map(people, (item) => item + ' Hello~');
+    helloPeople$.subscribe(res => {
+      console.log('res', res);
+    });
   }
-  cancelObservable() {
-    subscription.unsubscribe();
+  mapTo(result: string | number) {
+    const source$ = interval(1000);
+    const newest$ = source$.pipe(mapTo(result));
+    newest$.subscribe(res => {
+      console.log('res', res);
+    });
   }
 }
