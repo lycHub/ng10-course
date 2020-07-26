@@ -3,24 +3,9 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {interval, Observable, of} from 'rxjs';
-import {mapTo} from 'rxjs/operators';
+import {combineLatest, concat, forkJoin, fromEvent, interval, merge, of, partition, race, range, timer, zip} from 'rxjs';
+import {map, mapTo, take} from 'rxjs/operators';
 
-function map(source: Observable<string>, callback: (item: string) => string) {
-  return new Observable(observer => {
-    return source.subscribe(
-      value => {
-        try{
-          observer.next(callback(value));
-        } catch (e) {
-          observer.error(e);
-        }
-      },
-      (err) => { observer.error(err); },
-      () => { observer.complete(); }
-    );
-  });
-}
 
 @Component({
   selector: 'app-example',
@@ -34,20 +19,15 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    const age$ = of<number>(27, 25, 29);
+    const name$ = of<string>('Foo', 'Bar', 'Beer');
+    const isDev$ = of<boolean>(true, true, false);
+    zip(age$, name$, isDev$).subscribe(x => console.log(x));
   }
   newObservable() {
-    const people = of('Jerry', 'Anna');
-    const helloPeople$ = map(people, (item) => item + ' Hello~');
-    helloPeople$.subscribe(res => {
-      console.log('res', res);
-    });
+
   }
   mapTo(result: string | number) {
-    const source$ = interval(1000);
-    const newest$ = source$.pipe(mapTo(result));
-    newest$.subscribe(res => {
-      console.log('res', res);
-    });
+
   }
 }
