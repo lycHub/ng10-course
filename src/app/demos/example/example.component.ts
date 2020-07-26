@@ -4,7 +4,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {combineLatest, concat, forkJoin, fromEvent, interval, merge, of, partition, race, range, timer, zip} from 'rxjs';
-import {map, mapTo, take} from 'rxjs/operators';
+import {combineAll, concatAll, endWith, map, mapTo, mergeAll, pluck, startWith, take, withLatestFrom} from 'rxjs/operators';
 
 
 @Component({
@@ -19,10 +19,11 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const age$ = of<number>(27, 25, 29);
-    const name$ = of<string>('Foo', 'Bar', 'Beer');
-    const isDev$ = of<boolean>(true, true, false);
-    zip(age$, name$, isDev$).subscribe(x => console.log(x));
+    const clicks = fromEvent(document, 'click').pipe(pluck('clientX'));
+    const interval$ = interval(1000);
+    // const result = clicks.pipe(withLatestFrom(interval$));
+    const result = interval$.pipe(withLatestFrom(clicks));
+    result.subscribe(x => console.log(x));
   }
   newObservable() {
 
