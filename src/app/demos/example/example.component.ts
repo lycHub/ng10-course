@@ -3,8 +3,8 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {empty, from, fromEvent, iif, interval, Observable, of, range, throwError, timer} from 'rxjs';
-import {map, mapTo} from 'rxjs/operators';
+import {combineLatest, concat, forkJoin, fromEvent, interval, merge, of, partition, race, range, timer, zip} from 'rxjs';
+import {map, mapTo, take} from 'rxjs/operators';
 
 
 @Component({
@@ -19,13 +19,10 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const err$ = throwError(new Error('fail'));
-
-    err$.subscribe(res => {
-      console.log('res', res);
-    }, error => {
-      console.error(error);
-    }, () => console.log('complete'));
+    const age$ = of<number>(27, 25, 29);
+    const name$ = of<string>('Foo', 'Bar', 'Beer');
+    const isDev$ = of<boolean>(true, true, false);
+    zip(age$, name$, isDev$).subscribe(x => console.log(x));
   }
   newObservable() {
 
