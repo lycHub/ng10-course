@@ -3,24 +3,9 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {interval, Observable, of} from 'rxjs';
-import {mapTo} from 'rxjs/operators';
+import {empty, from, fromEvent, iif, interval, Observable, of, range, throwError, timer} from 'rxjs';
+import {map, mapTo} from 'rxjs/operators';
 
-function map(source: Observable<string>, callback: (item: string) => string) {
-  return new Observable(observer => {
-    return source.subscribe(
-      value => {
-        try{
-          observer.next(callback(value));
-        } catch (e) {
-          observer.error(e);
-        }
-      },
-      (err) => { observer.error(err); },
-      () => { observer.complete(); }
-    );
-  });
-}
 
 @Component({
   selector: 'app-example',
@@ -34,20 +19,18 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const err$ = throwError(new Error('fail'));
 
+    err$.subscribe(res => {
+      console.log('res', res);
+    }, error => {
+      console.error(error);
+    }, () => console.log('complete'));
   }
   newObservable() {
-    const people = of('Jerry', 'Anna');
-    const helloPeople$ = map(people, (item) => item + ' Hello~');
-    helloPeople$.subscribe(res => {
-      console.log('res', res);
-    });
+
   }
   mapTo(result: string | number) {
-    const source$ = interval(1000);
-    const newest$ = source$.pipe(mapTo(result));
-    newest$.subscribe(res => {
-      console.log('res', res);
-    });
+
   }
 }
