@@ -5,20 +5,24 @@ import {
 } from '@angular/core';
 import {combineLatest, concat, forkJoin, fromEvent, interval, merge, of, partition, race, range, timer, zip} from 'rxjs';
 import {
-  buffer,
-  bufferCount, bufferTime, bufferToggle, bufferWhen,
+  audit,
+  auditTime,
   combineAll,
-  concatAll, concatMap, concatMapTo,
-  endWith, exhaust, exhaustMap, groupBy,
+  concatAll, debounce, debounceTime, distinct, distinctUntilChanged, distinctUntilKeyChanged, elementAt,
+  endWith, filter, first, ignoreElements, last,
   map,
   mapTo,
-  mergeAll, mergeMap, mergeMapTo, mergeScan, pairwise,
-  pluck, reduce, scan,
-  startWith, switchMap,
-  take, toArray,
+  mergeAll,
+  pluck, sample, sampleTime, single, skip, skipLast, skipUntil, skipWhile,
+  startWith,
+  take, takeLast, takeUntil, takeWhile, throttle, throttleTime,
   withLatestFrom
 } from 'rxjs/operators';
 
+interface Person {
+  age: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-example',
@@ -32,10 +36,9 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const clicks = fromEvent(document, 'click');
-    const result = clicks.pipe(switchMap((ev) => interval(1000)));
+    const interval$ = interval(500);
+    const result = interval$.pipe(throttleTime(2000));
     result.subscribe(x => console.log(x));
-
   }
   newObservable() {
 
