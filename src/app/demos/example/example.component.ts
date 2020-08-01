@@ -8,14 +8,14 @@ import {
   audit,
   auditTime, catchError,
   combineAll,
-  concatAll, debounce, debounceTime, delay, distinct, distinctUntilChanged, distinctUntilKeyChanged, elementAt,
+  concatAll, debounce, debounceTime, delay, delayWhen, distinct, distinctUntilChanged, distinctUntilKeyChanged, elementAt,
   endWith, filter, first, ignoreElements, last,
   map,
   mapTo,
   mergeAll, mergeMap,
   pluck, retry, retryWhen, sample, sampleTime, single, skip, skipLast, skipUntil, skipWhile,
   startWith,
-  take, takeLast, takeUntil, takeWhile, tap, throttle, throttleTime,
+  take, takeLast, takeUntil, takeWhile, tap, throttle, throttleTime, timeInterval, timeout, timeoutWith, timestamp,
   withLatestFrom
 } from 'rxjs/operators';
 
@@ -36,28 +36,12 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const source = interval(1000);
-    const example = source.pipe(
-      map(val => {
-        if (val > 5) {
-          // 错误将由 retryWhen 接收
-          throw val;
-        }
-        return val;
-      }),
-      retryWhen(errors =>
-        errors.pipe(
-          // 输出错误信息
-          tap(val => console.log(`Value ${val} 太大了!`)),
-          // 3秒后重试
-          delay(3000)
-        )
-      )
-    );
-    const subscribe = example.subscribe(
-      val => console.log(val),
-      error => console.error('err ', error)
-    );
+    const seconds = interval(1000);
+    const minutes = interval(500);
+
+// seconds太慢将会推送minutes流
+    seconds.pipe(timeoutWith(900, minutes))
+      .subscribe(value => console.log(value));
   }
   newObservable() {
 
