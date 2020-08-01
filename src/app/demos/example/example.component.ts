@@ -3,19 +3,56 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {combineLatest, concat, forkJoin, fromEvent, interval, merge, of, partition, race, range, throwError, timer, zip} from 'rxjs';
+import {combineLatest, concat, EMPTY, forkJoin, fromEvent, interval, merge, of, partition, race, range, throwError, timer, zip} from 'rxjs';
 import {
   audit,
-  auditTime, catchError,
+  auditTime,
+  catchError,
   combineAll,
-  concatAll, debounce, debounceTime, delay, delayWhen, distinct, distinctUntilChanged, distinctUntilKeyChanged, elementAt,
-  endWith, filter, first, ignoreElements, last,
+  concatAll,
+  count,
+  debounce,
+  debounceTime,
+  defaultIfEmpty,
+  delay,
+  delayWhen,
+  distinct,
+  distinctUntilChanged,
+  distinctUntilKeyChanged,
+  elementAt,
+  endWith, every,
+  filter, find, findIndex,
+  first,
+  ignoreElements, isEmpty,
+  last,
   map,
   mapTo,
-  mergeAll, mergeMap,
-  pluck, retry, retryWhen, sample, sampleTime, single, skip, skipLast, skipUntil, skipWhile,
+  max,
+  mergeAll,
+  mergeMap,
+  min,
+  pluck,
+  retry,
+  retryWhen,
+  sample,
+  sampleTime,
+  single,
+  skip,
+  skipLast,
+  skipUntil,
+  skipWhile,
   startWith,
-  take, takeLast, takeUntil, takeWhile, tap, throttle, throttleTime, timeInterval, timeout, timeoutWith, timestamp,
+  take,
+  takeLast,
+  takeUntil,
+  takeWhile,
+  tap,
+  throttle,
+  throttleTime,
+  timeInterval,
+  timeout,
+  timeoutWith,
+  timestamp,
   withLatestFrom
 } from 'rxjs/operators';
 
@@ -36,12 +73,10 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const seconds = interval(1000);
-    const minutes = interval(500);
-
-// seconds太慢将会推送minutes流
-    seconds.pipe(timeoutWith(900, minutes))
-      .subscribe(value => console.log(value));
+    of(1, 2, 3, 4, 5, 6).pipe(
+      every(x => x < 7),
+    )
+      .subscribe(x => console.log(x));
   }
   newObservable() {
 
