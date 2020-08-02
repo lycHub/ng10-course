@@ -53,7 +53,7 @@ import {
   retry,
   retryWhen,
   sample,
-  sampleTime,
+  sampleTime, share,
   single,
   skip,
   skipLast,
@@ -92,24 +92,10 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const subject = new AsyncSubject();
-
-    subject.subscribe({
-      next: (v) => console.log(`observerA: ${v}`)
-    });
-
-    subject.next(1);
-    subject.next(2);
-    subject.next(3);
-    subject.next(4);
-
-    subject.subscribe({
-      next: (v) => console.log(`observerB: ${v}`)
-    });
-
-    subject.next(5);
+    const source = interval(1000).pipe(take(5), share());
+    source.subscribe(value => console.log('observable1: ' + value));
     setTimeout(() => {
-      subject.complete();
+      source.subscribe(value => console.log('observable2: ' + value));
     }, 2000);
   }
   newObservable() {
