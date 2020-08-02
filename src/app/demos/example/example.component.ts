@@ -4,6 +4,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {
+  AsyncSubject,
+  BehaviorSubject,
   combineLatest,
   concat,
   EMPTY,
@@ -14,7 +16,7 @@ import {
   of,
   partition,
   race,
-  range,
+  range, ReplaySubject,
   Subject,
   throwError,
   timer,
@@ -71,6 +73,7 @@ import {
   timestamp,
   withLatestFrom
 } from 'rxjs/operators';
+import set = Reflect.set;
 
 interface Person {
   age: number;
@@ -89,15 +92,25 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const observable = from([1, 2, 3]);
-    const subject = new Subject<number>();
+    const subject = new AsyncSubject();
+
     subject.subscribe({
       next: (v) => console.log(`observerA: ${v}`)
     });
+
+    subject.next(1);
+    subject.next(2);
+    subject.next(3);
+    subject.next(4);
+
     subject.subscribe({
       next: (v) => console.log(`observerB: ${v}`)
     });
-    observable.subscribe(subject);
+
+    subject.next(5);
+    setTimeout(() => {
+      subject.complete();
+    }, 2000);
   }
   newObservable() {
 
