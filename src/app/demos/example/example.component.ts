@@ -7,7 +7,7 @@ import {
   AsyncSubject,
   BehaviorSubject,
   combineLatest,
-  concat,
+  concat, ConnectableObservable,
   EMPTY,
   forkJoin, from,
   fromEvent,
@@ -48,12 +48,12 @@ import {
   max,
   mergeAll,
   mergeMap,
-  min,
-  pluck,
+  min, multicast,
+  pluck, publish, publishBehavior, publishLast, publishReplay, refCount,
   retry,
   retryWhen,
   sample,
-  sampleTime, share,
+  sampleTime, share, shareReplay,
   single,
   skip,
   skipLast,
@@ -92,11 +92,20 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const source = interval(1000).pipe(take(5), share());
-    source.subscribe(value => console.log('observable1: ' + value));
+    const source = range(2, 8);
+    const refCounted = source.pipe(shareReplay(2, 3000));
+    console.log('observerA subscribed');
+    refCounted.subscribe({
+      next: (v) => console.log(`observerA: ${v}`)
+    });
+
     setTimeout(() => {
-      source.subscribe(value => console.log('observable2: ' + value));
-    }, 2000);
+      // 2秒后再增加一个subscriber
+      console.log('observerB subscribed');
+      refCounted.subscribe({
+        next: (v) => console.log(`observerB: ${v}`)
+      });
+    }, 4000);
   }
   newObservable() {
 
