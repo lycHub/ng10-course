@@ -37,6 +37,7 @@ import { AlexComponent } from './test-service/alex/alex.component';
 import { CathyComponent } from './test-service/alex/cathy/cathy.component';
 import { CraigComponent } from './test-service/alex/craig/craig.component';
 import { CarolComponent } from './test-service/alex/carol/carol.component';
+import { TestRxComponent } from './test-rx/test-rx.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { CarolComponent } from './test-service/alex/carol/carol.component';
     AlexComponent,
     CathyComponent,
     CraigComponent,
-    CarolComponent
+    CarolComponent,
+    TestRxComponent
   ],
   imports: [
     CommonModule,
