@@ -3,7 +3,23 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {combineLatest, concat, EMPTY, forkJoin, fromEvent, interval, merge, of, partition, race, range, throwError, timer, zip} from 'rxjs';
+import {
+  combineLatest,
+  concat,
+  EMPTY,
+  forkJoin, from,
+  fromEvent,
+  interval,
+  merge,
+  of,
+  partition,
+  race,
+  range,
+  Subject,
+  throwError,
+  timer,
+  zip
+} from 'rxjs';
 import {
   audit,
   auditTime,
@@ -73,10 +89,15 @@ export class ExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    of(1, 2, 3, 4, 5, 6).pipe(
-      every(x => x < 7),
-    )
-      .subscribe(x => console.log(x));
+    const observable = from([1, 2, 3]);
+    const subject = new Subject<number>();
+    subject.subscribe({
+      next: (v) => console.log(`observerA: ${v}`)
+    });
+    subject.subscribe({
+      next: (v) => console.log(`observerB: ${v}`)
+    });
+    observable.subscribe(subject);
   }
   newObservable() {
 
