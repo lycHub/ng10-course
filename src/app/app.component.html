@@ -1,4 +1,8 @@
 <div id="app">
-<!--  <app-layout></app-layout>-->
-  <app-example></app-example>
+  <h1>Angular Router</h1>
+  <nav>
+    <a class="mr-2" routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a> |
+    <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
+  </nav>
+  <router-outlet></router-outlet>
 </div>

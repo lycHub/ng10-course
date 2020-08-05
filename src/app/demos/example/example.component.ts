@@ -19,4 +19,8 @@ export class ExampleComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
+  onConfirm(event) {
+    console.log('onConfirm', event);
+  }
 }

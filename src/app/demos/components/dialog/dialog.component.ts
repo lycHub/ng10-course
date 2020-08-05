@@ -20,6 +20,9 @@ export class DialogComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.confirm.subscribe(value => {
+      console.log('内部监听 confirm', value);
+    });
   }
 
   /*onBackdropClick() {
@@ -27,6 +30,7 @@ export class DialogComponent implements OnInit {
   }*/
 
   onConfirm() {
+    // this.confirm.next('next a value');
     this.confirm.emit();
   }
   onClose() {
