@@ -2,12 +2,15 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {Hero} from '../hero';
 import {HeroService} from '../hero.service';
 import {MessageService} from '../../message.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {switchMap} from 'rxjs/internal/operators/switchMap';
 
 @Component({
   selector: 'app-hero-list',
   template: `<h2>Heroes</h2>
   <ul class="heroes">
-    <li *ngFor="let hero of heroes" [class.selected]="hero === selectedHero" (click)="onSelect(hero)">
+    <li *ngFor="let hero of heroes$ | async" [class.selected]="hero.id === selectedId" (click)="onSelect(hero.id)">
       <span class="badge">{{hero.id}}</span> {{hero.name}}
     </li>
   </ul>`,
@@ -59,23 +62,37 @@ import {MessageService} from '../../message.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroListComponent implements OnInit {
-  selectedHero: Hero;
+  selectedId: number;
 
-  heroes: Hero[];
+  heroes$: Observable<Hero[]>;
 
-  constructor(private heroService: HeroService, private messageService: MessageService) { }
+  constructor(
+    private heroServe: HeroService,
+    private messageService: MessageService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.getHeroes();
   }
 
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-    this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
+  onSelect(id: number): void {
+    this.selectedId = id;
+    this.messageService.add(`HeroesComponent: Selected hero id=${id}`);
+    // this.router.navigateByUrl('/hero/' + id);
+    this.router.navigate(['/hero/', id]);
   }
 
   getHeroes(): void {
-    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
+    this.heroes$ = this.route.paramMap.pipe(
+      switchMap(params => {
+        console.log('params', params);
+        // (+) String 转 Number
+        this.selectedId = +params.get('id');
+        return this.heroServe.getHeroes();
+      })
+    );
   }
 
 }
