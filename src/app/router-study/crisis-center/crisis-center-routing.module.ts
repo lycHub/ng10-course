@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CrisisListComponent } from './crisis-list/crisis-list.component';
-import { CrisisDetailComponent } from './crisis-detail/crisis-detail.component';
-import {CrisisCenterComponent} from './crisis-center/crisis-center.component';
+import { Routes, RouterModule } from '@angular/router';
+import {CrisisListComponent} from './crisis-list/crisis-list.component';
+import {CrisisCenterComponent} from './crisis-center.component';
 import {CrisisCenterHomeComponent} from './crisis-center-home/crisis-center-home.component';
+import {CrisisDetailComponent} from './crisis-detail/crisis-detail.component';
 
-const crisisCenterRoutes: Routes = [
+
+const routes: Routes = [
   {
     path: 'crisis-center',
     component: CrisisCenterComponent,
     children: [
       {
-        path: '',
+        path: 'list',
         component: CrisisListComponent,
         children: [
           {
@@ -23,17 +24,18 @@ const crisisCenterRoutes: Routes = [
             component: CrisisCenterHomeComponent
           }
         ]
+      },
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full'
       }
     ]
-  }
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(crisisCenterRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class CrisisCenterRoutingModule { }

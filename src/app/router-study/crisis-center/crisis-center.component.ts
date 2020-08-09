@@ -1,15 +1,18 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-crisis-center-home',
+  selector: 'app-crisis-center',
   template: `
-    <h4>危机主页</h4>
+    <div class="crisis-center">
+      <h2>危机中心</h2>
+      <router-outlet></router-outlet>
+    </div>
   `,
   styles: [
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CrisisCenterHomeComponent implements OnInit {
+export class CrisisCenterComponent implements OnInit {
 
   constructor() { }
 

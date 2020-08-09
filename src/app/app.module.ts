@@ -4,22 +4,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {DemosModule} from './demos/demos.module';
 import {PagesModule} from './pages/pages.module';
-import { PageNotFoundComponent } from './router-study/page-not-found/page-not-found.component';
-import {HeroesModule} from './router-study/heros/heroes.module';
+import { NotFoundComponent } from './router-study/not-found/not-found.component';
+import {HeroesModule} from './router-study/heroes/heroes.module';
 import {CrisisCenterModule} from './router-study/crisis-center/crisis-center.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
-    DemosModule,
-    PagesModule,
     HeroesModule,
     CrisisCenterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DemosModule,
+    PagesModule
   ],
   bootstrap: [AppComponent]
 })
