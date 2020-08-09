@@ -1,5 +1,5 @@
 <div class="hero-list">
-  <h2>危机中心</h2>
+  <h3>危机列表</h3>
   <ul class="list-group">
     <li
       *ngFor="let crisis of crises$ | async"
@@ -8,3 +8,4 @@
       (click)="onSelect(crisis.id)">{{ crisis.name }}</li>
   </ul>
 </div>
+<router-outlet></router-outlet>
