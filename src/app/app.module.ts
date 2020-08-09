@@ -7,14 +7,18 @@ import {PagesModule} from './pages/pages.module';
 import { NotFoundComponent } from './router-study/not-found/not-found.component';
 import {HeroesModule} from './router-study/heroes/heroes.module';
 import {CrisisCenterModule} from './router-study/crisis-center/crisis-center.module';
+import { ComposeMessageComponent } from './router-study/compose-message/compose-message.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ComposeMessageComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HeroesModule,
     CrisisCenterModule,
     AppRoutingModule,
