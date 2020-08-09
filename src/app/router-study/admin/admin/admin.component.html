@@ -1,0 +1,9 @@
+<h3>ADMIN</h3>
+<nav>
+<!-- exact: 类似pathMatcher: 'full', 路由链接完全匹配到./才加上active-link类 -->
+  <a routerLink="./" routerLinkActive="active-link"
+     [routerLinkActiveOptions]="{ exact: true }">Dashboard</a> |
+  <a routerLink="./crises" routerLinkActive="active-link">Manage Crises</a> |
+  <a routerLink="./heroes" routerLinkActive="active-link">Manage Heroes</a>
+</nav>
+<router-outlet></router-outlet>
