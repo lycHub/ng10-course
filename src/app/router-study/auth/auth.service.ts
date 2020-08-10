@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-
-import { Observable, of } from 'rxjs';
-import { tap, delay } from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {delay, tap} from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
   isLoggedIn = false;
 
-  // 登陆后跳回到原来到页面
+  // 保存登陆成功后要跳回去的路径
   redirectUrl: string;
 
   login(): Observable<boolean> {
@@ -18,6 +17,7 @@ export class AuthService {
       tap(val => this.isLoggedIn = true)
     );
   }
+
   logout(): void {
     this.isLoggedIn = false;
   }

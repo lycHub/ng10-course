@@ -4,7 +4,7 @@
     <div class="btn-group" role="group" aria-label="Basic example">
       <button routerLink="/crisis-center" routerLinkActive="btn-info" type="button" class="btn btn-secondary">crisis center</button>
       <button routerLink="/heroes" routerLinkActive="btn-info" type="button" class="btn btn-secondary">heroes</button>
-      <button [routerLink]="['/admin']" [queryParams]="{ id: 333 }" routerLinkActive="btn-info" type="button" class="btn btn-secondary">admin</button>
+      <button routerLink="/admin" routerLinkActive="btn-info" type="button" class="btn btn-secondary">admin</button>
       <button [routerLink]="[{ outlets: { popup: ['compose'] } }]" routerLinkActive="btn-info" type="button" class="btn btn-secondary">Contact</button>
     </div>
   </nav>

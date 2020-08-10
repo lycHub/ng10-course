@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {AuthService} from '../auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styles: [
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
   message: string;
@@ -24,9 +26,10 @@ export class LoginComponent {
     this.authService.login().subscribe(() => {
       this.setMessage();
       if (this.authService.isLoggedIn) {
-        const redirectUrl = '/admin';
+        const redirectUrl = this.authService.redirectUrl;
+
         // Redirect the user
-        this.router.navigateByUrl(redirectUrl);
+        this.router.navigate([redirectUrl]);
       }
     });
   }
