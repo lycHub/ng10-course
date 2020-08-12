@@ -1,4 +1,4 @@
-<div *ngIf="crisis$ | async as crisis">
+<div *ngIf="crisis">
   <h5>英雄详情</h5>
   <h2>{{crisis.name | uppercase}} Details</h2>
   <div><span>id: </span>{{crisis.id}}</div>
@@ -7,5 +7,8 @@
       <input [(ngModel)]="crisis.name" placeholder="name" />
     </label>
   </div>
-  <button class="btn btn-secondary" routerLink="../">返回</button>
+  <div class="btns">
+    <button class="btn btn-secondary" (click)="cancel()">取消</button>
+    <button class="btn btn-secondary" (click)="save()">保存</button>
+  </div>
 </div>
