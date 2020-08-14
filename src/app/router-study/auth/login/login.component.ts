@@ -29,7 +29,10 @@ export class LoginComponent {
         const redirectUrl = this.authService.redirectUrl;
 
         // Redirect the user
-        this.router.navigate([redirectUrl]);
+        this.router.navigate([redirectUrl], {
+          queryParamsHandling: 'preserve',
+          preserveFragment: true
+        });
       }
     });
   }
