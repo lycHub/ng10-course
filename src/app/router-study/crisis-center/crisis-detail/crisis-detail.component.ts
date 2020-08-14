@@ -25,12 +25,10 @@ export class CrisisDetailComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private dialogServe: DialogService) { }
   ngOnInit(): void {
-    this.route.paramMap.pipe(switchMap(params => {
-      return this.crisisServe.getCrisis(params.get('id'));
-    })).subscribe(crisis => {
-      // console.log('cc');
-      this.crisis = crisis;
-      this.editName = crisis.name;
+    this.route.data.subscribe((data: { crisis: Crisis }) => {
+      console.log('data', data);
+      this.crisis = data.crisis;
+      this.editName = data.crisis.name;
       this.cdr.markForCheck();
     });
   }
