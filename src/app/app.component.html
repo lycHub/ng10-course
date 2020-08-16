@@ -8,6 +8,7 @@
       <button [routerLink]="[{ outlets: { popup: ['compose'] } }]" routerLinkActive="btn-info" type="button" class="btn btn-secondary">Contact</button>
     </div>
   </nav>
+  <button class="btn btn-primary" (click)="alertResult(2, 5, 3)">add</button>
   <router-outlet></router-outlet>
   <router-outlet name="popup"></router-outlet>
 </div>
