@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {SelectivePreloadingStrategyService} from '../../../services/selective-preloading-strategy.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -11,6 +12,9 @@ import {map} from 'rxjs/operators';
      <p>Session Id: {{ sessionId | async }}</p>
      <hr>
      <p>Token: {{ token | async }}</p>
+     <p>
+       PreLoad paths: {{ modules }}
+     </p>
    </div>
   `,
   styles: [
@@ -20,8 +24,10 @@ import {map} from 'rxjs/operators';
 export class AdminDashboardComponent implements OnInit {
   sessionId: Observable<string>;
   token: Observable<string>;
-
-  constructor(private route: ActivatedRoute) {}
+  modules: string[] = [];
+  constructor(private route: ActivatedRoute, preloadStrategy: SelectivePreloadingStrategyService) {
+    this.modules = preloadStrategy.preloadedModules;
+  }
 
   ngOnInit() {
     // Capture the session ID if available
