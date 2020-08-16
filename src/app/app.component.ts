@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MobileService} from './demos/components/test-service/mobile/mobile.service';
-import {Router} from '@angular/router';
+import {NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {filter} from 'rxjs/operators';
 // import {add} from './number';
 
 @Component({
@@ -12,8 +13,7 @@ import {Router} from '@angular/router';
 export class AppComponent {
   color = 'green';
   constructor(private router: Router) {
-    // console.log('app', this.mobileServe.getMoibles());
-    console.log(this.router.onSameUrlNavigation);
+
   }
 
   toCrisisCenter() {

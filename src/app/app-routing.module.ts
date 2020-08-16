@@ -17,8 +17,8 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./router-study/admin/admin.module').then(m => m.AdminModule),
-    // canLoad: [AuthGuard]
-    data: { preload: true }
+    canLoad: [AuthGuard]
+    // data: { preload: true }
   },
   {
     path: 'crisis-center',
@@ -31,7 +31,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes.concat(namedRoutes), {
-    // enableTracing: true
+    // enableTracing: true,
     preloadingStrategy: SelectivePreloadingStrategyService
   })],
   exports: [RouterModule]

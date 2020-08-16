@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Hero} from '../hero';
 import {HeroService} from '../hero.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
+import {ActivatedRoute, NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {filter, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-hero-list',
@@ -21,7 +21,20 @@ import {switchMap} from 'rxjs/operators';
 export class HeroListComponent implements OnInit {
   heroes$: Observable<Hero[]>;
   selectedId: number;
-  constructor(private heroServe: HeroService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private heroServe: HeroService, private router: Router, private route: ActivatedRoute) {
+    this.router.events
+      .pipe(filter(events => events instanceof NavigationStart))
+      .subscribe((event: NavigationStart) => {
+        console.log('start event', event);
+        console.log(this.router.parseUrl(event.url));
+      });
+    this.router.events
+      .pipe(filter(events => events instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        console.log('end event', event);
+        console.log(this.router.parseUrl(event.url));
+      });
+  }
 
   /*ngOnInit(): void {
     // this.heroes$ = this.heroServe.getHeroes();
