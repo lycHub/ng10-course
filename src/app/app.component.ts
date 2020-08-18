@@ -1,8 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {MobileService} from './demos/components/test-service/mobile/mobile.service';
-import {NavigationEnd, NavigationStart, Router} from '@angular/router';
-import {filter} from 'rxjs/operators';
-// import {add} from './number';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',

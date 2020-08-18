@@ -71,7 +71,7 @@ layout.component.scss
 
 ```
 
-layout.component.ts
+home.component.ts
 ```typescript
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
@@ -81,7 +81,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./layout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LayoutComponent implements OnInit {
+export class HomeComponent implements OnInit {
   constructor() { }
   ngOnInit(): void {}
 }
@@ -185,7 +185,7 @@ heros.component.scss
 }
 ```
 
-heros.component.ts
+heroes.component.ts
 ```typescript
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 @Component({
@@ -194,7 +194,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./heros.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HerosComponent implements OnInit {
+export class HeroesComponent implements OnInit {
   searchParams: HeroArg = {
     name: '',
     job: '',

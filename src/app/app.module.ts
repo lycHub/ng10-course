@@ -21,9 +21,9 @@ import {AuthModule} from './router-study/auth/auth.module';
     FormsModule,
     HeroesModule,
     AuthModule,
-    AppRoutingModule,
     DemosModule,
-    PagesModule
+    PagesModule,
+    AppRoutingModule
   ],
   bootstrap: [AppComponent]
 })

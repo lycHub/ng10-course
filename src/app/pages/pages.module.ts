@@ -1,23 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {LayoutComponent} from './layout/layout.component';
-import {HerosComponent} from './heros/heros.component';
-import {FormsModule} from '@angular/forms';
+import {HomeModule} from './home/home.module';
 
 
 
 @NgModule({
-  declarations: [
-    LayoutComponent,
-    HerosComponent
-  ],
+  declarations: [],
   imports: [
-    CommonModule,
-    FormsModule
-  ],
-  exports: [
-    LayoutComponent,
-    HerosComponent
+    HomeModule
   ]
 })
 export class PagesModule { }
