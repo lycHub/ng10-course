@@ -7,17 +7,22 @@ import {PagesModule} from './pages/pages.module';
 import { NotFoundComponent } from './router-study/not-found/not-found.component';
 import {HeroesModule} from './router-study/heroes/heroes.module';
 import { ComposeMessageComponent } from './router-study/compose-message/compose-message.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NameEditorComponent } from './form-study/name-editor/name-editor.component';
+import { ProfileEditorComponent } from './form-study/profile-editor/profile-editor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundComponent,
-    ComposeMessageComponent
+    ComposeMessageComponent,
+    NameEditorComponent,
+    ProfileEditorComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HeroesModule,
     DemosModule,
     PagesModule,

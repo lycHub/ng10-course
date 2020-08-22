@@ -1,0 +1,54 @@
+<div class="profile-editor">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>
+        First Name:
+        <input type="text" formControlName="firstName">
+      </label>
+    </div>
+    <div>
+      <label>
+        Last Name:
+        <input type="text" formControlName="lastName">
+      </label>
+    </div>
+    <div formGroupName="address">
+      <h3>Address</h3>
+      <label class="d-block">
+        Street:
+        <input type="text" formControlName="street">
+      </label>
+    
+      <label class="d-block">
+        City:
+        <input type="text" formControlName="city">
+      </label>
+    
+      <label class="d-block">
+        State:
+        <input type="text" formControlName="state">
+      </label>
+    
+      <label class="d-block">
+        Zip Code:
+        <input type="text" formControlName="zip">
+      </label>
+    </div>
+    <div formArrayName="aliases">
+      <h3>Aliases</h3>
+      <button (click)="addAlias()" class="btn btn-success">Add Alias</button>
+    
+      <div *ngFor="let alias of aliases.controls; let i=index">
+        <!-- The repeated alias template -->
+        <label>
+          Alias:
+          <input type="text" [formControlName]="i">
+        </label>
+      </div>
+    </div>
+    <button class="btn btn-secondary" type="button" (click)="updateProfile()">patch value</button>
+    <button class="btn btn-danger" type="button" (click)="updateProfile2()">set value</button>
+    <button class="btn btn-primary" type="submit">提交</button>
+  </form>
+
+</div>
