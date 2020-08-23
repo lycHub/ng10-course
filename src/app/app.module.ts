@@ -10,6 +10,9 @@ import { ComposeMessageComponent } from './router-study/compose-message/compose-
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NameEditorComponent } from './form-study/name-editor/name-editor.component';
 import { ProfileEditorComponent } from './form-study/profile-editor/profile-editor.component';
+import { ForbiddenValidatorDirective } from './form-study/forbidden-validator.directive';
+import { EqualValidatorDirective } from './form-study/equal-validator.directive';
+import { HasMobileValidatorDirective } from './form-study/has-mobile-validator.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { ProfileEditorComponent } from './form-study/profile-editor/profile-edit
     NotFoundComponent,
     ComposeMessageComponent,
     NameEditorComponent,
-    ProfileEditorComponent
+    ProfileEditorComponent,
+    ForbiddenValidatorDirective,
+    EqualValidatorDirective,
+    HasMobileValidatorDirective
   ],
   imports: [
     BrowserModule,

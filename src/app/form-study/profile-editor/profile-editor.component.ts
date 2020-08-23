@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import {AbstractControl, FormGroup, NgForm, ValidationErrors, ValidatorFn} from '@angular/forms';
-import {HasMobileService} from '../has-mobile.service';
+import {NgForm} from '@angular/forms';
 
 class Profile {
   constructor(
@@ -10,20 +9,6 @@ class Profile {
     public password: string,
     public rePassword: string
   ) {}
-}
-
-function forbiddenNameValidator(reg: RegExp): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    // console.log('control', control);
-    const forbidden = reg.test(control.value);
-    return forbidden ? { forbiddenName: { value: '名字不能包含bob' } } : null;
-  };
-}
-
-function equalValidator(group: FormGroup): ValidationErrors | null {
-  const password = group.get('password');
-  const rePassword = group.get('rePassword');
-  return password.value === rePassword.value ? null : { equal: '两次密码不一样' };
 }
 
 @Component({
@@ -40,9 +25,9 @@ function equalValidator(group: FormGroup): ValidationErrors | null {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileEditorComponent implements OnInit {
-  model = new Profile('a', 'v', '', '', '');
+  model = new Profile('', '', '', '', '');
 
-  constructor(private hasMobileServe: HasMobileService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -54,6 +39,12 @@ export class ProfileEditorComponent implements OnInit {
   }
 
   onReset(f: NgForm) {
-    f.reset({ firstName: 'aaa', lastName: 'bbb', password: 'ccc' });
+    // this.model = new Profile('', '', '', '', '');
+    f.reset();
+  }
+
+  getError(f: NgForm) {
+    // this.model = new Profile('', '', '', '', '');
+    console.log(f.form.get('mobile').errors);
   }
 }
