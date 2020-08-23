@@ -5,49 +5,55 @@
         First Name:
         <input type="text" formControlName="firstName">
       </label>
+      <div *ngIf="firstName.dirty && firstName.errors" class="alert alert-danger">
+        <span>请填写first name</span>
+      </div>
     </div>
     <div>
       <label>
         Last Name:
         <input type="text" formControlName="lastName">
       </label>
-    </div>
-    <div formGroupName="address">
-      <h3>Address</h3>
-      <label class="d-block">
-        Street:
-        <input type="text" formControlName="street">
-      </label>
-    
-      <label class="d-block">
-        City:
-        <input type="text" formControlName="city">
-      </label>
-    
-      <label class="d-block">
-        State:
-        <input type="text" formControlName="state">
-      </label>
-    
-      <label class="d-block">
-        Zip Code:
-        <input type="text" formControlName="zip">
-      </label>
-    </div>
-    <div formArrayName="aliases">
-      <h3>Aliases</h3>
-      <button (click)="addAlias()" class="btn btn-success">Add Alias</button>
-    
-      <div *ngFor="let alias of aliases.controls; let i=index">
-        <!-- The repeated alias template -->
-        <label>
-          Alias:
-          <input type="text" [formControlName]="i">
-        </label>
+      <div *ngIf="lastName.dirty && lastName.errors as errors" class="alert alert-danger">
+        <span *ngIf="errors.required">请填写last name</span>
+        <span *ngIf="errors.minlength">至少4个字</span>
+        <span *ngIf="errors.forbiddenName">{{ errors.forbiddenName.value }}</span>
       </div>
     </div>
-    <button class="btn btn-secondary" type="button" (click)="updateProfile()">patch value</button>
-    <button class="btn btn-danger" type="button" (click)="updateProfile2()">set value</button>
+    <div>
+      <label>
+        mobile:
+        <input type="number" formControlName="mobile" />
+      </label>
+      <div *ngIf="mobile.dirty && mobile.errors as errors" class="alert alert-danger">
+        <span *ngIf="errors.required">请填写手机号</span>
+        <span *ngIf="errors.pattern">格式不正确</span>
+        <span *ngIf="errors.exist">{{ errors.exist }}</span>
+      </div>
+    </div>
+    <div formGroupName="newPass">
+      <div>
+        <label>
+          password:
+          <input type="text" formControlName="password" />
+        </label>
+        <div *ngIf="newPass.get('password').dirty && newPass.get('password').errors" class="alert alert-danger">
+          <span>请填写密码</span>
+        </div>
+      </div>
+      <div>
+        <label>
+          rePassword:
+          <input type="text" formControlName="rePassword" />
+        </label>
+        <div *ngIf="newPass.get('rePassword').dirty && newPass.get('rePassword').errors" class="alert alert-danger">
+          <span>请再次填写密码</span>
+        </div>
+      </div>
+      <div *ngIf="newPass.errors" class="alert alert-danger">
+        <span>{{ newPass.errors.equal }}</span>
+      </div>
+    </div>
     <button class="btn btn-primary" type="submit">提交</button>
   </form>
 
