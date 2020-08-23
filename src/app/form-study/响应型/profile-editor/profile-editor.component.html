@@ -1,0 +1,60 @@
+<div class="profile-editor">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>
+        First Name:
+        <input type="text" required formControlName="firstName">
+      </label>
+      <div *ngIf="firstName.dirty && firstName.errors" class="alert alert-danger">
+        <span>请填写first name</span>
+      </div>
+    </div>
+    <div>
+      <label>
+        Last Name:
+        <input type="text" required minlength="4" formControlName="lastName">
+      </label>
+      <div *ngIf="lastName.dirty && lastName.errors as errors" class="alert alert-danger">
+        <span *ngIf="errors.required">请填写last name</span>
+        <span *ngIf="errors.minlength">至少4个字</span>
+        <span *ngIf="errors.forbiddenName">{{ errors.forbiddenName.value }}</span>
+      </div>
+    </div>
+    <div>
+      <label>
+        mobile:
+        <input type="number" formControlName="mobile" />
+      </label>
+      <div *ngIf="mobile.dirty && mobile.errors as errors" class="alert alert-danger">
+        <span *ngIf="errors.required">请填写手机号</span>
+        <span *ngIf="errors.pattern">格式不正确</span>
+        <span *ngIf="errors.exist">{{ errors.exist }}</span>
+      </div>
+    </div>
+    <div formGroupName="newPass">
+      <div>
+        <label>
+          password:
+          <input type="text" formControlName="password" />
+        </label>
+        <div *ngIf="newPass.get('password').dirty && newPass.get('password').errors" class="alert alert-danger">
+          <span>请填写密码</span>
+        </div>
+      </div>
+      <div>
+        <label>
+          rePassword:
+          <input type="text" formControlName="rePassword" />
+        </label>
+        <div *ngIf="newPass.get('rePassword').dirty && newPass.get('rePassword').errors" class="alert alert-danger">
+          <span>请再次填写密码</span>
+        </div>
+      </div>
+      <div *ngIf="newPass.errors" class="alert alert-danger">
+        <span>{{ newPass.errors.equal }}</span>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit">提交</button>
+  </form>
+
+</div>
