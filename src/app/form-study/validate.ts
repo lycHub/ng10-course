@@ -8,8 +8,8 @@ export function forbiddenNameValidator(reg: RegExp): ValidatorFn {
   };
 }
 
-export function equalValidator(group: FormGroup): ValidationErrors | null {
-  const password = group.get('password');
-  const rePassword = group.get('rePassword');
+export function equalValidator(ctrl: AbstractControl): ValidationErrors | null {
+  const password = ctrl.get('password');
+  const rePassword = ctrl.get('rePassword');
   return password?.value === rePassword?.value ? null : { equal: '两次密码不一样' };
 }

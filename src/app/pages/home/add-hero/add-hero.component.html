@@ -1,1 +1,137 @@
-<p>add-hero works!</p>
+<div class="add-hero">
+  <form [formGroup]="formValues" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="heroName">姓名：</label>
+      <!--   输入框上加了is-invalid，边框会变红，并且.invalid-feedback会显示出来   -->
+      <input
+        class="form-control"
+        [class.is-invalid]="formControls.name.showErr"
+        id="heroName"
+        name="name"
+        maxlength="20"
+        formControlName="name"
+        placeholder="请输入姓名" />
+      <div class="invalid-feedback">
+        <span *ngIf="formControls.name.errors?.required">请填写姓名</span>
+        <span *ngIf="formControls.name.errors?.maxlength">不能超过20个字</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>姓别：</label>
+      <input
+        type="radio"
+        name="gender"
+        formControlName="gender"
+        value="0" />男
+      <input
+        type="radio"
+        name="gender"
+        formControlName="gender"
+        value="1" />女
+      <input
+        type="radio"
+        name="gender"
+        formControlName="gender"
+        value="2" />其它
+    </div>
+    <div class="form-group">
+      <label for="heroAge">年龄：</label>
+      <input
+        class="form-control"
+        [class.is-invalid]="formControls.age.showErr"
+        id="heroAge"
+        name="age"
+        formControlName="age"
+        placeholder="请输入年龄"
+        type="number"
+        min="0" />
+      <div class="invalid-feedback">
+        <span>请填写正确的年龄</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="heroPhone">手机号：</label>
+      <input
+        class="form-control"
+        [class.is-invalid]="formControls.phone.showErr"
+        id="heroPhone"
+        formControlName="phone"
+        name="phone"
+        maxlength="11"
+        placeholder="请输入手机号" />
+      <div class="invalid-feedback">
+        <span *ngIf="formControls.phone.errors?.required">请填写手机</span>
+        <span *ngIf="formControls.phone.errors?.pattern">格式不正确</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="heroEmail">Email address</label>
+      <input
+        class="form-control"
+        [class.is-invalid]="formControls.email.showErr"
+        type="email"
+        name="email"
+        formControlName="email"
+        id="heroEmail"
+        placeholder="请输入邮箱" />
+      <div class="invalid-feedback">
+        <span>请填写正确的邮箱</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="heroJob">职业：</label>
+      <select
+        class="form-control"
+        [class.is-invalid]="formControls.job.showErr"
+        id="heroJob"
+        name="job"
+        formControlName="job">
+        <option value="">请选择职业</option>
+        <option value="0">法师</option>
+        <option value="1">战士</option>
+        <option value="2">刺客</option>
+        <option value="3">射手</option>
+        <option value="4">坦克</option>
+      </select>
+      <div class="invalid-feedback">
+        <span>请选择职业</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="heroRole">角色：</label>
+      <select
+        class="form-control"
+        [class.is-invalid]="formControls.role.showErr"
+        id="heroRole"
+        name="role"
+        formControlName="role">
+        <option value="admin">管理员</option>
+        <option value="user">用户</option>
+      </select>
+      <div class="invalid-feedback">
+        <span>请选择角色</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="heroBrief">简介：</label>
+      <textarea
+        class="form-control"
+        [class.is-invalid]="formControls.brief.showErr"
+        id="heroBrief"
+        rows="3"
+        formControlName="brief"
+        minlength="8"
+        maxlength="100"
+        name="brief">
+      </textarea>
+      <div class="invalid-feedback">
+        <span *ngIf="formControls.brief.errors?.minlength">至少8个字</span>
+        <span *ngIf="formControls.phone.errors?.maxlength">不能超过100个字</span>
+      </div>
+    </div>
+    <div class="form-group btns">
+      <button class="btn btn-secondary" type="button" (click)="cancel()">取消</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!formValues.valid">提交</button>
+    </div>
+  </form>
+</div>
