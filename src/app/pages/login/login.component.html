@@ -1,1 +1,28 @@
-<p>login works!</p>
+<div class="login">
+  <div class="container">
+    <form class="mt-5" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+      <div class="form-row align-items-center">
+        <div class="col-auto">
+          <input #userName="ngModel" required maxlength="20" [class.is-invalid]="userName.touched && userName.invalid" [(ngModel)]="formValues.name" name="name" type="text" class="form-control mb-2" id="inlineFormInput" placeholder="姓名">
+        </div>
+        <div class="col-auto">
+          <div class="input-group mb-2">
+            <input #userPass="ngModel" [class.is-invalid]="userPass.touched && userPass.invalid" required minlength="6" appForbidCn [(ngModel)]="formValues.password" name="password" type="text" class="form-control" id="inlineFormInputGroup" placeholder="密码">
+          </div>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary mb-2" [disabled]="loginForm.invalid">登录</button>
+        </div>
+      </div>
+      <div class="alert alert-danger" *ngIf="userName.touched && userName.invalid">
+        <p *ngIf="userName.errors.required">请填写姓名</p>
+        <p *ngIf="userName.errors.maxlength">姓名不能超过20个字</p>
+      </div>
+      <div class="alert alert-danger" *ngIf="userPass.touched && userPass.invalid">
+        <p *ngIf="userPass.errors.required">请填写密码</p>
+        <p *ngIf="userPass.errors.minlength">密码至少6位</p>
+        <p *ngIf="userPass.errors.forbidCn">密码不支持中文</p>
+      </div>
+    </form>
+  </div>
+</div>

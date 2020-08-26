@@ -1,4 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {LoginArg} from '../../types';
+import {Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +12,20 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  formValues: LoginArg = {
+    name: '',
+    password: ''
+  };
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  onSubmit(form: NgForm) {
+    console.log('form', form.value);
+    if (form.valid) {
+
+    }
+  }
 }

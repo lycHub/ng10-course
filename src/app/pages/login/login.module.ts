@@ -3,12 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
+import {FormsModule} from '@angular/forms';
+import { ForbiddenCnDirective } from './forbin-cn.directive';
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, ForbiddenCnDirective],
   imports: [
     CommonModule,
+    FormsModule,
     LoginRoutingModule
   ]
 })
