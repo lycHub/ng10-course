@@ -13,6 +13,7 @@ import { ProfileEditorComponent } from './form-study/profile-editor/profile-edit
 import { ForbiddenValidatorDirective } from './form-study/forbidden-validator.directive';
 import { EqualValidatorDirective } from './form-study/equal-validator.directive';
 import { HasMobileValidatorDirective } from './form-study/has-mobile-validator.directive';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HasMobileValidatorDirective } from './form-study/has-mobile-validator.d
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     HeroesModule,

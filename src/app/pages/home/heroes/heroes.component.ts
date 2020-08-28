@@ -15,13 +15,13 @@ export class HeroesComponent implements OnInit {
     job: '',
     sort: 'desc'
   };
-  heroes: Hero[];
-  constructor(readonly heroeserve: HeroService) {
-    this.heroes = this.heroeserve.getHeros();
-    console.log('heroes', this.heroes);
+  heroes: Hero[] = [];
+  constructor(private heroServe: HeroService) {
+
   }
 
   ngOnInit(): void {
+    this.heroServe.heroes();
   }
 
   search() {

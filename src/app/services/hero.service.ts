@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import Heros from '../configs/hero';
+import {HttpClient} from '@angular/common/http';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HeroService {
-  constructor() { }
-  getHeros() {
-    return Heros;
+  private prefix = '/api/hero/';
+  constructor(private http: HttpClient) { }
+  heroes() {
+    this.http.get(this.prefix + 'list').subscribe(res => {
+      console.log(res);
+    });
   }
 }
