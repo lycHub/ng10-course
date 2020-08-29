@@ -31,7 +31,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem(AuthKey, token);
         this.userServe.setUser(user);
         alert('登陆成功');
-        this.router.navigateByUrl('/home/heroes');
+        const to = this.accountServe.redirectTo || '/home/heroes';
+        this.router.navigateByUrl(to).then(() => {
+          this.accountServe.redirectTo = '';
+        });
       });
     }
   }

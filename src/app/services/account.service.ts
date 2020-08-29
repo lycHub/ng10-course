@@ -11,6 +11,7 @@ import {AuthKey} from '../configs/constant';
 })
 export class AccountService {
   private prefix = environment.baseUrl + '/hero/';
+  redirectTo = '';
   constructor(private http: HttpClient) { }
   login(args: LoginArg): Observable<LoginType> {
     return this.http.post(this.prefix + 'login', args)

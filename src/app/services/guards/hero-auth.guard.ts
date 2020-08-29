@@ -3,12 +3,13 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '
 import {UserService} from '../user.service';
 import {Observable, of} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
+import {AccountService} from '../account.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroAuthGuard implements CanActivate {
-  constructor(private userServe: UserService, private router: Router) {}
+  constructor(private userServe: UserService, private accountServe: AccountService, private router: Router) {}
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const auths: string[] = next.data.auths;
     // console.log('auths', auths);
@@ -18,10 +19,13 @@ export class HeroAuthGuard implements CanActivate {
           if (auths.includes(user.role)) {
             return of(true);
           } else {
-            alert('无权限，请联系管理员');
+            this.router.navigateByUrl('/no-auth').then(() => {
+              alert('无权限，请联系管理员');
+            });
             return of(false);
           }
         }
+        this.accountServe.redirectTo = state.url;
         this.router.navigateByUrl('/login').then(() => {
           alert('请先登陆');
         });
