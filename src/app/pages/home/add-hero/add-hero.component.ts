@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HeroService} from '../../../services/hero.service';
 
 @Component({
   selector: 'app-add-hero',
@@ -25,7 +26,12 @@ import {Router} from '@angular/router';
 export class AddHeroComponent implements OnInit {
   formValues: FormGroup;
   private submitted = false;
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private heroServe: HeroService
+  ) {
     this.formValues = this.fb.group({
       name: ['', [
         Validators.required,
@@ -48,6 +54,29 @@ export class AddHeroComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  onSubmit() {
+    this.submitted = true;
+    console.log(this.formValues.value);
+    if (this.formValues.valid) {
+      this.heroServe.addHero(this.formValues.value).subscribe(res => {
+        console.log(res);
+        // this.cancel();
+      });
+    }
+  }
+
+  cancel() {
+    this.router.navigate(['../heroes'], { relativeTo: this.route });
+  }
+
+  canDeactivate() {
+    if (this.formValues.dirty && !this.submitted) {
+      return confirm('表单未保存，确定离开？');
+    }
+    return true;
+  }
+
   get formControls() {
     const controls = {
       name: this.formValues.get('name'),
@@ -96,22 +125,4 @@ export class AddHeroComponent implements OnInit {
       },
     };
   }
-
-  onSubmit() {
-    this.submitted = true;
-    console.log(this.formValues.value);
-    this.cancel();
-  }
-
-  cancel() {
-    this.router.navigate(['/home/heroes']);
-  }
-
-  canDeactivate() {
-    if (this.formValues.dirty && !this.submitted) {
-      return confirm('表单未保存，确定离开？');
-    }
-    return true;
-  }
-
 }
