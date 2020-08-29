@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 export class InterceptorTwoService implements HttpInterceptor {
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('拦截器2 生效');
+    // console.log('拦截器2 生效');
     return next.handle(req);
   }
 }

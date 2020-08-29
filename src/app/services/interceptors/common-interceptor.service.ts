@@ -12,7 +12,7 @@ interface CustomHttpConfig {
 export class CommonInterceptorService implements HttpInterceptor {
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('拦截器');
+    // console.log('拦截器');
     const auth = localStorage.getItem(AuthKey);
     let httpConfig: CustomHttpConfig = {};
     if (auth) {

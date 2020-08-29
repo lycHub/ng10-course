@@ -18,12 +18,12 @@ const routes: Routes = [
       {
         path: 'add-hero',
         loadChildren: () => import('./add-hero/add-hero.module').then(m => m.AddHeroModule),
-        data: { title: '新增英雄', breadcrumb: ['首页', '新增英雄'] }
+        data: { title: '新增英雄', auths: ['admin'], breadcrumb: ['首页', '新增英雄'] }
       },
       {
         path: 'update-hero',
         loadChildren: () => import('./update-hero/update-hero.module').then(m => m.UpdateHeroModule),
-        data: { title: '修改英雄', breadcrumb: ['首页', '修改英雄'] }
+        data: { title: '修改英雄', auths: ['admin'], breadcrumb: ['首页', '修改英雄'] }
       },
       { path: '', redirectTo: 'heroes', pathMatch: 'full' },
       { path: '**', redirectTo: 'heroes' }

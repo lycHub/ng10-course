@@ -21,7 +21,7 @@ export class AppComponent {
       switchMap(user => {
         const authKey = localStorage.getItem(AuthKey);
         if (!user && authKey) {
-          return this.accountServe.account(authKey);
+          return this.accountServe.account();
         }
         return EMPTY;
       })
