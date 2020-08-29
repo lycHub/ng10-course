@@ -1,7 +1,7 @@
 <div class="heroes">
   <div class="card">
     <div class="card-body">
-      <form>
+      <form (ngSubmit)="search()">
         <div class="form-row">
           <div class="col">
             <input [(ngModel)]="searchParams.name" type="text" name="name" class="form-control" placeholder="姓名" />
@@ -26,7 +26,8 @@
             </select>
           </div>
           <div class="col">
-            <button class="btn btn-primary" type="button" (click)="search()">搜索</button>
+            <button class="btn btn-primary mr-2">搜索</button>
+            <button class="btn btn-secondary" type="button" (click)="reset()">重置</button>
           </div>
         </div>
       </form>
@@ -68,5 +69,6 @@
         <p class="text-center">empty</p>
       </ng-template>
     </div>
+    <app-spin [show]="showSpin"></app-spin>
   </div>
 </div>
