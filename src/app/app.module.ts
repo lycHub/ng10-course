@@ -13,7 +13,9 @@ import { ProfileEditorComponent } from './form-study/profile-editor/profile-edit
 import { ForbiddenValidatorDirective } from './form-study/forbidden-validator.directive';
 import { EqualValidatorDirective } from './form-study/equal-validator.directive';
 import { HasMobileValidatorDirective } from './form-study/has-mobile-validator.directive';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {CommonInterceptorService} from './services/interceptors/common-interceptor.service';
+import interceptors from './services/interceptors';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import {HttpClientModule} from '@angular/common/http';
     PagesModule,
     AppRoutingModule
   ],
+  providers: interceptors,
   bootstrap: [AppComponent]
 })
 export class AppModule {}

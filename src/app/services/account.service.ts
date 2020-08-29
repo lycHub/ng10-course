@@ -15,27 +15,13 @@ export class AccountService {
   login(args: LoginArg): Observable<LoginType> {
     return this.http.post(this.prefix + 'login', args)
       .pipe(
-        map((res: Base<LoginType>) => res.data),
-        catchError(error => this.handleError(error))
+        map((res: Base<LoginType>) => res.data)
       );
   }
 
-  account(auth: string): Observable<LoginType> {
-    return this.http.get(this.prefix + 'account', {
-      headers: new HttpHeaders({ [AuthKey]: auth })
-    }).pipe(
-        map((res: Base<LoginType>) => res.data),
-        catchError(error => this.handleError(error))
-      );
-  }
-
-  private handleError(error: HttpErrorResponse): Observable<never> {
-    // console.error('error', error);
-    if (typeof error.error?.code === 'number') { // 后台拒绝请求
-      alert(error.error.message);
-    } else {
-      alert('请求失败');
-    }
-    return throwError(error);
+  account(): Observable<LoginType> {
+    return this.http.get(this.prefix + 'account').pipe(
+      map((res: Base<LoginType>) => res.data)
+    );
   }
 }
