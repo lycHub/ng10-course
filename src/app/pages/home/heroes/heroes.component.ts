@@ -44,6 +44,9 @@ export class HeroesComponent implements OnInit {
       this.heroes = heroes;
       this.showSpin = false;
       this.cdr.markForCheck();
+    }, () => {
+      this.showSpin = false;
+      this.cdr.markForCheck();
     });
   }
 }
