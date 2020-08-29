@@ -21,23 +21,19 @@ export class HomeComponent implements OnInit {
     private userServe: UserService) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
-      switchMap(() => {
-        return combineLatest(
-          this.route.firstChild.data,
-          this.userServe.user$
-        );
-      })
-    ).subscribe(([data, user]) => {
+      switchMap(() => this.route.firstChild.data)
+    ).subscribe(data => {
       console.log('NavigationEnd');
       if (data.breadcrumb?.length) {
         this.breadcrumb = data.breadcrumb;
       }
-      this.currentUser = user;
     });
   }
 
   ngOnInit(): void {
-
+    this.userServe.user$.subscribe(user => {
+      this.currentUser = user;
+    });
   }
 
 }

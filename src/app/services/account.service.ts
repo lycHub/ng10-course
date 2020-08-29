@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Base, LoginArg, LoginType} from '../configs/types';
 import {catchError, map} from 'rxjs/operators';
+import {AuthKey} from '../configs/constant';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,15 @@ export class AccountService {
   login(args: LoginArg): Observable<LoginType> {
     return this.http.post(this.prefix + 'login', args)
       .pipe(
+        map((res: Base<LoginType>) => res.data),
+        catchError(error => this.handleError(error))
+      );
+  }
+
+  account(auth: string): Observable<LoginType> {
+    return this.http.get(this.prefix + 'account', {
+      headers: new HttpHeaders({ [AuthKey]: auth })
+    }).pipe(
         map((res: Base<LoginType>) => res.data),
         catchError(error => this.handleError(error))
       );
