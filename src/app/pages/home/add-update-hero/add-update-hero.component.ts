@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HeroService} from '../../../services/hero.service';
@@ -45,27 +45,46 @@ export class AddUpdateHeroComponent implements OnInit {
     ]]
   });
   private submitted = false;
+  private id = '';
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private heroServe: HeroService,
-    private windowServe: WindowService
+    private windowServe: WindowService,
+    private cdr: ChangeDetectorRef
   ) {
-    console.log(this.route.snapshot.paramMap.get('id'));
+    this.id = this.route.snapshot.paramMap.get('id');
+    if (this.id) {
+      this.getHeroInfo();
+    }
   }
 
   ngOnInit(): void {}
 
   onSubmit() {
     this.submitted = true;
-    // console.log(this.formValues.value);
     if (this.formValues.valid) {
-      this.heroServe.addHero(this.formValues.value).subscribe(() => {
-        this.windowServe.alert('新增成功');
-        this.cancel();
-      });
+      if (this.id) {
+        this.heroServe.updateHero(this.id, this.formValues.value).subscribe(() => {
+          this.windowServe.alert('修改成功');
+          this.cancel();
+        });
+      } else {
+        this.heroServe.addHero(this.formValues.value).subscribe(() => {
+          this.windowServe.alert('新增成功');
+          this.cancel();
+        });
+      }
     }
+  }
+
+  getHeroInfo() {
+    this.heroServe.hero(this.id).subscribe(hero => {
+      // console.log('hero', hero);
+      this.formValues.patchValue(hero);
+      this.cdr.markForCheck();
+    });
   }
 
   cancel() {
