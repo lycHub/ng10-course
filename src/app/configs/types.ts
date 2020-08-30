@@ -23,6 +23,8 @@ export interface Hero {
   brief?: string;
 }
 
+export type UpdateHeroArg = Omit<Hero, 'id' | 'createTime' | 'genderText' | 'jobText'>;
+
 export interface LoginType {
   user: Hero;
   token: string;

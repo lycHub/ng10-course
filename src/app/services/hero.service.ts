@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map, timeout} from 'rxjs/operators';
-import {Base, Hero, HeroArg} from '../configs/types';
+import {Base, Hero, HeroArg, UpdateHeroArg} from '../configs/types';
 import { stringify } from 'qs';
 
 @Injectable({
@@ -21,10 +21,10 @@ export class HeroService {
   }
 
 
-  addHero(args: HeroArg): Observable<any> {
+  addHero(args: UpdateHeroArg): Observable<Base<void>> {
     return this.http.post(this.prefix + 'add', args)
       .pipe(
-        map((res: Base<any>) => res.data)
+        map((res: Base<void>) => res)
       );
   }
 }
