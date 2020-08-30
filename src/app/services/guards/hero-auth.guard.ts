@@ -5,16 +5,21 @@ import {Observable, of} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {AccountService} from '../account.service';
 import {WindowService} from '../window.service';
+import {ContextService} from '../context.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroAuthGuard implements CanActivate {
-  constructor(private userServe: UserService, private windowServe: WindowService, private accountServe: AccountService, private router: Router) {}
+  constructor(
+    private contextServe: ContextService,
+    private windowServe: WindowService,
+    private accountServe: AccountService,
+    private router: Router
+  ) {}
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const auths: string[] = next.data.auths;
-    // console.log('auths', auths);
-    return this.userServe.user$.pipe(
+    return this.contextServe.setContext().pipe(
       switchMap(user => {
         if (user) {
           if (auths.includes(user.role)) {
@@ -31,6 +36,7 @@ export class HeroAuthGuard implements CanActivate {
           this.windowServe.alert('请先登陆');
         });
         return of(false);
-      }));
+      })
+    );
   }
 }

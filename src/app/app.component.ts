@@ -6,6 +6,7 @@ import {UserService} from './services/user.service';
 import {AuthKey} from './configs/constant';
 import {AccountService} from './services/account.service';
 import {WindowService} from './services/window.service';
+import {ContextService} from './services/context.service';
 
 @Component({
   selector: 'app-root',
@@ -19,21 +20,13 @@ export class AppComponent {
     private router: Router,
     private windowServe: WindowService,
     private userServe: UserService,
-    private accountServe: AccountService
+    private contextServe: ContextService
   ) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationStart),
-      switchMap(() => this.userServe.user$),
-      switchMap(user => {
-        const authKey = this.windowServe.getStorage(AuthKey);
-        if (!user && authKey) {
-          return this.accountServe.account();
-        }
-        return EMPTY;
-      })
-    ).subscribe(({ user, token }) => {
-      this.windowServe.setStorage(AuthKey, token);
-      this.userServe.setUser(user);
+      switchMap(() => this.contextServe.setContext())
+    ).subscribe(res => {
+      console.log('app set context', res);
     });
   }
 }
