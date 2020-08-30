@@ -59,7 +59,7 @@
           <td>{{ item.createTime }}</td>
           <td>{{ item.brief }}</td>
           <td class="actions">
-            <button routerLink="../update-hero" type="button" class="btn btn-primary btn-modify">修改</button>
+            <button [routerLink]="['../update-hero', item.id]" type="button" class="btn btn-primary btn-modify">修改</button>
             <button type="button" class="btn btn-danger">删除</button>
           </td>
         </tr>

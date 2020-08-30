@@ -5,27 +5,45 @@ import {HeroService} from '../../../services/hero.service';
 import {WindowService} from '../../../services/window.service';
 
 @Component({
-  selector: 'app-add-hero',
-  templateUrl: './add-hero.component.html',
+  selector: 'app-add-update-hero',
+  templateUrl: './add-update-hero.component.html',
   styles: [
     `
-          .add-hero form {
+          .add-update-hero form {
               max-width: 900px;
               margin: 20px auto;
           }
-          .add-hero form .btns {
+          .add-update-hero form .btns {
               text-align: center;
               margin-top: 16px;
           }
-          .add-hero form .btn {
+          .add-update-hero form .btn {
               margin-right: 10px;
           }
     `
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddHeroComponent implements OnInit {
-  formValues: FormGroup;
+export class AddUpdateHeroComponent implements OnInit {
+  formValues: FormGroup = this.fb.group({
+    name: ['', [
+      Validators.required,
+      Validators.maxLength(20)
+    ]],
+    gender: ['0', Validators.min(0)],
+    age: ['', Validators.min(0)],
+    phone: ['', [
+      Validators.required,
+      Validators.pattern(/^1\d{10}$/)
+    ]],
+    email: ['', Validators.email],
+    job: ['', Validators.required],
+    role: ['user', Validators.required],
+    brief: ['', [
+      Validators.minLength(8),
+      Validators.maxLength(100)
+    ]]
+  });
   private submitted = false;
   constructor(
     private fb: FormBuilder,
@@ -34,25 +52,7 @@ export class AddHeroComponent implements OnInit {
     private heroServe: HeroService,
     private windowServe: WindowService
   ) {
-    this.formValues = this.fb.group({
-      name: ['', [
-        Validators.required,
-        Validators.maxLength(20)
-      ]],
-      gender: ['0', Validators.min(0)],
-      age: ['', Validators.min(0)],
-      phone: ['', [
-        Validators.required,
-        Validators.pattern(/^1\d{10}$/)
-      ]],
-      email: ['', Validators.email],
-      job: ['', Validators.required],
-      role: ['user', Validators.required],
-      brief: ['', [
-        Validators.minLength(8),
-        Validators.maxLength(100)
-      ]]
-    });
+    console.log(this.route.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {}

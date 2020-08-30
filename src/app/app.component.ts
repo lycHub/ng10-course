@@ -26,7 +26,7 @@ export class AppComponent {
       filter(event => event instanceof NavigationStart),
       switchMap(() => this.contextServe.setContext())
     ).subscribe(res => {
-      console.log('app set context', res);
+      // console.log('app set context', res);
     });
   }
 }

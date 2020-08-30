@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import {AddHeroComponent} from '../../pages/home/add-hero/add-hero.component';
+import {AddUpdateHeroComponent} from '../../pages/home/add-update-hero/add-update-hero.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HeroCanDeactivateGuard implements CanDeactivate<AddHeroComponent> {
+export class HeroCanDeactivateGuard implements CanDeactivate<AddUpdateHeroComponent> {
   canDeactivate(
-    component: AddHeroComponent,
+    component: AddUpdateHeroComponent,
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
