@@ -1,0 +1,8 @@
+<div class="user-center">
+  <ul class="list-group" *ngIf="user$ | async as user">
+    <li class="list-group-item">姓名：{{ user.name }}</li>
+    <li class="list-group-item">电话：{{ user.phone }}</li>
+    <li class="list-group-item">职业：{{ user.jobText }}</li>
+    <li class="list-group-item">邮箱：{{ user.email }}</li>
+  </ul>
+</div>
