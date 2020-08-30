@@ -35,4 +35,8 @@ export class HeroService {
   updateHero(id: string, args: UpdateHeroArg): Observable<Base<void>> {
     return this.http.patch<Base<void>>(this.prefix + 'modify/' + id, args);
   }
+
+  delHero(id: string): Observable<Base<void>> {
+    return this.http.delete<Base<void>>(this.prefix + 'remove/' + id);
+  }
 }

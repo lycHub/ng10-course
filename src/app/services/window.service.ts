@@ -17,6 +17,13 @@ export class WindowService {
     }
   }
 
+  confirm(message: string): boolean {
+    if (this.isBrowser) {
+      return window.confirm(message);
+    }
+    return false;
+  }
+
   setStorage(key: string, value: string): void {
     if (this.isBrowser) {
       localStorage.setItem(key, value);
