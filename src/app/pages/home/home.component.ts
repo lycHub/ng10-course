@@ -5,6 +5,9 @@ import {combineLatest} from 'rxjs';
 import {UserService} from '../../services/user.service';
 import {Hero} from '../../configs/types';
 import {DOCUMENT} from '@angular/common';
+import {AccountService} from '../../services/account.service';
+import {WindowService} from '../../services/window.service';
+import {AuthKey} from '../../configs/constant';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +23,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private cdr: ChangeDetectorRef,
     @Inject(DOCUMENT) private doc: Document,
+    private accountServe: AccountService,
+    private windowServe: WindowService,
     private userServe: UserService) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
@@ -38,5 +43,13 @@ export class HomeComponent implements OnInit {
     });
     // console.log(this.doc);
   }
-
+  logout() {
+    this.accountServe.logout().subscribe(() => {
+      this.windowServe.removeStorage(AuthKey);
+      this.userServe.clearUser();
+      this.router.navigateByUrl('/login').then(() => {
+        this.windowServe.alert('退出成功');
+      });
+    });
+  }
 }

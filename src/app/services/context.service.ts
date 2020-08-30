@@ -4,7 +4,7 @@ import {UserService} from './user.service';
 import {AccountService} from './account.service';
 import {AuthKey} from '../configs/constant';
 import {Observable, of} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
+import {first, switchMap} from 'rxjs/operators';
 import {Hero} from '../configs/types';
 
 @Injectable({
@@ -19,14 +19,17 @@ export class ContextService {
   setContext(): Observable<Hero | false> {
     const auth = this.windowServe.getStorage(AuthKey);
     return new Observable(observer => {
+      // console.log('auth', auth);
       if (auth) {
         this.userServe.user$.pipe(
           switchMap(user => {
             if (user) {
               return of(user);
             }
+            console.log('set account', auth);
             return this.accountServe.account();
-          })
+          }),
+          first()
         ).subscribe(res => {
           let user: Hero;
           if ('token' in res) {

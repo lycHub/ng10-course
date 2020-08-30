@@ -12,7 +12,7 @@
               <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ currentUser.name }}</a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" routerLink="user-center">个人中心</a>
-                <a class="dropdown-item">退出登陆</a>
+                <a class="dropdown-item" (click)="logout()">退出登陆</a>
               </div>
             </div>
           </ng-template>
