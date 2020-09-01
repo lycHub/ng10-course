@@ -26,7 +26,7 @@ export class ContextService {
             if (user) {
               return of(user);
             }
-            console.log('set account', auth);
+            // console.log('set account', auth);
             return this.accountServe.account();
           }),
           first()

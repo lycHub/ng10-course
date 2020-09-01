@@ -33,7 +33,7 @@
       </form>
     </div>
   </div>
-  <button routerLink="../add-hero" type="button" class="btn btn-primary btn-add" >新增</button>
+  <button routerLink="../add-hero" *appAuth="['admin']" type="button" class="btn btn-primary btn-add" >新增</button>
   <div class="card">
     <div class="card-body">
       <table *ngIf="heroes.length else empty" class="table table-striped table-hover text-center">
@@ -59,8 +59,8 @@
           <td>{{ item.createTime }}</td>
           <td>{{ item.brief }}</td>
           <td class="actions">
-            <button [routerLink]="['../update-hero', item.id]" type="button" class="btn btn-primary btn-modify">修改</button>
-            <button (click)="delHero(item.id)" type="button" class="btn btn-danger">删除</button>
+            <button [routerLink]="['../update-hero', item.id]" *appAuth="['admin']" type="button" class="btn btn-primary btn-modify">修改</button>
+            <button (click)="delHero(item.id)" *appAuth="['admin']" type="button" class="btn btn-danger">删除</button>
           </td>
         </tr>
         </tbody>

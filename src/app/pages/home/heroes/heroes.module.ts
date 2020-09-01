@@ -4,10 +4,11 @@ import {HeroesComponent} from './heroes.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import { SpinComponent } from './spin/spin.component';
+import { AuthDirective } from './auth.directive';
 
 
 @NgModule({
-  declarations: [HeroesComponent, SpinComponent],
+  declarations: [HeroesComponent, SpinComponent, AuthDirective],
   imports: [
     CommonModule,
     FormsModule,
