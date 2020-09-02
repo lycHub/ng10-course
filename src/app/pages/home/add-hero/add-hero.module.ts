@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddHeroRoutingModule } from './add-hero-routing.module';
 import {ReactiveFormsModule} from '@angular/forms';
+// import {CoreModule} from '../../../services/core.module';
 
 
 @NgModule({
@@ -9,7 +10,8 @@ import {ReactiveFormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AddHeroRoutingModule
+    AddHeroRoutingModule,
+    // CoreModule
   ]
 })
 export class AddHeroModule { }

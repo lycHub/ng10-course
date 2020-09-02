@@ -7,6 +7,7 @@ import {AuthKey} from './configs/constant';
 import {AccountService} from './services/account.service';
 import {WindowService} from './services/window.service';
 import {ContextService} from './services/context.service';
+import {LogService} from './services/log.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent {
     private router: Router,
     private windowServe: WindowService,
     private userServe: UserService,
-    private contextServe: ContextService
+    private contextServe: ContextService,
+    private LogServe: LogService
   ) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationStart),

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HeroService} from '../../../services/hero.service';
 import {WindowService} from '../../../services/window.service';
+import {LogService} from '../../../services/log.service';
 
 @Component({
   selector: 'app-add-update-hero',
@@ -52,7 +53,8 @@ export class AddUpdateHeroComponent implements OnInit {
     private route: ActivatedRoute,
     private heroServe: HeroService,
     private windowServe: WindowService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private LogServe: LogService
   ) {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {

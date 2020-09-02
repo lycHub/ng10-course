@@ -5,7 +5,7 @@ import {HomeComponent} from './home.component';
 import {HeroesModule} from './heroes/heroes.module';
 import { AddUpdateHeroComponent } from './add-update-hero/add-update-hero.component';
 import {ReactiveFormsModule} from '@angular/forms';
-
+// import {ServiceModule} from '../../services/service.module';
 
 @NgModule({
   declarations: [HomeComponent, AddUpdateHeroComponent],
@@ -13,7 +13,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     CommonModule,
     ReactiveFormsModule,
     HomeRoutingModule,
-    HeroesModule
+    HeroesModule,
+    // ServiceModule
   ]
 })
 export class HomeModule { }

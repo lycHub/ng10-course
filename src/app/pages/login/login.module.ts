@@ -5,6 +5,7 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import {FormsModule} from '@angular/forms';
 import { ForbiddenCnDirective } from './forbin-cn.directive';
+// import {ServiceModule} from '../../services/service.module';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { ForbiddenCnDirective } from './forbin-cn.directive';
   imports: [
     CommonModule,
     FormsModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    // ServiceModule
   ]
 })
 export class LoginModule { }

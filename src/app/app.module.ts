@@ -16,6 +16,8 @@ import { HasMobileValidatorDirective } from './form-study/has-mobile-validator.d
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CommonInterceptorService} from './services/interceptors/common-interceptor.service';
 import interceptors from './services/interceptors';
+import {ServiceModule} from './services/service.module';
+import {CoreModule} from './services/core.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import interceptors from './services/interceptors';
     HeroesModule,
     DemosModule,
     PagesModule,
-    AppRoutingModule
+    AppRoutingModule,
+    // ServiceModule.forRoot()
+    CoreModule
   ],
   providers: interceptors,
   bootstrap: [AppComponent]

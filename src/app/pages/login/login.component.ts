@@ -6,6 +6,7 @@ import {LoginArg} from '../../configs/types';
 import {UserService} from '../../services/user.service';
 import {AuthKey} from '../../configs/constant';
 import {WindowService} from '../../services/window.service';
+import {LogService} from '../../services/log.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
     password: ''
   };
 
-  constructor(private router: Router, private windowServe: WindowService, private accountServe: AccountService, private userServe: UserService) { }
+  constructor(private LogServe: LogService, private router: Router, private windowServe: WindowService, private accountServe: AccountService, private userServe: UserService) { }
 
   ngOnInit(): void {
   }

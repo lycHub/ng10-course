@@ -8,6 +8,7 @@ import {DOCUMENT} from '@angular/common';
 import {AccountService} from '../../services/account.service';
 import {WindowService} from '../../services/window.service';
 import {AuthKey} from '../../configs/constant';
+import {LogService} from '../../services/log.service';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit {
     @Inject(DOCUMENT) private doc: Document,
     private accountServe: AccountService,
     private windowServe: WindowService,
-    private userServe: UserService) {
+    private userServe: UserService,
+    private LogServe: LogService) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       switchMap(() => this.route.firstChild.data)
