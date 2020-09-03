@@ -18,6 +18,7 @@ import {CommonInterceptorService} from './services/interceptors/common-intercept
 import interceptors from './services/interceptors';
 import {ServiceModule} from './services/service.module';
 import {CoreModule} from './services/core.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {CoreModule} from './services/core.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
