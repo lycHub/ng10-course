@@ -1,0 +1,11 @@
+<div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-secondary" (click)="isDisabled = !isDisabled">toggle animate</button>
+  <button type="button" class="btn btn-secondary" (click)="isOpen = !isOpen">toggle state</button>
+</div>
+
+<div [@.disabled]="isDisabled">
+  <div [@openClose]="isOpen ? 'open' : 'closed'"
+       class="open-close-container">
+    <p>The box is now {{ isOpen ? 'Open' : 'Closed' }}!</p>
+  </div>
+</div>

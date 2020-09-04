@@ -1,0 +1,4 @@
+<button class="btn btn-primary" (click)="isShown = !isShown">toggle</button>
+<div @myInsertRemoveTrigger *ngIf="isShown" class="insert-remove-container bg-danger">
+  <p>The box is inserted</p>
+</div>
