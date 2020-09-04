@@ -1,8 +1,8 @@
 <div class="status-slider">
   <nav>
-    <button (click)="toggle()">Toggle Status</button>
+    <button class="btn btn-primary" (click)="toggle()">Toggle Status</button>
   </nav>
-  
+
   <div [@slideStatus]="status" class="box">
     {{ status == 'active' ? 'Active' : 'Inactive' }}
   </div>

@@ -1,0 +1,14 @@
+<div class="enter-leave-group">
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-secondary" (click)="add()">Add</button>
+  </div>
+  <ul class="list-group">
+    <li
+      class="list-group-item bg-info"
+      (click)="remove(item.id)"
+      *ngFor="let item of heroes"
+      [@flyInOut]="'in'">
+      {{ item.name }}
+    </li>
+  </ul>
+</div>
