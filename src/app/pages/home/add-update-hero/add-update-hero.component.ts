@@ -1,9 +1,10 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HeroService} from '../../../services/hero.service';
 import {WindowService} from '../../../services/window.service';
 import {LogService} from '../../../services/log.service';
+import {animate, query, stagger, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-add-update-hero',
@@ -23,7 +24,19 @@ import {LogService} from '../../../services/log.service';
           }
     `
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('pageAnimations', [
+      transition(':enter', [
+        query('.heroes, form', [
+          style({opacity: 0, transform: 'translateY(-100px)'}),
+          stagger(300, [
+            animate('500ms cubic-bezier(0.35, 0, 0.25, 1)', style({ opacity: 1, transform: 'none' }))
+          ])
+        ])
+      ])
+    ])
+  ]
 })
 export class AddUpdateHeroComponent implements OnInit {
   formValues: FormGroup = this.fb.group({
@@ -61,6 +74,9 @@ export class AddUpdateHeroComponent implements OnInit {
       this.getHeroInfo();
     }
   }
+
+  @HostBinding('@pageAnimations')
+  public animatePage = true;
 
   ngOnInit(): void {}
 

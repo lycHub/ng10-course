@@ -38,7 +38,9 @@ import {animate, animateChild, group, query, style, transition, trigger} from '@
           query(':enter', [
             animate(1000, style({ left: '0%'}))
           ], { optional: true })
-        ])
+        ]),
+        // 进入或离开页面后，执行页面中的动画
+        query(':enter', animateChild())
       ])
     ])
   ]
