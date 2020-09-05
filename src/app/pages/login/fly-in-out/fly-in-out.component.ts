@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {Hero} from '../../../configs/types';
 import HEROES from '../../../configs/hero';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import {animate, state, style, transition, trigger, useAnimation} from '@angular/animations';
+import {flyInOutAni, transAnimation} from '../animates';
 
 @Component({
   selector: 'app-fly-in-out',
@@ -9,14 +10,20 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   styles: [
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // animations: [flyInOutAni()]
   animations: [
     trigger('flyInOut', [
       state('in', style({ transform: 'translateX(20px)' })),
       transition(':enter', [
         style({ transform: 'translateX(-100%)' }),
-        animate(1000)
+        useAnimation(transAnimation)
       ]),
-      transition(':leave', animate(500, style({ transform: 'translateX(100%)' })))
+      transition(':leave', useAnimation(transAnimation, {
+        params: {
+          time: '500ms',
+          x: '100%'
+        }
+      }))
     ])
   ]
 })
