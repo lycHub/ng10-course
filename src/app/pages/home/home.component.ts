@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {filter, switchMap} from 'rxjs/operators';
 import {combineLatest} from 'rxjs';
 import {UserService} from '../../services/user.service';
@@ -9,12 +9,39 @@ import {AccountService} from '../../services/account.service';
 import {WindowService} from '../../services/window.service';
 import {AuthKey} from '../../configs/constant';
 import {LogService} from '../../services/log.service';
+import {animate, animateChild, group, query, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('routeAnimations', [
+      transition('* => UpdatePage, * => AddPage, * => HeroesPage', [
+        style({ position: 'relative' }),
+        query(':enter, :leave', [
+          style({
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%'
+          })
+        ], { optional: true }),
+        query(':enter', [
+          style({ left: '-100%'})
+        ], { optional: true }),
+        group([
+          query(':leave', [
+            animate(1000, style({ left: '100%'}))
+          ], { optional: true }),
+          query(':enter', [
+            animate(1000, style({ left: '0%'}))
+          ], { optional: true })
+        ])
+      ])
+    ])
+  ]
 })
 export class HomeComponent implements OnInit {
   currentUser: Hero;
@@ -53,5 +80,8 @@ export class HomeComponent implements OnInit {
         this.windowServe.alert('退出成功');
       });
     });
+  }
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

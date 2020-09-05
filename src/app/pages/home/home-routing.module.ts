@@ -13,17 +13,17 @@ const routes: Routes = [
       {
         path: 'heroes',
         component: HeroesComponent,
-        data: { title: '英雄列表', breadcrumb: ['首页', '英雄列表'] }
+        data: { title: '英雄列表', breadcrumb: ['首页', '英雄列表'], animation: 'HeroesPage' }
       },
       {
         path: 'add-hero',
         loadChildren: () => import('./add-hero/add-hero.module').then(m => m.AddHeroModule),
-        data: { title: '新增英雄', auths: ['admin'], breadcrumb: ['首页', '新增英雄'] }
+        data: { title: '新增英雄', auths: ['admin'], breadcrumb: ['首页', '新增英雄'], animation: 'AddPage' }
       },
       {
         path: 'update-hero/:id',
         loadChildren: () => import('./update-hero/update-hero.module').then(m => m.UpdateHeroModule),
-        data: { title: '修改英雄', auths: ['admin'], breadcrumb: ['首页', '修改英雄'] }
+        data: { title: '修改英雄', auths: ['admin'], breadcrumb: ['首页', '修改英雄'], animation: 'UpdatePage' }
       },
       {
         path: 'user-center',
