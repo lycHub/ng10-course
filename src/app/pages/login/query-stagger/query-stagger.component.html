@@ -1,0 +1,13 @@
+<div class="query-stagger">
+  <form class="form">
+    <input #keyword (input)="updateHeroes(keyword.value)" placeholder="Search Heroes" />
+  </form>
+  <ul class="heroes" [@filterAnimation]="heroTotal">
+    <li *ngFor="let hero of heroes" class="hero">
+      <div class="inner">
+        <span class="badge">{{ hero.id }}</span>
+        <span>{{ hero.name }}</span>
+      </div>
+    </li>
+  </ul>
+</div>
