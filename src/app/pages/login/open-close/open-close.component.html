@@ -1,6 +1,14 @@
 <div>
   <button class="btn btn-primary" (click)="toggle()">toggle</button>
+  <button class="btn btn-primary" (click)="animationsDisabled = !animationsDisabled">toggle disabled</button>
 </div>
-<div [@openClose]="isOpen ? 'open' : 'closed'" class="open-close-container">
-  <p>The box is now {{ isOpen ? 'Open' : 'Closed' }}!</p>
+<!--[@.disabled]="isDisabled"-->
+<div>
+  <div
+    [@openClose]="isOpen ? 'open' : 'closed'"
+    class="open-close-container"
+    (@openClose.start)="onAnimationEvent($event)"
+    (@openClose.done)="onAnimationEvent($event)">
+    <p>The box is now {{ isOpen ? 'Open' : 'Closed' }}!</p>
+  </div>
 </div>
