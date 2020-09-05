@@ -11,12 +11,10 @@ import {animate, style, transition, trigger} from '@angular/animations';
     trigger('myInsertRemoveTrigger', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('1000ms', style({ opacity: 1 })),
+        animate(1000, style({ opacity: 1 })),
       ]),
-      transition(':leave', [
-        animate('1000ms', style({ opacity: 0 }))
-      ])
-    ])
+      transition(':leave', animate(500, style({ opacity: 0 })))
+    ]),
   ]
 })
 export class InsertRemoveComponent implements OnInit {

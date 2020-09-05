@@ -1,5 +1,6 @@
 import {Component, OnInit, ChangeDetectionStrategy, HostBinding} from '@angular/core';
-import {animate, group, query, stagger, state, style, transition, trigger} from '@angular/animations';
+import {animate, query, stagger, style, transition, trigger} from '@angular/animations';
+
 export interface Hero {
   id: number;
   name: string;
@@ -18,7 +19,6 @@ const HEROES: Hero[] = [
   { id: 20, name: 'Tornado' }
 ];
 
-
 @Component({
   selector: 'app-query-stagger',
   templateUrl: './query-stagger.component.html',
@@ -36,7 +36,6 @@ const HEROES: Hero[] = [
       ])
     ]),
     trigger('filterAnimation', [
-      transition(':enter, * => 0, * => -1', []),
       transition(':increment', [
         query(':enter', [
           style({ opacity: 0, width: '0px' }),

@@ -9,7 +9,6 @@ import {animate, keyframes, state, style, transition, trigger} from '@angular/an
           :host {
               display: block;
           }
-
           .box {
               width: 300px;
               border: 5px solid black;
@@ -21,6 +20,7 @@ import {animate, keyframes, state, style, transition, trigger} from '@angular/an
           }
     `
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('slideStatus', [
       state('inactive', style({ backgroundColor: 'blue' })),
@@ -33,15 +33,14 @@ import {animate, keyframes, state, style, transition, trigger} from '@angular/an
         ]))
       ]),
       transition('* => inactive', [
-        animate('2s', keyframes([
+        animate('10s', keyframes([
           style({ backgroundColor: 'orange', offset: 0}),
-          style({ backgroundColor: 'red', offset: 0.2}),
-          style({ backgroundColor: 'blue', offset: 1.0})
+          style({ backgroundColor: 'red', offset: 0.9}),
+          style({ backgroundColor: 'blue', offset: 1})
         ]))
       ])
     ])
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  ]
 })
 export class StatusSliderComponent implements OnInit {
   status: 'active' | 'inactive' = 'inactive';
