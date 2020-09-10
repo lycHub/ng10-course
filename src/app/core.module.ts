@@ -2,6 +2,7 @@ import {NgModule, Optional, SkipSelf} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import { HeaderComponent } from './layouts/header/header.component';
+import {BreadcrumbModule} from './share/components/breadcrumb/breadcrumb.module';
 
 
 
@@ -9,9 +10,10 @@ import { HeaderComponent } from './layouts/header/header.component';
   declarations: [HeaderComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BreadcrumbModule
   ],
-  exports: [HeaderComponent]
+  exports: [HeaderComponent, BreadcrumbModule]
 })
 export class CoreModule {
   constructor(@SkipSelf() @Optional() parentModule: CoreModule) {

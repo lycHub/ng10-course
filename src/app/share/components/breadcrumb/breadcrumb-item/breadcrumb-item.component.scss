@@ -1,0 +1,9 @@
+.bread-crumb-item {
+  display: flex;
+  align-items: center;
+  .separator {
+    color: #72727b;
+    padding: 0 6px;
+    vertical-align: 1px;
+  }
+}
