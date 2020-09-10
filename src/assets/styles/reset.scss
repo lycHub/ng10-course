@@ -1,0 +1,22 @@
+article,aside,blockquote,body,button,dd,details,div,dl,dt,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,hr,input,legend,li,menu,nav,ol,p,pre,section,td,textarea,th,ul {
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline
+}
+
+ol, ul, li {
+  list-style: none;
+}
+
+body {
+  font: 14px/1.5 courier new,courier,monospace;
+  color: #333;
+  background-color: #fff;
+}
+
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #1976d2;
+}
