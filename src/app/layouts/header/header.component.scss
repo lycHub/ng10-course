@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+header {
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,.1);
+  &.fix {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    animation: moveUpMotion .3s;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .logo {
+      display: flex;
+      align-items: center;
+      img {
+        width: 98px;
+      }
+      h1 {
+        color: #f86442;
+      }
+    }
+  }
+}
+
+
+@keyframes moveUpMotion {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

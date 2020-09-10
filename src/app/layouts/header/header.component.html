@@ -1,0 +1,15 @@
+<header>
+  <div class="container">
+    <div class="logo">
+      <img src="../../../assets/images/logo2.png" alt="migu-music" />
+      <h1>Angular</h1>
+    </div>
+    <div class="user">
+      <a *ngIf="!user else context">请登录</a>
+      <ng-template #context>
+        张三
+        <a>退出</a>
+      </ng-template>
+    </div>
+  </div>
+</header>
