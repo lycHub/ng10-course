@@ -8,7 +8,7 @@ import {ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef, ViewEnca
   encapsulation: ViewEncapsulation.None
 })
 export class BreadcrumbComponent implements OnInit {
-  @Input() xmSeparator: TemplateRef<any>;
+  @Input() xmSeparator: TemplateRef<any> | string = '>';
   constructor() { }
 
   ngOnInit(): void {

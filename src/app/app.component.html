@@ -13,8 +13,8 @@
           <xm-breadcrumb-item>
             二级
           </xm-breadcrumb-item>
-          <ng-template #mySeparator>
-            <b>$$</b>
+          <ng-template #mySeparator let-name let-my="my">
+            <b>$$—{{ name }}—{{ my }}</b>
           </ng-template>
         </xm-breadcrumb>
       </div>
