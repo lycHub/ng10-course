@@ -2,5 +2,10 @@
   <div class="content">
     <ng-content></ng-content>
   </div>
-  <span class="separator">></span>
+  <div class="separator">
+    <ng-container [ngTemplateOutlet]="parent.xmSeparator || defSeparatorTpl"></ng-container>
+    <ng-template #defSeparatorTpl>
+      <span>&gt;</span>
+    </ng-template>
+  </div>
 </div>

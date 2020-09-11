@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'xm-breadcrumb',
@@ -8,7 +8,7 @@ import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@an
   encapsulation: ViewEncapsulation.None
 })
 export class BreadcrumbComponent implements OnInit {
-
+  @Input() xmSeparator: TemplateRef<any>;
   constructor() { }
 
   ngOnInit(): void {

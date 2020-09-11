@@ -3,7 +3,7 @@
   <div class="content">
     <div class="container">
       <div class="breadcrumb-wrap">
-        <xm-breadcrumb>
+        <xm-breadcrumb [xmSeparator]="mySeparator">
           <xm-breadcrumb-item>
             全部
           </xm-breadcrumb-item>
@@ -13,6 +13,9 @@
           <xm-breadcrumb-item>
             二级
           </xm-breadcrumb-item>
+          <ng-template #mySeparator>
+            <b>$$</b>
+          </ng-template>
         </xm-breadcrumb>
       </div>
     </div>
