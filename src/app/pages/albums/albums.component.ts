@@ -1,10 +1,17 @@
 import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {AlbumArgs, AlbumService, CategoryInfo} from '../../services/apis/album.service';
-import {MetaValue, SubCategory} from '../../services/apis/types';
+import {MetaData, MetaValue, SubCategory} from '../../services/apis/types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryService} from '../../services/business/category.service';
 import {combineLatest} from 'rxjs';
 import {withLatestFrom} from 'rxjs/operators';
+
+interface CheckedMeta {
+  metaRowId: number;
+  metaRowName: string;
+  metaId: number;
+  metaName: string;
+}
 
 @Component({
   selector: 'xm-albums',
@@ -22,6 +29,7 @@ export class AlbumsComponent implements OnInit {
     perPage: 30
   };
   categoryInfo: CategoryInfo;
+  checkedMetas: CheckedMeta[] = [];
   constructor(
     private albumServe: AlbumService,
     private cdr: ChangeDetectorRef,
@@ -54,6 +62,36 @@ export class AlbumsComponent implements OnInit {
       this.categoryServe.setSubCategory([subCategory.displayValue]);
       this.updatePageData();
     }
+  }
+
+  changeMeta(row: MetaData, meta: MetaValue): void {
+    this.checkedMetas.push({
+      metaRowId: row.id,
+      metaRowName: row.name,
+      metaId: meta.id,
+      metaName: meta.displayName
+    });
+    console.log('checkedMetas', this.checkedMetas);
+  }
+
+  unCheckMeta(meta: CheckedMeta | 'clear'): void {
+    if (meta === 'clear') {
+      this.checkedMetas = [];
+    } else {
+      const targetIndex = this.checkedMetas.findIndex(item => {
+        return (item.metaRowId === meta.metaRowId) && (item.metaId === meta.metaId);
+      });
+      if (targetIndex > -1) {
+        this.checkedMetas.splice(targetIndex, 1);
+      }
+    }
+  }
+
+  showMetaRow(name: string): boolean {
+    if (this.checkedMetas.length) {
+      return this.checkedMetas.findIndex(item => item.metaRowName === name) === -1;
+    }
+    return true;
   }
 
   private updatePageData(): void {
