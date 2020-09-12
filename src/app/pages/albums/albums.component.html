@@ -2,17 +2,14 @@
   <div class="categories">
     <ul>
       <li>全部</li>
-      <li>脱口秀</li>
-      <li>搞笑方言</li>
+      <li *ngFor="let item of categoryInfo?.subcategories">{{ item.displayValue }}</li>
     </ul>
   </div>
   <div class="conditions">
-    <div class="row">
-      <b class="title">类别</b>
+    <div class="row" *ngFor="let row of categoryInfo?.metadata">
+      <b class="title">{{ row.displayName }}</b>
       <ul class="tabs">
-        <li class="tag">节目</li>
-        <li class="tag">歌单</li>
-        <li class="tag">专辑</li>
+        <li class="tag" *ngFor="let item of row.metaValues">{{ item.displayName }}</li>
       </ul>
     </div>
     <div class="row">
