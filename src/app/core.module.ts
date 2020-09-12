@@ -4,6 +4,7 @@ import {AppRoutingModule} from './app-routing.module';
 import { HeaderComponent } from './layouts/header/header.component';
 import {BreadcrumbModule} from './share/components/breadcrumb/breadcrumb.module';
 import {HttpClientModule} from '@angular/common/http';
+import {PagesModule} from './pages/pages.module';
 
 
 
@@ -12,10 +13,11 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
+    PagesModule,
     AppRoutingModule,
     BreadcrumbModule
   ],
-  exports: [HeaderComponent, BreadcrumbModule, BrowserModule]
+  exports: [HeaderComponent, BreadcrumbModule, BrowserModule, AppRoutingModule]
 })
 export class CoreModule {
   constructor(@SkipSelf() @Optional() parentModule: CoreModule) {
