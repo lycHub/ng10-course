@@ -3,6 +3,7 @@ import {AlbumService} from './services/apis/album.service';
 import {Category} from './services/apis/types';
 import {CategoryService} from './services/business/category.service';
 import {Router} from '@angular/router';
+import {combineLatest} from 'rxjs';
 
 @Component({
   selector: 'xm-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   currentCategory: Category;
   categories: Category[] = [];
   categoryPinyin = '';
-  subcategory: string[];
+  subCategory: string[] = [];
   constructor(
     private albumServe: AlbumService,
     private cdr: ChangeDetectorRef,
@@ -28,23 +29,26 @@ export class AppComponent implements OnInit {
   }
   changeCategory(category: Category): void {
     if (this.currentCategory.id !== category.id) {
-      this.currentCategory = category;
+      // this.currentCategory = category;
       this.categoryServe.setCategory(category.pinyin);
       this.router.navigateByUrl('/albums/' + category.pinyin);
     }
   }
   private init(): void {
-    this.categoryServe.getCategory().subscribe(category => {
+    combineLatest(
+      this.categoryServe.getCategory(),
+      this.categoryServe.getSubCategory()
+    ).subscribe(([category, subCategory]) => {
       console.log('get category', category);
       if (category !== this.categoryPinyin) {
         this.categoryPinyin = category;
         if (this.categories.length) {
           this.setCurrentCategory();
-        } else {
-          this.getCategories();
         }
       }
+      this.subCategory = subCategory;
     });
+    this.getCategories();
   }
 
   private getCategories(): void {

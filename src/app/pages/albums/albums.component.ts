@@ -4,6 +4,7 @@ import {MetaValue, SubCategory} from '../../services/apis/types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryService} from '../../services/business/category.service';
 import {combineLatest} from 'rxjs';
+import {withLatestFrom} from 'rxjs/operators';
 
 @Component({
   selector: 'xm-albums',
@@ -30,30 +31,27 @@ export class AlbumsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    combineLatest(
-      this.categoryServe.getCategory(),
-      this.route.paramMap
-    ).subscribe(([category, paramMap]) => {
+    this.route.paramMap
+      .pipe(withLatestFrom(this.categoryServe.getCategory()))
+      .subscribe(([paramMap, category]) => {
       const pinyin = paramMap.get('pinyin');
       // console.log('category params', category);
       // console.log('pinyin params', pinyin);
-      if (pinyin === category) {
-        this.searchParams.category = pinyin;
-        this.searchParams.subcategory = '';
-        this.updatePageData();
-      } else {
-        // 分类和参数不一致的情况，比如点后退按钮
+      if (pinyin !== category) {
         this.categoryServe.setCategory(pinyin);
-        this.router.navigateByUrl('/albums/' + pinyin);
       }
+      this.searchParams.category = pinyin;
+      this.searchParams.subcategory = '';
+      this.categoryServe.setSubCategory([]);
+      this.updatePageData();
     });
-    // this.updatePageData();
   }
 
   changeSubCategory(subCategory?: SubCategory): void {
     console.log('subCategory', subCategory);
     if (this.searchParams.subcategory !== subCategory?.code) {
       this.searchParams.subcategory = subCategory?.code || '';
+      this.categoryServe.setSubCategory([subCategory.displayValue]);
       this.updatePageData();
     }
   }
