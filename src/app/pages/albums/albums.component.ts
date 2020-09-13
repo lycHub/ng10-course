@@ -1,9 +1,9 @@
 import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
-import {AlbumArgs, AlbumService, CategoryInfo} from '../../services/apis/album.service';
+import {AlbumArgs, AlbumService, AlbumsInfo, CategoryInfo} from '../../services/apis/album.service';
 import {MetaData, MetaValue, SubCategory} from '../../services/apis/types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryService} from '../../services/business/category.service';
-import {combineLatest} from 'rxjs';
+import {combineLatest, forkJoin} from 'rxjs';
 import {withLatestFrom} from 'rxjs/operators';
 
 interface CheckedMeta {
@@ -30,6 +30,8 @@ export class AlbumsComponent implements OnInit {
   };
   categoryInfo: CategoryInfo;
   checkedMetas: CheckedMeta[] = [];
+  albumsInfo: AlbumsInfo;
+  sorts = ['综合排序', '最近更新', '播放最多'];
   constructor(
     private albumServe: AlbumService,
     private cdr: ChangeDetectorRef,
@@ -51,6 +53,7 @@ export class AlbumsComponent implements OnInit {
       this.searchParams.category = pinyin;
       this.searchParams.subcategory = '';
       this.categoryServe.setSubCategory([]);
+      this.unCheckMeta('clear');
       this.updatePageData();
     });
   }
@@ -60,6 +63,7 @@ export class AlbumsComponent implements OnInit {
     if (this.searchParams.subcategory !== subCategory?.code) {
       this.searchParams.subcategory = subCategory?.code || '';
       this.categoryServe.setSubCategory([subCategory.displayValue]);
+      this.unCheckMeta('clear');
       this.updatePageData();
     }
   }
@@ -74,6 +78,7 @@ export class AlbumsComponent implements OnInit {
     });
     this.searchParams.meta = this.getMetaParams();
     // console.log('checkedMetas', this.checkedMetas);
+    this.updateAlbums();
   }
 
   unCheckMeta(meta: CheckedMeta | 'clear'): void {
@@ -89,6 +94,7 @@ export class AlbumsComponent implements OnInit {
         this.searchParams.meta = this.getMetaParams();
       }
     }
+    this.updateAlbums();
   }
 
   private getMetaParams(): string {
@@ -102,6 +108,13 @@ export class AlbumsComponent implements OnInit {
     return result.slice(0, -1);
   }
 
+  changeSort(index: number): void {
+    if (this.searchParams.sort !== index) {
+      this.searchParams.sort = index;
+      this.updateAlbums();
+    }
+  }
+
   showMetaRow(name: string): boolean {
     if (this.checkedMetas.length) {
       return this.checkedMetas.findIndex(item => item.metaRowName === name) === -1;
@@ -110,9 +123,20 @@ export class AlbumsComponent implements OnInit {
   }
 
   private updatePageData(): void {
-    this.albumServe.detailCategoryPageInfo(this.searchParams).subscribe(categoryInfo => {
-      // console.log('categoryInfo', categoryInfo);
+    forkJoin([
+      this.albumServe.albums(this.searchParams),
+      this.albumServe.detailCategoryPageInfo(this.searchParams)
+    ]).subscribe(([albumsInfo, categoryInfo]) => {
       this.categoryInfo = categoryInfo;
+      console.log('AlbumInfo', albumsInfo);
+      this.albumsInfo = albumsInfo;
+      this.cdr.markForCheck();
+    });
+  }
+
+  private updateAlbums(): void {
+    this.albumServe.albums(this.searchParams).subscribe(albumsInfo => {
+      this.albumsInfo = albumsInfo;
       this.cdr.markForCheck();
     });
   }
