@@ -65,26 +65,41 @@ export class AlbumsComponent implements OnInit {
   }
 
   changeMeta(row: MetaData, meta: MetaValue): void {
+    // row.id_meta.id-
     this.checkedMetas.push({
       metaRowId: row.id,
       metaRowName: row.name,
       metaId: meta.id,
       metaName: meta.displayName
     });
-    console.log('checkedMetas', this.checkedMetas);
+    this.searchParams.meta = this.getMetaParams();
+    // console.log('checkedMetas', this.checkedMetas);
   }
 
   unCheckMeta(meta: CheckedMeta | 'clear'): void {
     if (meta === 'clear') {
       this.checkedMetas = [];
+      this.searchParams.meta = '';
     } else {
       const targetIndex = this.checkedMetas.findIndex(item => {
         return (item.metaRowId === meta.metaRowId) && (item.metaId === meta.metaId);
       });
       if (targetIndex > -1) {
         this.checkedMetas.splice(targetIndex, 1);
+        this.searchParams.meta = this.getMetaParams();
       }
     }
+  }
+
+  private getMetaParams(): string {
+    let result = '';
+    if (this.checkedMetas.length) {
+      this.checkedMetas.forEach(item => {
+        result += item.metaRowId + '_' + item.metaId + '-';
+      });
+    }
+    console.log('meta params', result.slice(0, -1));
+    return result.slice(0, -1);
   }
 
   showMetaRow(name: string): boolean {
