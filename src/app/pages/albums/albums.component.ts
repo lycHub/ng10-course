@@ -1,10 +1,12 @@
 import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {AlbumArgs, AlbumService, AlbumsInfo, CategoryInfo} from '../../services/apis/album.service';
-import {MetaData, MetaValue, SubCategory} from '../../services/apis/types';
+import {Album, MetaData, MetaValue, SubCategory} from '../../services/apis/types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryService} from '../../services/business/category.service';
 import {combineLatest, forkJoin} from 'rxjs';
 import {withLatestFrom} from 'rxjs/operators';
+import {WindowService} from '../../services/tools/window.service';
+import {storageKeys} from '../../configs';
 
 interface CheckedMeta {
   metaRowId: number;
@@ -37,7 +39,8 @@ export class AlbumsComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
     private router: Router,
-    private categoryServe: CategoryService
+    private categoryServe: CategoryService,
+    private winServe: WindowService
   ) { }
 
   ngOnInit(): void {
@@ -45,27 +48,39 @@ export class AlbumsComponent implements OnInit {
       .pipe(withLatestFrom(this.categoryServe.getCategory()))
       .subscribe(([paramMap, category]) => {
       const pinyin = paramMap.get('pinyin');
-      // console.log('category params', category);
-      // console.log('pinyin params', pinyin);
+      this.searchParams.category = pinyin;
+      let needSetStatus = false;
       if (pinyin !== category) {
         this.categoryServe.setCategory(pinyin);
+        this.clearSubCategory();
+        this.unCheckMeta('clear');
+      } else {
+        const cacheSubCategory = this.winServe.getStorage(storageKeys.subcategoryCode);
+        const cacheMetas = this.winServe.getStorage(storageKeys.metas);
+        if (cacheSubCategory) {
+          needSetStatus = true;
+          this.searchParams.subcategory = cacheSubCategory;
+        }
+        if (cacheMetas) {
+          needSetStatus = true;
+          this.searchParams.meta = cacheMetas;
+        }
       }
-      this.searchParams.category = pinyin;
-      this.searchParams.subcategory = '';
-      this.categoryServe.setSubCategory([]);
-      this.unCheckMeta('clear');
-      this.updatePageData();
+      this.updatePageData(needSetStatus);
     });
   }
 
   changeSubCategory(subCategory?: SubCategory): void {
     console.log('subCategory', subCategory);
-    if (this.searchParams.subcategory !== subCategory?.code) {
-      this.searchParams.subcategory = subCategory?.code || '';
+    if (subCategory) {
+      this.searchParams.subcategory = subCategory.code;
       this.categoryServe.setSubCategory([subCategory.displayValue]);
-      this.unCheckMeta('clear');
-      this.updatePageData();
+      this.winServe.setStorage(storageKeys.subcategoryCode, this.searchParams.subcategory);
+    } else {
+      this.clearSubCategory();
     }
+    this.unCheckMeta('clear');
+    this.updatePageData();
   }
 
   changeMeta(row: MetaData, meta: MetaValue): void {
@@ -78,6 +93,7 @@ export class AlbumsComponent implements OnInit {
     });
     this.searchParams.meta = this.getMetaParams();
     // console.log('checkedMetas', this.checkedMetas);
+    this.winServe.setStorage(storageKeys.metas, this.searchParams.meta);
     this.updateAlbums();
   }
 
@@ -85,6 +101,7 @@ export class AlbumsComponent implements OnInit {
     if (meta === 'clear') {
       this.checkedMetas = [];
       this.searchParams.meta = '';
+      this.winServe.removeStorage(storageKeys.metas);
     } else {
       const targetIndex = this.checkedMetas.findIndex(item => {
         return (item.metaRowId === meta.metaRowId) && (item.metaId === meta.metaId);
@@ -92,6 +109,7 @@ export class AlbumsComponent implements OnInit {
       if (targetIndex > -1) {
         this.checkedMetas.splice(targetIndex, 1);
         this.searchParams.meta = this.getMetaParams();
+        this.winServe.setStorage(storageKeys.metas, this.searchParams.meta);
       }
     }
     this.updateAlbums();
@@ -122,14 +140,17 @@ export class AlbumsComponent implements OnInit {
     return true;
   }
 
-  private updatePageData(): void {
+  private updatePageData(needSetStatus = false): void {
     forkJoin([
       this.albumServe.albums(this.searchParams),
       this.albumServe.detailCategoryPageInfo(this.searchParams)
     ]).subscribe(([albumsInfo, categoryInfo]) => {
       this.categoryInfo = categoryInfo;
-      console.log('AlbumInfo', albumsInfo);
+      // console.log('AlbumInfo', albumsInfo);
       this.albumsInfo = albumsInfo;
+      if (needSetStatus) {
+        this.setStatus(categoryInfo);
+      }
       this.cdr.markForCheck();
     });
   }
@@ -141,6 +162,42 @@ export class AlbumsComponent implements OnInit {
     });
   }
 
+  private setStatus({ metadata, subcategories }: CategoryInfo): void {
+    const subCategory = subcategories.find(item => item.code === this.searchParams.subcategory);
+    console.log('metadata', metadata);
+    if (subCategory) {
+      this.categoryServe.setSubCategory([subCategory.displayValue]);
+    }
+    if (this.searchParams.meta) {
+      // 19_156-22_4433
+      const metasMap = this.searchParams.meta.split('-').map(item => item.split('_'));
+      console.log('metasMap', metasMap);
+      metasMap.forEach(meta => {
+        const targetRow = metadata.find(row => row.id === Number(meta[0]));
+        // console.log('targetRow', targetRow);
+        // 从详情导航过来的标签不一定存在
+        const { id: metaRowId, name, metaValues } = targetRow || metadata[0];
+        const targetMeta = metaValues.find(item => item.id === Number(meta[1]));
+        const { id, displayName } = targetMeta || metaValues[0];
+        this.checkedMetas.push({
+          metaRowId,
+          metaRowName: name,
+          metaId: id,
+          metaName: displayName
+        });
+      });
+
+    }
+  }
+
+  private clearSubCategory(): void {
+    this.searchParams.subcategory = '';
+    this.categoryServe.setSubCategory([]);
+    this.winServe.removeStorage(storageKeys.subcategoryCode);
+  }
+
+
   trackBySubCategories(index: number, item: SubCategory): string { return item.code; }
   trackByMetas(index: number, item: MetaValue): number { return item.id; }
+  trackByAlbums(index: number, item: Album): number { return item.albumId; }
 }

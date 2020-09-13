@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {WindowService} from '../tools/window.service';
+import {storageKeys} from '../../configs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +10,15 @@ import {BehaviorSubject, Observable} from 'rxjs';
 export class CategoryService {
   private category$ = new BehaviorSubject<string>('youshengshu');
   private subcategory$ = new BehaviorSubject<string[]>([]);
-  constructor() {}
+  constructor(private winServe: WindowService) {
+    const cacheCategory = this.winServe.getStorage(storageKeys.categoryPinyin);
+    if (cacheCategory) {
+      this.category$.next(cacheCategory);
+    }
+  }
 
   setCategory(category: string): void {
+    this.winServe.setStorage(storageKeys.categoryPinyin, category);
     this.category$.next(category);
   }
 
