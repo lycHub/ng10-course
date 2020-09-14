@@ -52,5 +52,5 @@ export type IconType
 
 albums.component.html:
 ```angular2html
-<i class="icon" xm-icon="headset"></i>
+<i class="icon" xmIcon="headset"></i>
 ```

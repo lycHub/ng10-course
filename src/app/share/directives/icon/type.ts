@@ -1,0 +1,22 @@
+export type IconType
+  =
+  'headset'
+  | 'play1'
+  | 'play'
+  | 'add'
+  | 'delete'
+  | 'pause'
+  | 'next'
+  | 'previous'
+  | 'Add'
+  | 'previewleft'
+  | 'previewright'
+  | 'more'
+  | 'Doublearrowleft'
+  | 'Doublearrowright'
+  | 'adduser'
+  | 'Close'
+  | 'arrow-up-line'
+  | 'arrow-down-line'
+  | 'Star'
+  | 'mulu';
