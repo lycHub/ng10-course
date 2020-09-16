@@ -1,12 +1,4 @@
 <div class="main-content">
-  <div>
-    tag:
-    <button (click)="tagColor = 'orange'">change color</button>
-    <button (click)="tagColor = '#d11647'">custom color</button>
-    <xm-tag [xmColor]="tagColor" xmShape="circle" [xmClosable]="true">
-      一个标签
-    </xm-tag>
-  </div>
   <div class="categories">
     <ul>
       <li [class.checked]="!searchParams.subcategory" (click)="changeSubCategory()">全部</li>
@@ -73,5 +65,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="page-wrap">
+    <xm-pagination class="page"></xm-pagination>
   </div>
 </div>
