@@ -1,0 +1,42 @@
+.xm-tag {
+  display: inline-block;
+  box-sizing: border-box;
+  color: rgba(0,0,0,.65);
+  font-variant: tabular-nums;
+  font-feature-settings: "tnum";
+  padding: 2px 8px 0;
+  font-size: 12px;
+  white-space: nowrap;
+  background-color: #fafafa;
+  border: 1px solid #d9d9d9;
+  cursor: pointer;
+  transition: all .3s cubic-bezier(.78,.14,.15,.86);
+  .icon-close {
+    vertical-align: -2px;
+    margin-left: 4px;
+  }
+  &.xm-tag-circle {
+    border-radius: 26px;
+  }
+  &.xm-tag-close {
+    padding: 0 6px 0 10px;
+    .content {
+      margin-right: 4px;
+    }
+  }
+  &.xm-tag-magenta {
+    color: #eb2f96;
+    background-color: #fff0f6;
+    border-color: #ffadd2;
+  }
+  &.xm-tag-orange {
+    color: #fa8c16;
+    background-color: #fff7e6;
+    border-color: #ffd591;
+  }
+  &.xm-tag-green {
+    color: #52c41a;
+    background-color: #f6ffed;
+    border-color: #b7eb8f;
+  }
+}
