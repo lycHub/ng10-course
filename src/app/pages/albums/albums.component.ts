@@ -62,6 +62,8 @@ export class AlbumsComponent implements OnInit {
         if (cacheSubCategory) {
           needSetStatus = true;
           this.searchParams.subcategory = cacheSubCategory;
+        } else {
+          this.clearSubCategory();
         }
         if (cacheMetas) {
           needSetStatus = true;
