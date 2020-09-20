@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="intro">
-      <article [innerHTML]="albumInfo.detailRichIntro"></article>
+      <article [innerHTML]="albumInfo.detailRichIntro | safeContent"></article>
       <div class="more-arrow">
         <div class="blur"></div>
         <span>显示全部</span>

@@ -4,6 +4,7 @@ import {AlbumService, AlbumTrackArgs} from '../../services/apis/album.service';
 import {forkJoin} from 'rxjs';
 import {CategoryService} from '../../services/business/category.service';
 import {AlbumInfo, Anchor, RelateAlbum, Track} from '../../services/apis/types';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
   selector: 'xm-album',
