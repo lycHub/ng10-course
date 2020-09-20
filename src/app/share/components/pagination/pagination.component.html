@@ -4,7 +4,8 @@
       class="xm-page"
       *ngFor="let item of listOfPageItems"
       [class.disabled]="item.disabled"
-      [class.checked]="item.num === pageNum">
+      [class.checked]="item.num === pageNum"
+      (click)="pageClick(item)">
       <ng-container [ngSwitch]="item.type">
         <a *ngSwitchCase="'page'">{{ item.num }}</a>
         <ng-container *ngSwitchDefault>
@@ -18,7 +19,7 @@
     </li>
   </ul>
   <div class="xm-page-navigate">
-    <input type="number" class="xm-input" />
-    <button>跳转</button>
+    <input type="number" class="xm-input" #to (keyup.enter)="inputVal(+to.value)" [min]="1" [max]="lastNum" />
+    <button (click)="inputVal(+to.value)">跳转</button>
   </div>
 </div>

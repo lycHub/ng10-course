@@ -67,6 +67,12 @@
     </div>
   </div>
   <div class="page-wrap">
-    <xm-pagination class="page"></xm-pagination>
+    <xm-pagination
+      class="page"
+      [pageNum]="searchParams.page"
+      [pageSize]="searchParams.perPage"
+      [total]="total"
+      (changed)="changePage($event)">
+    </xm-pagination>
   </div>
 </div>

@@ -30,6 +30,7 @@ export class AlbumsComponent implements OnInit {
     page: 1,
     perPage: 30
   };
+  total = 0;
   categoryInfo: CategoryInfo;
   checkedMetas: CheckedMeta[] = [];
   albumsInfo: AlbumsInfo;
@@ -116,6 +117,13 @@ export class AlbumsComponent implements OnInit {
     this.updateAlbums();
   }
 
+  changePage(newPageNum: number): void {
+    if (this.searchParams.page !== newPageNum) {
+      this.searchParams.page = newPageNum;
+      this.updateAlbums();
+    }
+  }
+
   private getMetaParams(): string {
     let result = '';
     if (this.checkedMetas.length) {
@@ -148,6 +156,7 @@ export class AlbumsComponent implements OnInit {
     ]).subscribe(([albumsInfo, categoryInfo]) => {
       this.categoryInfo = categoryInfo;
       // console.log('AlbumInfo', albumsInfo);
+      this.total = albumsInfo.total;
       this.albumsInfo = albumsInfo;
       if (needSetStatus) {
         this.setStatus(categoryInfo);
@@ -158,7 +167,9 @@ export class AlbumsComponent implements OnInit {
 
   private updateAlbums(): void {
     this.albumServe.albums(this.searchParams).subscribe(albumsInfo => {
+      // console.log('albumsInfo', albumsInfo);
       this.albumsInfo = albumsInfo;
+      this.total = albumsInfo.total;
       this.cdr.markForCheck();
     });
   }
