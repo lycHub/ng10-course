@@ -28,9 +28,7 @@ export class AppComponent implements OnInit {
     this.init();
   }
   changeCategory(category: Category): void {
-    if (this.currentCategory.id !== category.id) {
-      this.router.navigateByUrl('/albums/' + category.pinyin);
-    }
+    this.router.navigateByUrl('/albums/' + category.pinyin);
   }
   private init(): void {
     combineLatest(

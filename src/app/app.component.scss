@@ -4,6 +4,7 @@
     .sub-category {
       position: relative;
       color: #72727b;
+      user-select: none;
       &:hover {
         .handler {
           border-bottom-color: transparent;
