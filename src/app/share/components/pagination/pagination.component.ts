@@ -12,9 +12,9 @@ interface PageItem {
   styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent implements OnInit {
-  @Input() total = 90;
+  @Input() total = 313;
   @Input() pageNum = 1;
-  @Input() pageSize = 10;
+  @Input() pageSize = 7;
   private lastNum = 0;
   listOfPageItems: PageItem[] = [];
   constructor() { }
@@ -26,7 +26,27 @@ export class PaginationComponent implements OnInit {
   }
 
   private getListOfPageItems(pageNum: number, lastNum: number): PageItem[] {
-    return concatWithPrevNext(generatePage(1, this.lastNum), pageNum, lastNum);
+    if (lastNum <= 9) {
+      return concatWithPrevNext(generatePage(1, this.lastNum), pageNum, lastNum);
+    } else {
+      let listOfRange = [];
+      const prevFiveItem = {
+        type: 'prev_5'
+      };
+      const nextFiveItem = {
+        type: 'next_5'
+      };
+      const firstPageItem = generatePage(1, 1);
+      const lastPageItem = generatePage(lastNum, lastNum);
+      if (pageNum < 4) {
+        listOfRange = [...generatePage(2, 5), nextFiveItem];
+      } else if (pageNum > lastNum - 4) {
+        listOfRange = [prevFiveItem, ...generatePage(lastNum - 4, lastNum + 1)];
+      } else {
+        listOfRange = [prevFiveItem, ...generatePage(pageNum - 2, pageNum + 2), nextFiveItem];
+      }
+      return concatWithPrevNext([...firstPageItem, ...listOfRange, ...lastPageItem], pageNum, lastNum);
+    }
   }
 }
 
