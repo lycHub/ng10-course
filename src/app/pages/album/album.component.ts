@@ -4,11 +4,12 @@ import {AlbumService, AlbumTrackArgs} from '../../services/apis/album.service';
 import {forkJoin} from 'rxjs';
 import {CategoryService} from '../../services/business/category.service';
 import {AlbumInfo, Anchor, RelateAlbum, Track} from '../../services/apis/types';
+import {IconType} from '../../share/directives/icon/type';
 
 interface MoreState {
   full: boolean;
   label: string;
-  icon: string;
+  icon: IconType;
 }
 @Component({
   selector: 'xm-album',
@@ -34,6 +35,7 @@ export class AlbumComponent implements OnInit {
     label: '显示全部',
     icon: 'arrow-down-line'
   }
+  articleHeight: number;
   constructor(
     private route: ActivatedRoute,
     private albumServe: AlbumService,
@@ -53,13 +55,18 @@ export class AlbumComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.trackParams.albumId = this.route.snapshot.paramMap.get('albumId');
+    this.route.paramMap.subscribe(paramMap => {
+      this.trackParams.albumId = paramMap.get('albumId');
+      this.initPageData();
+    });
+  }
+  private initPageData(): void {
     forkJoin([
       this.albumServe.album(this.trackParams.albumId),
       this.albumServe.albumScore(this.trackParams.albumId),
       this.albumServe.relateAlbums(this.trackParams.albumId),
     ]).subscribe(([albumInfo, score, relateAlbums]) => {
-      console.log('albumInfo', albumInfo);
+      // console.log('albumInfo', albumInfo);
       // console.log('score', score);
       // console.log('relateAlbum', relateAlbum);
       this.albumInfo = { ...albumInfo.mainInfo, albumId: albumInfo.albumId };
@@ -72,5 +79,4 @@ export class AlbumComponent implements OnInit {
       this.cdr.markForCheck();
     });
   }
-
 }

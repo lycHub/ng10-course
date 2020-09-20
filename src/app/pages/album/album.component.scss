@@ -80,10 +80,11 @@
       }
     }
     .intro {
+      position: relative;
       article {
         max-height: 360px;
         overflow-y: hidden;
-        transition: max-height .2s ease;
+        transition: max-height .3s ease-in-out;
       }
       .more-arrow {
         position: relative;

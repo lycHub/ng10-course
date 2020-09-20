@@ -34,8 +34,8 @@
       </div>
     </div>
     <div class="intro">
-      <article [innerHTML]="albumInfo.detailRichIntro | safeContent"></article>
-      <div class="more-arrow" (click)="toggleMore()">
+      <article xmToggleMore="360" (initTrueHeight)="articleHeight = $event" [isFull]="moreState.full" [content]="albumInfo.detailRichIntro" [innerHTML]="albumInfo.detailRichIntro | safeContent"></article>
+      <div class="more-arrow" (click)="toggleMore()" *ngIf="articleHeight > 360">
         <div class="blur" [hidden]="moreState.full"></div>
         <span>{{ moreState.label }}</span>
         <i [xmIcon]="moreState.icon" class="icon"></i>
@@ -76,7 +76,7 @@
         </div>
         <div class="card-body">
           <div class="albums">
-            <div class="album-item" *ngFor="let item of anchor.anchorAlbumList" [routerLink]="'/album/' + item.albumId">
+            <div class="album-item" [routerLink]="'../' + item.albumId" *ngFor="let item of anchor.anchorAlbumList">
               <div class="thumbnail">
                 <img [src]="item.cover" [alt]="item.albumTitle">
               </div>
@@ -98,7 +98,7 @@
       </div>
       <div class="card-body">
         <div class="albums">
-          <div class="album-item" *ngFor="let item of relateAlbums" [routerLink]="'/album/' + item.id">
+          <div class="album-item" [routerLink]="'../' + item.id" *ngFor="let item of relateAlbums">
             <div class="thumbnail">
               <img style="height: 100%;" [src]="'//imagev2.xmcdn.com/' + item.coverPath" [alt]="item.title">
             </div>
