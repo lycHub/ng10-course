@@ -4,8 +4,12 @@ import {AlbumService, AlbumTrackArgs} from '../../services/apis/album.service';
 import {forkJoin} from 'rxjs';
 import {CategoryService} from '../../services/business/category.service';
 import {AlbumInfo, Anchor, RelateAlbum, Track} from '../../services/apis/types';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
+interface MoreState {
+  full: boolean;
+  label: string;
+  icon: string;
+}
 @Component({
   selector: 'xm-album',
   templateUrl: './album.component.html',
@@ -25,12 +29,28 @@ export class AlbumComponent implements OnInit {
     pageNum: 1,
     pageSize: 30
   };
+  moreState: MoreState = {
+    full: false,
+    label: '显示全部',
+    icon: 'arrow-down-line'
+  }
   constructor(
     private route: ActivatedRoute,
     private albumServe: AlbumService,
     private categoryServe: CategoryService,
     private cdr: ChangeDetectorRef
   ) { }
+
+  toggleMore(): void {
+    this.moreState.full = !this.moreState.full;
+    if (this.moreState.full) {
+      this.moreState.label = '收起';
+      this.moreState.icon = 'arrow-up-line';
+    } else {
+      this.moreState.label = '显示全部';
+      this.moreState.icon = 'arrow-down-line';
+    }
+  }
 
   ngOnInit(): void {
     this.trackParams.albumId = this.route.snapshot.paramMap.get('albumId');
