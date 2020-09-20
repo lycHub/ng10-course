@@ -1,4 +1,6 @@
-<header>
+<div style="height: 61px;" *ngIf="fix"></div>
+<!-- [class.fix]="fix" -->
+<header [@moveUpMotion]="fix">
   <div class="container">
     <div class="logo">
       <img src="../../../assets/images/logo2.png" alt="migu-music" />

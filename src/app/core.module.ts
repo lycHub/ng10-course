@@ -5,6 +5,7 @@ import { HeaderComponent } from './layouts/header/header.component';
 import {BreadcrumbModule} from './share/components/breadcrumb/breadcrumb.module';
 import {HttpClientModule} from '@angular/common/http';
 import {PagesModule} from './pages/pages.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
@@ -12,6 +13,7 @@ import {PagesModule} from './pages/pages.module';
   declarations: [HeaderComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     PagesModule,
     AppRoutingModule,

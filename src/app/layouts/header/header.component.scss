@@ -9,7 +9,7 @@ header {
     top: 0;
     width: 100%;
     z-index: 1;
-    animation: moveUpMotion .3s;
+    animation: moveUpMotion .3s ease-out;
   }
   .container {
     display: flex;
