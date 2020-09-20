@@ -1,30 +1,29 @@
 <div class="album-info">
-  <div class="main">
+  <div class="main" *ngIf="albumInfo">
     <div class="info">
       <div class="thumbnail">
-        <img src="https://imagev2.xmcdn.com/group78/M08/6A/2B/wKgO4F5OQMGgOyY5AAD30zb9Drk500.jpg!strip=1&quality=7&magick=jpg&op_type=5&upload_type=album&name=mobile_large&device_type=ios" alt="封面" class="cover">
+        <img [src]="albumInfo.cover" [alt]="albumInfo.albumTitle" class="cover">
         <div class="back-cover"></div>
       </div>
       <div class="contents">
         <h1>
           <xm-tag xmColor="#5fa8fc" class="tag">连载</xm-tag>
-          <span>教师资格证：笔试系统班</span>
+          <span>{{ albumInfo.albumTitle }}</span>
         </h1>
         <div class="record">
           <div class="rate">
             <div class="star-wrap">
               star|star
             </div>
-            <span class="score">9分</span>
+            <span class="score">{{ score }}分</span>
           </div>
           <div class="play-count">
             <i xmIcon="headset" class="icon"></i>
-            <span>{{ value | numberFormat }}</span>
+            <span>{{ albumInfo.playCount | numberFormat }}</span>
           </div>
         </div>
         <div class="metas">
-          <xm-tag class="meta">教师</xm-tag>
-          <xm-tag class="meta">资格证</xm-tag>
+          <xm-tag class="meta" *ngFor="let meta of albumInfo.metas">{{ meta.metaDisplayName }}</xm-tag>
         </div>
         <div class="actions">
           <button xmBtn [xmCircle]="true" class="btn">
@@ -35,9 +34,7 @@
       </div>
     </div>
     <div class="intro">
-      <article>
-        简介简介简介简介简介简介
-      </article>
+      <article>{{ albumInfo.detailRichIntro }}{{ albumInfo.detailRichIntro }}{{ albumInfo.detailRichIntro }}</article>
       <div class="more-arrow">
         <div class="blur"></div>
         <span>显示全部</span>
