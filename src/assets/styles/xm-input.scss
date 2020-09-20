@@ -1,0 +1,30 @@
+.xm-input {
+  display: inline-block;
+  width: 100%;
+  outline: 0;
+  font-size: 18px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  transition: border-color .3s;
+  &::-webkit-input-placeholder{
+    color: #ccc;
+    font-size: 14px;
+  }
+  &:hover, &:focus {
+    border-color: #f86442;
+  }
+  &.xm-input-error {
+    border-color: #fc0d1c;
+  }
+
+  &[type=number] {
+    -moz-appearance:textfield;
+  }
+
+  &[type=number]::-webkit-inner-spin-button, &[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
