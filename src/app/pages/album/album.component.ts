@@ -75,6 +75,12 @@ export class AlbumComponent implements OnInit {
       this.tracks = albumInfo.tracksInfo.tracks;
       this.total = albumInfo.tracksInfo.trackTotalCount;
       this.relateAlbums = relateAlbums.slice(0, 10);
+      this.categoryServe.getCategory().subscribe(category => {
+        const { categoryPinyin } = this.albumInfo.crumbs;
+        if (category !== categoryPinyin) {
+          this.categoryServe.setCategory(categoryPinyin);
+        }
+      });
       this.categoryServe.setSubCategory([this.albumInfo.albumTitle]);
       this.cdr.markForCheck();
     });

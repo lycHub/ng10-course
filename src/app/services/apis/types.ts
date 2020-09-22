@@ -66,7 +66,7 @@ export interface AlbumInfo {
   playCount: number;
   crumbs: {
     // categoryId: 5
-    // categoryPinyin: "waiyu"
+    categoryPinyin: string;
     // categoryTitle: "外语"
     // subcategoryCode: "yingyu"
     subcategoryDisplayName: string;
