@@ -1,4 +1,21 @@
 <div class="album-info">
+  <div class="form-test">
+   <!-- <form [formGroup]="formValues" (ngSubmit)="submit()">
+      <label>
+        name:
+        <input type="text" formControlName="name" />
+      </label>
+      <label>
+        size:
+        <xm-sizer formControlName="size"></xm-sizer>
+      </label>
+      <button>提交</button>
+    </form>-->
+  </div>
+  <p>
+    sizer: {{ size }}
+    <xm-sizer [(ngModel)]="size" (ngModelChange)="sizeChange($event)"></xm-sizer>
+  </p>
   <div class="main" *ngIf="albumInfo">
     <div class="info">
       <div class="thumbnail">

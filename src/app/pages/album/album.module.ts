@@ -6,16 +6,20 @@ import { AlbumComponent } from './album.component';
 import {TagModule} from '../../share/components/tag/tag.module';
 import {DirectivesModule} from '../../share/directives/directives.module';
 import {PipesModule} from '../../share/pipes/pipes.module';
+import {SizerComponent} from './sizer/sizer.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
-  declarations: [AlbumComponent],
+  declarations: [AlbumComponent, SizerComponent],
   imports: [
     CommonModule,
     AlbumRoutingModule,
     TagModule,
     DirectivesModule,
-    PipesModule
+    PipesModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AlbumModule { }
