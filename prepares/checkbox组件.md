@@ -113,3 +113,82 @@
     <xm-checkbox>苹果</xm-checkbox>
 </p>
 ```
+
+
+/src/share/components/checkbox/checkbox-group.component.ts:
+```typescript
+
+export type CheckboxValue = number | string;
+
+@Component({
+  selector: 'xm-checkbox-group',
+  template: `
+    <div class="xm-checkbox-group"><ng-content></ng-content></div>
+  `,
+  styles: [
+    `
+      .xm-checkbox-group { display: inline-block; }
+    `
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CheckboxGroupComponent),
+      multi: true
+    }
+  ]
+})
+export class CheckboxGroupComponent implements OnInit, ControlValueAccessor {
+  private checkboxes: CheckboxComponent[] = [];
+  private current: CheckboxValue[];
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+  addCheckbox(checkbox: CheckboxComponent): void {
+    this.checkboxes.push(checkbox);
+  }
+
+
+  updateCheckbox(current: CheckboxValue[]): void {
+    if (this.checkboxes.length) {
+      for (const child of this.checkboxes) {
+        child.writeValue(current.includes(child.value));
+      }
+    }
+    this.current = current;
+    this.onChange(this.current);
+  }
+
+  handleCheckboxClick(value: CheckboxValue, checked: boolean): void {
+    const newCurrent = this.current.slice();
+    if (checked) {
+      if (!newCurrent.includes(value)) {
+        newCurrent.push(value);
+      }
+    } else {
+      const targetIndex = newCurrent.findIndex(item => item === value);
+      if (targetIndex > -1) {
+        newCurrent.splice(targetIndex, 1);
+      }
+    }
+    this.updateCheckbox(newCurrent);
+  }
+
+  private onChange = (value: CheckboxValue[]) => {};
+  private onTouched = () => {};
+  writeValue(current: CheckboxValue[]): void {
+    if (current) {
+      this.updateCheckbox(current);
+    }
+  }
+  registerOnChange(fn: (value: CheckboxValue[]) => void): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+}
+
+```
