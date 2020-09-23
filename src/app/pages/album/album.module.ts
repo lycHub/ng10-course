@@ -8,6 +8,7 @@ import {DirectivesModule} from '../../share/directives/directives.module';
 import {PipesModule} from '../../share/pipes/pipes.module';
 import {SizerComponent} from './sizer/sizer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CheckboxModule} from '../../share/components/checkbox/checkbox.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     DirectivesModule,
     PipesModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    CheckboxModule
   ]
 })
 export class AlbumModule { }

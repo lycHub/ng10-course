@@ -19,13 +19,7 @@ interface MoreState {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AlbumComponent implements OnInit {
-  size = 16;
-
-  formValues = this.fb.group({
-    name: [''],
-    size: [{ value: 24,  disabled: true }]
-  });
-
+  checked = false;
   albumInfo: AlbumInfo;
   score: number;
   anchor: Anchor;
@@ -61,12 +55,6 @@ export class AlbumComponent implements OnInit {
       this.moreState.label = '显示全部';
       this.moreState.icon = 'arrow-down-line';
     }
-  }
-  sizeChange(value: number): void {
-    console.log('sizeChange', value);
-  }
-  submit(): void {
-    console.log('submit', this.formValues.value);
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
