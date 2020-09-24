@@ -1,9 +1,12 @@
 <div class="album-info">
   <div class="main" *ngIf="albumInfo">
     <div class="test-box">
-      checkbox: <button xmBtn (click)="checked = !checked">toggle {{ checked }}</button>
-<!--      <xm-checkbox disabled [(ngModel)]="checked">飞机</xm-checkbox>-->
-      <label xm-checkbox [(ngModel)]="checked">飞机</label>
+      <p>
+        currentChecks: {{ currentChecks | json }}
+      </p>
+      <xm-checkbox-group [(ngModel)]="currentChecks">
+        <label xm-checkbox *ngFor="let item of checkOptionsOne" [value]="item.value">{{ item.label }}</label>
+      </xm-checkbox-group>
     </div>
     <div class="info">
       <div class="thumbnail">

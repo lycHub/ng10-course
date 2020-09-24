@@ -4,11 +4,12 @@ import {
   Component,
   forwardRef,
   HostBinding,
-  HostListener,
-  OnInit,
+  HostListener, Input,
+  OnInit, Optional,
   ViewEncapsulation
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {CheckboxGroupComponent, CheckboxValue} from './checkbox-group.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -30,11 +31,15 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 })
 export class CheckboxComponent implements OnInit, ControlValueAccessor {
   @HostBinding('class.checked') checked = false;
-  @HostBinding('class.disabled') disabled = false;
+  @HostBinding('class.disabled') @Input() disabled = false;
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  @Input() value: CheckboxValue;
+  constructor(private cdr: ChangeDetectorRef, @Optional() private parent: CheckboxGroupComponent) { }
 
   ngOnInit(): void {
+    if (this.parent) {
+      this.parent.addCheckbox(this);
+    }
   }
 
   @HostListener('click', ['$event'])
@@ -43,6 +48,9 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
     if (!this.disabled) {
       this.checked = !this.checked;
       this.onChange(this.checked);
+      if (this.parent) {
+        this.parent.handleCheckboxClick(this.value, this.checked);
+      }
     }
   }
 

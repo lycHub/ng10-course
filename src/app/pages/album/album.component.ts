@@ -19,7 +19,12 @@ interface MoreState {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AlbumComponent implements OnInit {
-  checked = false;
+  currentChecks = [];
+  checkOptionsOne = [
+    { label: '苹果', value: 'Apple' },
+    { label: '梨', value: 'Pear' },
+    { label: '橘子', value: 'Orange' }
+  ];
   albumInfo: AlbumInfo;
   score: number;
   anchor: Anchor;
