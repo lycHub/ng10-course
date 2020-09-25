@@ -94,4 +94,11 @@ export class AlbumService {
     return this.http.get(`${environment.baseUrl}${this.prefix}album-relate`, { params })
       .pipe(map((res: Base<{ hotWordAlbums: RelateAlbum[] }>) => res.data.hotWordAlbums));
   }
+
+  // 播单列表
+  tracks(args: AlbumTrackArgs): Observable<TracksInfo> {
+    const params = new HttpParams({ fromString: stringify(args) });
+    return this.http.get(`${environment.baseUrl}${this.prefix}album-tracks`, { params })
+      .pipe(map((res: Base<TracksInfo>) => res.data));
+  }
 }

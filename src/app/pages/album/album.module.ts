@@ -9,6 +9,7 @@ import {PipesModule} from '../../share/pipes/pipes.module';
 import {SizerComponent} from './sizer/sizer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CheckboxModule} from '../../share/components/checkbox/checkbox.module';
+import {PaginationModule} from '../../share/components/pagination/pagination.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {CheckboxModule} from '../../share/components/checkbox/checkbox.module';
     PipesModule,
     ReactiveFormsModule,
     FormsModule,
-    CheckboxModule
+    CheckboxModule,
+    PaginationModule
   ]
 })
 export class AlbumModule { }

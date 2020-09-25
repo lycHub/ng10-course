@@ -1,13 +1,5 @@
 <div class="album-info">
   <div class="main" *ngIf="albumInfo">
-    <div class="test-box">
-      <p>
-        currentChecks: {{ currentChecks | json }}
-      </p>
-      <xm-checkbox-group [(ngModel)]="currentChecks">
-        <label xm-checkbox *ngFor="let item of checkOptionsOne" [value]="item.value">{{ item.label }}</label>
-      </xm-checkbox-group>
-    </div>
     <div class="info">
       <div class="thumbnail">
         <img [src]="albumInfo.cover" [alt]="albumInfo.albumTitle" class="cover">
@@ -47,6 +39,54 @@
         <div class="blur" [hidden]="moreState.full"></div>
         <span>{{ moreState.label }}</span>
         <i [xmIcon]="moreState.icon" class="icon"></i>
+      </div>
+    </div>
+    <div class="playlist">
+      <table>
+        <thead>
+        <tr>
+          <th><label xm-checkbox></label></th>
+          <th class="item-name">曲目</th>
+          <th>播放量</th>
+          <th>创建时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let track of tracks; trackBy: trackByTracks">
+          <td class="item-checkbox"><label xm-checkbox></label></td>
+          <td class="item-name">
+            <span class="prefix number">{{ track.index }}</span>
+            <i xmIcon="'play1'" class="prefix icon icon-play"></i>
+            <i xmIcon="'pause'" class="prefix icon icon-pause"></i>
+            <div class="prefix icon icon-playing"><i></i><i></i><i></i><i></i></div>
+            <span>{{ track.title }}</span>
+          </td>
+          <td>
+            <i xmIcon="'headset'" class="icon"></i>
+            <span>{{ track.playCount | numberFormat }}万</span>
+          </td>
+          <td>{{ track.createDateFormat }}</td>
+        </tr>
+        <tr class="last"></tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th><label xm-checkbox></label></th>
+          <th class="item-name">
+            <button xmBtn [xmCircle]="true">播放选中歌曲</button>
+            <button class="btn-add" xmBtn [xmCircle]="true">添加到播放列表</button>
+          </th>
+        </tr>
+        </tfoot>
+      </table>
+      <div class="page-wrap">
+        <xm-pagination
+          class="page"
+          [total]="total"
+          [pageNum]="trackParams.pageNum"
+          [pageSize]="trackParams.pageSize"
+          (changed)="changePage($event)">
+        </xm-pagination>
       </div>
     </div>
   </div>

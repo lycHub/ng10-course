@@ -5,7 +5,6 @@ import {forkJoin} from 'rxjs';
 import {CategoryService} from '../../services/business/category.service';
 import {AlbumInfo, Anchor, RelateAlbum, Track} from '../../services/apis/types';
 import {IconType} from '../../share/directives/icon/type';
-import {FormBuilder} from '@angular/forms';
 
 interface MoreState {
   full: boolean;
@@ -19,12 +18,6 @@ interface MoreState {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AlbumComponent implements OnInit {
-  currentChecks = [];
-  checkOptionsOne = [
-    { label: '苹果', value: 'Apple' },
-    { label: '梨', value: 'Pear' },
-    { label: '橘子', value: 'Orange' }
-  ];
   albumInfo: AlbumInfo;
   score: number;
   anchor: Anchor;
@@ -47,8 +40,7 @@ export class AlbumComponent implements OnInit {
     private route: ActivatedRoute,
     private albumServe: AlbumService,
     private categoryServe: CategoryService,
-    private cdr: ChangeDetectorRef,
-    private fb: FormBuilder
+    private cdr: ChangeDetectorRef
   ) { }
 
   toggleMore(): void {
@@ -67,6 +59,19 @@ export class AlbumComponent implements OnInit {
       this.initPageData();
     });
   }
+  changePage(page: number): void {
+    if (this.trackParams.pageNum !== page) {
+      this.trackParams.pageNum = page;
+      this.updateTracks();
+    }
+  }
+  updateTracks(): void {
+    this.albumServe.tracks(this.trackParams).subscribe(res => {
+      this.tracks = res.tracks;
+      this.total = res.trackTotalCount;
+      this.cdr.markForCheck();
+    });
+  }
   private initPageData(): void {
     forkJoin([
       this.albumServe.album(this.trackParams.albumId),
@@ -81,6 +86,8 @@ export class AlbumComponent implements OnInit {
       this.anchor = albumInfo.anchorInfo;
       this.tracks = albumInfo.tracksInfo.tracks;
       this.total = albumInfo.tracksInfo.trackTotalCount;
+      // console.log('tracks', this.tracks);
+      // console.log('total', this.total);
       this.relateAlbums = relateAlbums.slice(0, 10);
       this.categoryServe.getCategory().subscribe(category => {
         const { categoryPinyin } = this.albumInfo.crumbs;
@@ -92,4 +99,6 @@ export class AlbumComponent implements OnInit {
       this.cdr.markForCheck();
     });
   }
+
+  trackByTracks(index: number, item: Track): number { return item.trackId; }
 }
