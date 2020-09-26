@@ -14,9 +14,13 @@
           <div class="record">
             <div class="rate">
               <div class="star-wrap">
-                <xm-rate (changed)="rateChange($event)"></xm-rate>
+                <xm-rate [(ngModel)]="score"></xm-rate>
+               <!-- <ng-template #starTpl>
+&lt;!&ndash;                  <b><i>Star</i></b>&ndash;&gt;
+                  <i xmIcon="play"></i>
+                </ng-template>-->
               </div>
-              <span class="score">{{ score }}分</span>
+              <span class="score">{{ score * 2 }}分</span>
             </div>
             <div class="play-count">
               <i xmIcon="headset" class="icon"></i>

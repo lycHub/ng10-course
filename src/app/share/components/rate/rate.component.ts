@@ -1,29 +1,48 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnInit,
+  Output, TemplateRef,
+  ViewEncapsulation
+} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
   selector: 'xm-rate',
   templateUrl: './rate.component.html',
   styleUrls: ['./rate.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RateComponent),
+      multi: true
+    }
+  ]
 })
-export class RateComponent implements OnInit {
+export class RateComponent implements OnInit, ControlValueAccessor {
   @Input() count = 5;
+  @Input() tpl: TemplateRef<void>;
+  private readonly  = false;
   starArray: number[] = [];
   private hoverValue = 0;
   private actualValue = 0;
   private hasHalf = false;
   rateItemStyles: string[] = [];
   @Output() changed = new EventEmitter<number>();
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.updateStarArray();
   }
 
   rateHover(isHalf: boolean, index: number): void {
-    if (this.hoverValue === index + 1 && isHalf === this.hasHalf) {
-      console.log('ignore');
+    if (this.readonly || (this.hoverValue === index + 1 && isHalf === this.hasHalf)) {
       return;
     }
     this.hoverValue = index + 1;
@@ -33,7 +52,9 @@ export class RateComponent implements OnInit {
   }
 
   rateClick(isHalf: boolean, index: number): void {
-    // console.log('rateClick', isHalf);
+    if (this.readonly) {
+      return;
+    }
     this.hoverValue = index + 1;
     this.hasHalf = isHalf;
     this.setActualValue(isHalf ? index + 0.5 : this.hoverValue);
@@ -43,6 +64,7 @@ export class RateComponent implements OnInit {
   private setActualValue(value: number): void {
     if (this.actualValue !== value) {
       this.actualValue = value;
+      this.onChange(value);
       this.changed.emit(value);
     }
   }
@@ -67,7 +89,28 @@ export class RateComponent implements OnInit {
       } else if (this.hasHalf && value === this.hoverValue) {
         cls += base + '-half';
       }
-      return base + ' ' + cls;
+      const midCls = this.readonly ? ' xm-rate-item-readonly ' : ' ';
+      return base + midCls + cls;
     });
+  }
+
+  onChange: (value: number) => void = () => {};
+  onTouched: () => void = () => {};
+  writeValue(value: number): void {
+    // console.log('writeValue', value);
+    if (value) {
+      this.actualValue = value;
+      this.rateLeave();
+      this.cdr.markForCheck();
+    }
+  }
+  registerOnChange(fn: (value: number) => void): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+  setDisabledState(isDisabled: boolean): void {
+    this.readonly = isDisabled;
   }
 }

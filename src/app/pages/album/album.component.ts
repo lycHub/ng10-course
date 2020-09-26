@@ -66,7 +66,7 @@ export class AlbumComponent implements OnInit {
         this.selectedTracks.splice(targetIndex, 1);
       }
     }
-    console.log('selectedTracks', this.selectedTracks);
+    // console.log('selectedTracks', this.selectedTracks);
   }
   isChecked(id: number): boolean {
     return this.selectedIndex(id) > -1;
@@ -94,10 +94,6 @@ export class AlbumComponent implements OnInit {
       });
     }
     return false;
-  }
-
-  rateChange(rate: number) {
-    console.log('rateChange', rate);
   }
 
   private selectedIndex(id: number): number {
@@ -132,7 +128,7 @@ export class AlbumComponent implements OnInit {
       // console.log('score', score);
       // console.log('relateAlbum', relateAlbum);
       this.albumInfo = { ...albumInfo.mainInfo, albumId: albumInfo.albumId };
-      this.score = score;
+      this.score = score / 2;
       this.anchor = albumInfo.anchorInfo;
       // this.tracks = albumInfo.tracksInfo.tracks;
       // this.total = albumInfo.tracksInfo.trackTotalCount;
