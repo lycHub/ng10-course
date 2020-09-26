@@ -10,6 +10,7 @@ import {SizerComponent} from './sizer/sizer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CheckboxModule} from '../../share/components/checkbox/checkbox.module';
 import {PaginationModule} from '../../share/components/pagination/pagination.module';
+import {RateModule} from '../../share/components/rate/rate.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {PaginationModule} from '../../share/components/pagination/pagination.mod
     ReactiveFormsModule,
     FormsModule,
     CheckboxModule,
-    PaginationModule
+    PaginationModule,
+    RateModule
   ]
 })
 export class AlbumModule { }
