@@ -96,6 +96,10 @@ export class AlbumComponent implements OnInit {
     return false;
   }
 
+  rateChange(rate: number) {
+    console.log('rateChange', rate);
+  }
+
   private selectedIndex(id: number): number {
     return this.selectedTracks.findIndex(item => item.trackId === id);
   }

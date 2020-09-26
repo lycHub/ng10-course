@@ -1,7 +1,8 @@
-<div class="xm-rate-wrap">
-  <xm-rate-item></xm-rate-item>
-  <xm-rate-item></xm-rate-item>
-  <xm-rate-item></xm-rate-item>
-  <xm-rate-item></xm-rate-item>
-  <xm-rate-item></xm-rate-item>
+<div class="xm-rate-wrap" (mouseleave)="rateLeave()">
+  <xm-rate-item
+    *ngFor="let item of starArray; index as i"
+    [rateItemCls]="rateItemStyles[i]"
+    (itemClick)="rateClick($event, i)"
+    (itemHover)="rateHover($event, i)">
+  </xm-rate-item>
 </div>

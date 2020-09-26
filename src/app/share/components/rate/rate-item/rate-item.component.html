@@ -1,8 +1,8 @@
-<div class="xm-rate-item">
-  <div class="star-wrap back">
+<div [class]="rateItemCls || 'xm-rate-item'">
+  <div class="star-wrap back" (click)="clickRate(false)" (mouseenter)="hoverRate(false)">
     <i class="icon" xmIcon="Star"></i>
   </div>
-  <div class="star-wrap front">
+  <div class="star-wrap front" (click)="clickRate(true)" (mouseenter)="hoverRate(true)">
     <i class="icon" xmIcon="Star"></i>
   </div>
 </div>

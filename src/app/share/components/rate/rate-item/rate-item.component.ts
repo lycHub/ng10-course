@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input} from '@angular/core';
 
 @Component({
   selector: 'xm-rate-item',
@@ -7,10 +7,19 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RateItemComponent implements OnInit {
-
+  @Input() rateItemCls = 'xm-rate-item';
+  @Output() private itemHover = new EventEmitter<boolean>();
+  @Output() private itemClick = new EventEmitter<boolean>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  hoverRate(isHalf: boolean): void {
+    this.itemHover.emit(isHalf);
+  }
+
+  clickRate(isHalf: boolean): void {
+    this.itemClick.emit(isHalf);
+  }
 }

@@ -14,7 +14,7 @@
           <div class="record">
             <div class="rate">
               <div class="star-wrap">
-                <xm-rate></xm-rate>
+                <xm-rate (changed)="rateChange($event)"></xm-rate>
               </div>
               <span class="score">{{ score }}分</span>
             </div>
