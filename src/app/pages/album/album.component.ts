@@ -5,6 +5,7 @@ import {forkJoin} from 'rxjs';
 import {CategoryService} from '../../services/business/category.service';
 import {AlbumInfo, Anchor, RelateAlbum, Track} from '../../services/apis/types';
 import {IconType} from '../../share/directives/icon/type';
+import {first} from 'rxjs/operators';
 
 interface MoreState {
   full: boolean;
@@ -23,6 +24,7 @@ export class AlbumComponent implements OnInit {
   anchor: Anchor;
   relateAlbums: RelateAlbum[];
   tracks: Track[] = [];
+  selectedTracks: Track[] = [];
   total = 0;
   trackParams: AlbumTrackArgs = {
     albumId: '',
@@ -52,6 +54,50 @@ export class AlbumComponent implements OnInit {
       this.moreState.label = '显示全部';
       this.moreState.icon = 'arrow-down-line';
     }
+  }
+  checkedChange(checked: boolean, track: Track): void {
+    const targetIndex = this.selectedIndex(track.trackId);
+    if (checked) {
+      if (targetIndex === -1) {
+        this.selectedTracks.push(track);
+      }
+    } else {
+      if (targetIndex > -1) {
+        this.selectedTracks.splice(targetIndex, 1);
+      }
+    }
+    console.log('selectedTracks', this.selectedTracks);
+  }
+  isChecked(id: number): boolean {
+    return this.selectedIndex(id) > -1;
+  }
+
+  checkAllChange(checked): void {
+    this.tracks.forEach(item => {
+      const targetIndex = this.selectedIndex(item.trackId);
+      if (checked) {
+        if (targetIndex === -1) {
+          this.selectedTracks.push(item);
+        }
+      } else {
+        if (targetIndex > -1) {
+          this.selectedTracks.splice(targetIndex, 1);
+        }
+      }
+    });
+  }
+
+  isCheckedAll(): boolean {
+    if (this.selectedTracks.length >= this.tracks.length) {
+      return this.tracks.every(item => {
+        return this.selectedIndex(item.trackId) > -1;
+      });
+    }
+    return false;
+  }
+
+  private selectedIndex(id: number): number {
+    return this.selectedTracks.findIndex(item => item.trackId === id);
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
@@ -84,12 +130,16 @@ export class AlbumComponent implements OnInit {
       this.albumInfo = { ...albumInfo.mainInfo, albumId: albumInfo.albumId };
       this.score = score;
       this.anchor = albumInfo.anchorInfo;
-      this.tracks = albumInfo.tracksInfo.tracks;
-      this.total = albumInfo.tracksInfo.trackTotalCount;
-      // console.log('tracks', this.tracks);
-      // console.log('total', this.total);
+      // this.tracks = albumInfo.tracksInfo.tracks;
+      // this.total = albumInfo.tracksInfo.trackTotalCount;
+      this.updateTracks();
       this.relateAlbums = relateAlbums.slice(0, 10);
-      this.categoryServe.getCategory().subscribe(category => {
+     /* const category = localStorage.getItem('categoryPinyin');
+      const { categoryPinyin } = this.albumInfo.crumbs;
+      if (category !== categoryPinyin) {
+        this.categoryServe.setCategory(categoryPinyin);
+      }*/
+      this.categoryServe.getCategory().pipe(first()).subscribe(category => {
         const { categoryPinyin } = this.albumInfo.crumbs;
         if (category !== categoryPinyin) {
           this.categoryServe.setCategory(categoryPinyin);

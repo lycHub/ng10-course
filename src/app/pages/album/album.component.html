@@ -45,7 +45,7 @@
       <table>
         <thead>
         <tr>
-          <th><label xm-checkbox></label></th>
+          <th><label xm-checkbox [ngModel]="isCheckedAll()" (ngModelChange)="checkAllChange($event)"></label></th>
           <th class="item-name">曲目</th>
           <th>播放量</th>
           <th>创建时间</th>
@@ -53,7 +53,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let track of tracks; trackBy: trackByTracks">
-          <td class="item-checkbox"><label xm-checkbox></label></td>
+          <td class="item-checkbox"><label xm-checkbox [ngModel]="isChecked(track.trackId)" (ngModelChange)="checkedChange($event, track)"></label></td>
           <td class="item-name">
             <span class="prefix number">{{ track.index }}</span>
             <i xmIcon="'play1'" class="prefix icon icon-play"></i>
@@ -71,7 +71,7 @@
         </tbody>
         <tfoot>
         <tr>
-          <th><label xm-checkbox></label></th>
+          <th><label xm-checkbox [ngModel]="isCheckedAll()" (ngModelChange)="checkAllChange($event)"></label></th>
           <th class="item-name">
             <button xmBtn [xmCircle]="true">播放选中歌曲</button>
             <button class="btn-add" xmBtn [xmCircle]="true">添加到播放列表</button>
