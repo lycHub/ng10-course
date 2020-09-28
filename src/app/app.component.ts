@@ -3,8 +3,9 @@ import {AlbumService} from './services/apis/album.service';
 import {Category} from './services/apis/types';
 import {CategoryService} from './services/business/category.service';
 import {Router} from '@angular/router';
-import {combineLatest} from 'rxjs';
-import {OverlayService} from './services/tools/overlay.service';
+import {combineLatest, empty, merge, of} from 'rxjs';
+import {OverlayRef, OverlayService} from './services/tools/overlay.service';
+import {pluck, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'xm-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
   categories: Category[] = [];
   categoryPinyin = '';
   subCategory: string[] = [];
+  private overlayRef: OverlayRef;
   constructor(
     private albumServe: AlbumService,
     private cdr: ChangeDetectorRef,
@@ -27,8 +29,25 @@ export class AppComponent implements OnInit {
 
   }
 
-  showOverlay() {
-    // this.overlayServe.create()
+  showOverlay(): void {
+    event.stopPropagation();
+    this.overlayRef = this.overlayServe.create({ fade: true, backgroundColor: 'rgba(0,0,0,.32)' });
+    // console.log('overlayRef', this.overlayRef);
+    merge(
+      this.overlayRef.backdropClick(),
+      this.overlayRef.backdropKeyup().pipe(
+        pluck('key'),
+        switchMap(key => {
+          return key.toUpperCase() === 'ESCAPE' ? of(key) : empty();
+        })
+      )
+    ).subscribe(() => {
+      this.hideOverlay();
+    });
+  }
+
+  hideOverlay(): void {
+
   }
 
   ngOnInit(): void {
