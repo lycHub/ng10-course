@@ -4,6 +4,7 @@ import {Category} from './services/apis/types';
 import {CategoryService} from './services/business/category.service';
 import {Router} from '@angular/router';
 import {combineLatest} from 'rxjs';
+import {OverlayService} from './services/tools/overlay.service';
 
 @Component({
   selector: 'xm-root',
@@ -20,10 +21,16 @@ export class AppComponent implements OnInit {
     private albumServe: AlbumService,
     private cdr: ChangeDetectorRef,
     private categoryServe: CategoryService,
-    private router: Router
+    private router: Router,
+    private overlayServe: OverlayService
   ) {
 
   }
+
+  showOverlay() {
+    // this.overlayServe.create()
+  }
+
   ngOnInit(): void {
     this.init();
   }

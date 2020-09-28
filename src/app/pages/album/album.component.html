@@ -14,11 +14,7 @@
           <div class="record">
             <div class="rate">
               <div class="star-wrap">
-                <xm-rate [(ngModel)]="score"></xm-rate>
-               <!-- <ng-template #starTpl>
-&lt;!&ndash;                  <b><i>Star</i></b>&ndash;&gt;
-                  <i xmIcon="play"></i>
-                </ng-template>-->
+                <xm-rate [(ngModel)]="score" disabled></xm-rate>
               </div>
               <span class="score">{{ score * 2 }}分</span>
             </div>
