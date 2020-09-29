@@ -7,12 +7,14 @@ export interface OverlayRef {
   container: HTMLElement;
   backdropClick: () => Observable<MouseEvent>;
   backdropKeyup: () => Observable<KeyboardEvent>;
+  dispose: () => void;
 }
 
 export interface OverlayConfig {
   center?: boolean;
   fade?: boolean;
   backgroundColor?: string;
+  responseEvent?: boolean;
 }
 
 @Injectable({
@@ -23,7 +25,8 @@ export class OverlayService {
   readonly defaultConfig: Required<OverlayConfig> = {
     center: false,
     fade: false,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    responseEvent: true
   }
   private overlayRef: OverlayRef;
   private config: Required<OverlayConfig>;
@@ -47,11 +50,11 @@ export class OverlayService {
       this.rd2.appendChild(this.doc.body, container);
       this.backdropElement = container.querySelector('.overlay-mask');
       this.setConfigs(container);
-      this.listenEvents();
       this.overlayRef = {
         container,
         backdropClick: this.backdropClick.bind(this),
         backdropKeyup: this.backdropKeyup.bind(this),
+        dispose: this.dispose.bind(this)
       }
       return this.overlayRef;
     }
@@ -78,7 +81,7 @@ export class OverlayService {
   }
 
   private setConfigs(container: HTMLElement): void {
-    const { center, fade, backgroundColor } = this.config;
+    const { center, fade, backgroundColor, responseEvent } = this.config;
     if (center) {
       this.rd2.addClass(container, 'overlay-center');
     }
@@ -92,5 +95,30 @@ export class OverlayService {
     } else {
       this.rd2.addClass(this.backdropElement, 'overlay-mask-show');
     }
+    if (responseEvent) {
+      this.rd2.setStyle(this.backdropElement, 'pointer-events', 'auto');
+      this.listenEvents();
+    }
+  }
+
+  private dispose(): void {
+    if (this.overlayRef) {
+      if (this.config.fade) {
+        fromEvent(this.backdropElement, 'transitionend')
+          .pipe(takeUntil(this.detachment$)).subscribe(() => {
+          this.destory();
+        });
+        this.rd2.removeClass(this.backdropElement, 'overlay-mask-show');
+      } else {
+        this.destory();
+      }
+    }
+  }
+
+  private destory(): void {
+    this.detachment$.next();
+    this.detachment$.complete();
+    this.rd2.removeChild(this.doc.body, this.overlayRef.container);
+    this.overlayRef = null;
   }
 }
