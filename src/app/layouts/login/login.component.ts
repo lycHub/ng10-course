@@ -16,6 +16,8 @@ import {OverlayRef, OverlayService} from '../../services/tools/overlay.service';
 import {AbstractControl, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
 import {isPlatformBrowser} from '@angular/common';
 import {animate, style, transition, trigger, AnimationEvent} from '@angular/animations';
+import {UserService} from '../../services/apis/user.service';
+import {WindowService} from '../../services/tools/window.service';
 
 @Component({
   selector: 'xm-login',
@@ -47,14 +49,15 @@ export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() show = false;
   @Output() hide = new EventEmitter<void>();
   visible = false;
+  remember = true;
   private overlayRef: OverlayRef;
   private overlaySub: Subscription;
   formValues = this.fb.group({
-    phone: ['', [
+    phone: ['13647008979', [
       Validators.required,
       Validators.pattern(/^1\d{10}$/)
     ]],
-    password: ['', [
+    password: ['angular10', [
       Validators.required,
       Validators.minLength(6)
     ]]
@@ -64,6 +67,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
     private overlayServe: OverlayService,
     private fb: FormBuilder,
     @Inject(PLATFORM_ID) private platformId: object,
+    private userServe: UserService,
+    private winServe: WindowService,
     private rd2: Renderer2) { }
 
   ngOnInit(): void {
@@ -81,7 +86,19 @@ export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   submit(): void {
-    console.log('submit');
+    // console.log('submit', this.formValues.value);
+    if (this.formValues.valid) {
+      this.userServe.login(this.formValues.value).subscribe(({ user, token }) => {
+        alert('登陆成功');
+        this.winServe.setStorage('xm-auth', token);
+        if (this.remember) {
+          this.winServe.setStorage('remember', 'true');
+        }
+        this.hide.emit();
+      }, error => {
+        alert(error.error.message || '登陆失败');
+      });
+    }
   }
 
   create(): void {
