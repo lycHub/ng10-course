@@ -1,5 +1,6 @@
 export const storageKeys = {
   categoryPinyin: 'categoryPinyin',
   subcategoryCode: 'subcategoryCode',
-  metas: 'metas'
+  metas: 'metas',
+  auth: 'xm-auth'
 }

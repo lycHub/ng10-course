@@ -19,7 +19,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
   login(params: Exclude<User, 'name'>): Observable<LoginRes> {
     return this.http
-      .post(`${environment.baseUrl}${this.prefix}login`, params)
+      .post(`${environment.baseUrl}${this.prefix}loginsss`, params)
       .pipe(map((res: Base<LoginRes>) => res.data));
   }
 }

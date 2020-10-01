@@ -18,6 +18,7 @@ import {isPlatformBrowser} from '@angular/common';
 import {animate, style, transition, trigger, AnimationEvent} from '@angular/animations';
 import {UserService} from '../../services/apis/user.service';
 import {WindowService} from '../../services/tools/window.service';
+import {storageKeys} from '../../configs';
 
 @Component({
   selector: 'xm-login',
@@ -90,13 +91,11 @@ export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
     if (this.formValues.valid) {
       this.userServe.login(this.formValues.value).subscribe(({ user, token }) => {
         alert('登陆成功');
-        this.winServe.setStorage('xm-auth', token);
+        this.winServe.setStorage(storageKeys.auth, token);
         if (this.remember) {
           this.winServe.setStorage('remember', 'true');
         }
         this.hide.emit();
-      }, error => {
-        alert(error.error.message || '登陆失败');
       });
     }
   }
