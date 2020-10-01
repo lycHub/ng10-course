@@ -2,7 +2,7 @@ import {Component, OnInit, ChangeDetectionStrategy, AfterViewInit, ElementRef, R
 import {empty, merge, of, Subscription} from 'rxjs';
 import {pluck, switchMap} from 'rxjs/operators';
 import {OverlayRef, OverlayService} from '../../services/tools/overlay.service';
-import {FormBuilder, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, ValidationErrors, Validators} from '@angular/forms';
 
 @Component({
   selector: 'xm-login',
@@ -34,6 +34,33 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.showOverlay();
+  }
+  submit(): void {
+    console.log('submit');
+  }
+  get formControls(): {
+    [key: string]: {
+      control: AbstractControl,
+      showErr: boolean,
+      errors: ValidationErrors
+    }
+  } {
+    const controls = {
+      phone: this.formValues.get('phone'),
+      password: this.formValues.get('password')
+    }
+    return {
+      phone: {
+        control: controls.phone,
+        showErr: controls.phone.touched && controls.phone.invalid,
+        errors: controls.phone.errors
+      },
+      password: {
+        control: controls.password,
+        showErr: controls.password.touched && controls.password.invalid,
+        errors: controls.password.errors
+      }
+    };
   }
 
   showOverlay(): void {
