@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   categories: Category[] = [];
   categoryPinyin = '';
   subCategory: string[] = [];
+  showLogin = false;
   constructor(
     private albumServe: AlbumService,
     private cdr: ChangeDetectorRef,

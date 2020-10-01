@@ -1,5 +1,5 @@
 <div id="xm">
-  <xm-header></xm-header>
+  <xm-header (login)="showLogin = true"></xm-header>
   <div class="content">
     <div class="container">
       <div class="breadcrumb-wrap">
@@ -27,4 +27,4 @@
     </div>
   </div>
 </div>
-<xm-login></xm-login>
+<xm-login [show]="showLogin" (hide)="showLogin = false"></xm-login>

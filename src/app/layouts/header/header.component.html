@@ -7,7 +7,7 @@
       <h1>Angular</h1>
     </div>
     <div class="user">
-      <a *ngIf="!user else context">请登录</a>
+      <a *ngIf="!user else context" (click)="login.emit()">请登录</a>
       <ng-template #context>
         张三
         <a>退出</a>
