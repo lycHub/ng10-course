@@ -15,7 +15,7 @@ import {pluck, switchMap} from 'rxjs/operators';
 import {OverlayRef, OverlayService} from '../../services/tools/overlay.service';
 import {AbstractControl, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
 import {isPlatformBrowser} from '@angular/common';
-import {animate, style, transition, trigger} from '@angular/animations';
+import {animate, style, transition, trigger, AnimationEvent} from '@angular/animations';
 
 @Component({
   selector: 'xm-login',
@@ -46,6 +46,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
 export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() show = false;
   @Output() hide = new EventEmitter<void>();
+  visible = false;
   private overlayRef: OverlayRef;
   private overlaySub: Subscription;
   formValues = this.fb.group({
@@ -75,7 +76,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
     if (this.show) {
       this.create();
     } else {
-      this.dispose();
+      this.visible = false;
     }
   }
 
@@ -85,7 +86,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
 
   create(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.overlayRef = this.overlayServe.create({ fade: true, center: true, backgroundColor: 'rgba(0,0,0,.32)' });
+      this.overlayRef = this.overlayServe.create({ fade: false, center: true, backgroundColor: 'rgba(0,0,0,.32)' });
       // console.log('overlayRef', this.overlayRef);
       this.overlaySub = merge(
         this.overlayRef.backdropClick(),
@@ -98,20 +99,22 @@ export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
       ).subscribe(() => {
         this.hide.emit();
       });
+      this.visible = true;
       setTimeout(() => {
         this.rd2.appendChild(this.overlayRef.container, this.modalWrap.nativeElement);
       }, 0);
     }
   }
-
-  dispose(): void {
-    if (this.overlaySub) {
-      this.overlaySub.unsubscribe();
-      this.overlaySub = null;
-    }
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-      this.overlayRef = null;
+  animationDone(event: AnimationEvent): void {
+    if (event.toState === 'void') {
+      if (this.overlaySub) {
+        this.overlaySub.unsubscribe();
+        this.overlaySub = null;
+      }
+      if (this.overlayRef) {
+        this.overlayRef.dispose();
+        this.overlayRef = null;
+      }
     }
   }
   get formControls(): {

@@ -2,7 +2,8 @@
   class="xm-modal-wrap"
   #modalWrap
   @modalAni
-  *ngIf="show">
+  (@modalAni.done)="animationDone($event)"
+  *ngIf="visible">
   <div class="xm-modal">
     <div class="head">
       <p>Angular 10</p>
