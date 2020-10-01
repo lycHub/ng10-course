@@ -3,9 +3,11 @@
   #modalWrap
   @modalAni
   (@modalAni.done)="animationDone($event)"
-  *ngIf="visible">
+  *ngIf="visible"
+  xmDrag
+  [limitInWindow]="true">
   <div class="xm-modal">
-    <div class="head">
+    <div class="head" xmDragHandler>
       <p>Angular 10</p>
     </div>
     <div class="form-wrap">

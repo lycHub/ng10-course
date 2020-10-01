@@ -4,13 +4,14 @@ import {
   Directive,
   ElementRef,
   HostListener,
-  Inject,
+  Inject, Input,
   PLATFORM_ID,
   QueryList,
   Renderer2
 } from '@angular/core';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 import {DragHandlerDirective} from './drag-handler.directive';
+import { clamp } from 'lodash';
 
 interface StartPosition {
   x: number;
@@ -23,6 +24,7 @@ interface StartPosition {
   selector: '[xmDrag]'
 })
 export class DragDirective implements AfterViewInit {
+  @Input() limitInWindow = false;
   private startPosition: StartPosition;
   private hostEl: HTMLElement;
   private movable = false;
@@ -44,11 +46,11 @@ export class DragDirective implements AfterViewInit {
   @HostListener('mousedown', ['$event'])
   dragStart(event: MouseEvent): void {
     if (isPlatformBrowser(this.platformId)) {
-      event.preventDefault();
-      event.stopPropagation();
-      const allowDrag = !this.handlers.length ||
-        this.handlers.some(item => item.el.nativeElement.contains(event.target));
+      const allowDrag = event.button === 0 && (!this.handlers.length ||
+        this.handlers.some(item => item.el.nativeElement.contains(event.target)));
       if (allowDrag) {
+        event.preventDefault();
+        event.stopPropagation();
         const { left, top } = this.hostEl.getBoundingClientRect();
         this.startPosition = {
           x: event.clientX,
@@ -89,6 +91,13 @@ export class DragDirective implements AfterViewInit {
   private calculate(diffX: number, diffY: number): { left: number; top: number } {
     let newLeft = this.startPosition.left + diffX;
     let newTop = this.startPosition.top + diffY;
+    if (this.limitInWindow) {
+      const { width, height } = this.hostEl.getBoundingClientRect();
+      const maxLeft = this.doc.documentElement.clientWidth - width;
+      const maxTop = this.doc.documentElement.clientHeight - height;
+      newLeft = clamp(newLeft, 0, maxLeft);
+      newTop = clamp(newTop, 0, maxTop);
+    }
     return {
       left: newLeft,
       top: newTop
