@@ -1,0 +1,31 @@
+<div class="xm-modal-wrap" #modalWrap>
+  <div class="xm-modal">
+    <div class="head">
+      <p>Angular 10</p>
+    </div>
+    <div class="form-wrap">
+      <form class="form" [formGroup]="formValues">
+        <div class="form-item">
+          <input
+            formControlName="phone"
+            class="form-control xm-input"
+            placeholder="手机号"
+            type="phone" />
+        </div>
+        <div class="form-item">
+          <input
+            formControlName="password"
+            class="form-control xm-input"
+            placeholder="密码"
+            type="text" />
+        </div>
+        <div class="btn-wrap">
+          <button class="btn" xmBtn [xmBlock]="true">登陆</button>
+        </div>
+      </form>
+      <div class="remember">
+        <label xm-checkbox>下次自动登陆</label>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+.xm-modal-wrap {
+  position: absolute;
+  width: 440px;
+  background-color: #fff;
+  padding: 25px 20px 38px 20px;
+  border-radius: 5px;
+  user-select: none;
+  pointer-events: auto;
+  .xm-modal {
+    .head {
+      position: relative;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e8e8e8;
+      color: #f86442;
+      font-size: 18px;
+      margin-bottom: 18px;
+      &:after {
+        display: block;
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 92px;
+        height: 3px;
+        background: #f86442;
+        border-radius: 100px;
+      }
+    }
+    .form-wrap {
+      overflow: hidden;
+      .form {
+        overflow: hidden;
+        .form-item {
+          position: relative;
+          margin-bottom: 34px;
+          .form-control-err {
+            position: absolute;
+            padding-top: 6px;
+            color: #fc0d1c;
+          }
+        }
+        .btn-wrap {
+
+        }
+      }
+      .remember {
+        margin-top: 16px;
+
+      }
+    }
+  }
+}

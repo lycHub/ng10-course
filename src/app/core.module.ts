@@ -6,20 +6,28 @@ import {BreadcrumbModule} from './share/components/breadcrumb/breadcrumb.module'
 import {HttpClientModule} from '@angular/common/http';
 import {PagesModule} from './pages/pages.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { LoginComponent } from './layouts/login/login.component';
+import {DirectivesModule} from './share/directives/directives.module';
+import {CheckboxModule} from './share/components/checkbox/checkbox.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, LoginComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     PagesModule,
     AppRoutingModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    DirectivesModule,
+    CheckboxModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  exports: [HeaderComponent, BreadcrumbModule, BrowserModule, AppRoutingModule]
+  exports: [HeaderComponent, BreadcrumbModule, BrowserModule, AppRoutingModule, LoginComponent]
 })
 export class CoreModule {
   constructor(@SkipSelf() @Optional() parentModule: CoreModule) {

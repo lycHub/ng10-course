@@ -18,41 +18,13 @@ export class AppComponent implements OnInit {
   categories: Category[] = [];
   categoryPinyin = '';
   subCategory: string[] = [];
-  private overlayRef: OverlayRef;
-  private overlaySub: Subscription;
   constructor(
     private albumServe: AlbumService,
     private cdr: ChangeDetectorRef,
     private categoryServe: CategoryService,
-    private router: Router,
-    private overlayServe: OverlayService
+    private router: Router
   ) {
 
-  }
-
-  showOverlay(): void {
-    this.overlayRef = this.overlayServe.create({ fade: true, responseEvent: false, backgroundColor: 'rgba(0,0,0,.32)' });
-    // console.log('overlayRef', this.overlayRef);
-    this.overlaySub = merge(
-      this.overlayRef.backdropClick(),
-      this.overlayRef.backdropKeyup().pipe(
-        pluck('key'),
-        switchMap(key => {
-          return key.toUpperCase() === 'ESCAPE' ? of(key) : empty();
-        })
-      )
-    ).subscribe(() => {
-      this.hideOverlay();
-    });
-  }
-
-  hideOverlay(): void {
-    if (this.overlaySub) {
-      this.overlaySub.unsubscribe();
-      this.overlaySub = null;
-    }
-    this.overlayRef.dispose();
-    this.overlayRef = null;
   }
 
   ngOnInit(): void {
