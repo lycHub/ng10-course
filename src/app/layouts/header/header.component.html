@@ -9,8 +9,7 @@
     <div class="user">
       <a *ngIf="!user else context" (click)="login.emit()">请登录</a>
       <ng-template #context>
-        张三
-        <a>退出</a>
+        {{ user.name }},<a (click)="logout.emit()">退出</a>
       </ng-template>
     </div>
   </div>

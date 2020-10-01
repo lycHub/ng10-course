@@ -19,6 +19,7 @@ import {animate, style, transition, trigger, AnimationEvent} from '@angular/anim
 import {UserService} from '../../services/apis/user.service';
 import {WindowService} from '../../services/tools/window.service';
 import {storageKeys} from '../../configs';
+import {ContextService} from '../../services/business/context.service';
 
 @Component({
   selector: 'xm-login',
@@ -70,6 +71,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
     @Inject(PLATFORM_ID) private platformId: object,
     private userServe: UserService,
     private winServe: WindowService,
+    private contextServe: ContextService,
     private rd2: Renderer2) { }
 
   ngOnInit(): void {
@@ -90,12 +92,13 @@ export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
     // console.log('submit', this.formValues.value);
     if (this.formValues.valid) {
       this.userServe.login(this.formValues.value).subscribe(({ user, token }) => {
-        alert('登陆成功');
+        this.contextServe.setUser(user);
         this.winServe.setStorage(storageKeys.auth, token);
         if (this.remember) {
-          this.winServe.setStorage('remember', 'true');
+          this.winServe.setStorage(storageKeys.remember, 'true');
         }
         this.hide.emit();
+        alert('登陆成功');
       });
     }
   }

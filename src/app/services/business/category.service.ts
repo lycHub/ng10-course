@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
 import {WindowService} from '../tools/window.service';
 import {storageKeys} from '../../configs';
 

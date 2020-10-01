@@ -17,9 +17,10 @@ export class InterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // console.log('拦截器');
     const auth = this.windowServe.getStorage(storageKeys.auth);
+    const needToken = req.headers.get(storageKeys.needToken);
     let httpConfig: CustomHttpConfig = {};
-    if (auth) {
-      httpConfig = { headers: req.headers.set(storageKeys.auth, auth) };
+    if (needToken) {
+      httpConfig = { headers: req.headers.set(storageKeys.auth, auth || '') };
     }
     const copyReq = req.clone(httpConfig);
     return next.handle(copyReq).pipe(catchError(error => this.handleError(error)));

@@ -6,6 +6,10 @@ import {Router} from '@angular/router';
 import {combineLatest, empty, merge, of, Subscription} from 'rxjs';
 import {OverlayRef, OverlayService} from './services/tools/overlay.service';
 import {pluck, switchMap} from 'rxjs/operators';
+import {WindowService} from './services/tools/window.service';
+import {UserService} from './services/apis/user.service';
+import {storageKeys} from './configs';
+import {ContextService} from './services/business/context.service';
 
 @Component({
   selector: 'xm-root',
@@ -23,12 +27,24 @@ export class AppComponent implements OnInit {
     private albumServe: AlbumService,
     private cdr: ChangeDetectorRef,
     private categoryServe: CategoryService,
-    private router: Router
+    private router: Router,
+    private winServe: WindowService,
+    private userServe: UserService,
+    private contextServe: ContextService
   ) {
 
   }
 
   ngOnInit(): void {
+    if (this.winServe.getStorage(storageKeys.remember)) {
+      this.userServe.userInfo().subscribe(({ user, token }) => {
+        this.contextServe.setUser(user);
+        this.winServe.setStorage(storageKeys.auth, token);
+      }, error => {
+        console.error(error);
+        this.clearStorage();
+      });
+    }
     this.init();
   }
   changeCategory(category: Category): void {
@@ -61,5 +77,17 @@ export class AppComponent implements OnInit {
 
   private setCurrentCategory(): void {
     this.currentCategory = this.categories.find(item => item.pinyin === this.categoryPinyin);
+  }
+
+  logout(): void {
+    this.userServe.logout().subscribe(() => {
+      this.contextServe.setUser(null);
+      this.clearStorage();
+      alert('退出成功');
+    });
+  }
+  private clearStorage(): void {
+    this.winServe.removeStorage(storageKeys.remember);
+    this.winServe.removeStorage(storageKeys.auth);
   }
 }
