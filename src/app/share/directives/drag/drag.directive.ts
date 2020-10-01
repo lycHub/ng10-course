@@ -1,5 +1,16 @@
-import {AfterViewInit, Directive, ElementRef, HostListener, Inject, PLATFORM_ID, Renderer2} from '@angular/core';
+import {
+  AfterViewInit,
+  ContentChildren,
+  Directive,
+  ElementRef,
+  HostListener,
+  Inject,
+  PLATFORM_ID,
+  QueryList,
+  Renderer2
+} from '@angular/core';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
+import {DragHandlerDirective} from './drag-handler.directive';
 
 interface StartPosition {
   x: number;
@@ -17,6 +28,7 @@ export class DragDirective implements AfterViewInit {
   private movable = false;
   private dragMoveHandler: () => void;
   private dragEndHandler: () => void;
+  @ContentChildren(DragHandlerDirective, { descendants: true }) private handlers: QueryList<DragHandlerDirective>;
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(DOCUMENT) private doc: Document,
@@ -26,6 +38,7 @@ export class DragDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.hostEl = this.el.nativeElement;
+    this.setHandlerMouseStyle();
   }
 
   @HostListener('mousedown', ['$event'])
@@ -33,14 +46,18 @@ export class DragDirective implements AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       event.preventDefault();
       event.stopPropagation();
-      const { left, top } = this.hostEl.getBoundingClientRect();
-      this.startPosition = {
-        x: event.clientX,
-        y: event.clientY,
-        left,
-        top
-      };
-      this.toggleMoving(true);
+      const allowDrag = !this.handlers.length ||
+        this.handlers.some(item => item.el.nativeElement.contains(event.target));
+      if (allowDrag) {
+        const { left, top } = this.hostEl.getBoundingClientRect();
+        this.startPosition = {
+          x: event.clientX,
+          y: event.clientY,
+          left,
+          top
+        };
+        this.toggleMoving(true);
+      }
     }
   }
 
@@ -80,5 +97,14 @@ export class DragDirective implements AfterViewInit {
 
   private dragEnd(): void {
     this.toggleMoving(false);
+  }
+
+  private setHandlerMouseStyle(): void {
+    console.log('handlers', this.handlers);
+    if (this.handlers.length) {
+      this.handlers.forEach(item => this.rd2.setStyle(item.el.nativeElement, 'cursor', 'move'));
+    } else {
+      this.rd2.setStyle(this.hostEl, 'cursor', 'move');
+    }
   }
 }

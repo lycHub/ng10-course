@@ -83,6 +83,26 @@
   top: 40%;
   left: 40%;
   width: 300px;
-  height: 200px;
-  background-color: #fa8c16;
+  padding: 20px;
+  background-color: #3f2824;
+  .sec {
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    background-color: #f86442;
+  }
+  .sec2 {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #8fd19e;
+    p {
+      font-size: 16px;
+      color: #c92921;
+      text-align: center;
+      border: 1px solid;
+    }
+  }
+  .sec3 {
+    background-color: #7abaff;
+  }
 }
