@@ -78,6 +78,7 @@ export class AppComponent implements OnInit {
       }
       if (currentTrack) {
         this.showPlayer = true;
+        this.cdr.markForCheck();
       }
     });
   }

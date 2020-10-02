@@ -6,7 +6,7 @@
     <div class="middle">
       <div class="operate">
         <i class="icon icon-prev" xmIcon="previous"></i>
-        <i class="icon icon-toggle" xmIcon="play"></i>
+        <i class="icon icon-toggle" (click)="togglePlay()" [xmIcon]="playing ? 'pause' : 'play'"></i>
         <i class="icon icon-next" xmIcon="next"></i>
       </div>
     </div>
@@ -20,11 +20,22 @@
   <div class="xm-player-panel down">
     <div class="panel-wrap">
       <ul>
-        <li *ngFor="let item of trackList; index as i">
+        <li
+          *ngFor="let item of trackList; index as i; trackBy: trackByTracks"
+          [class.current]="item.trackId === currentTrack?.trackId"
+        >
           <p class="title ellipsis" [title]="item.title">{{ item.title }}</p>
           <i class="icon" xmIcon="delete"></i>
         </li>
       </ul>
     </div>
   </div>
+  <audio
+    #audio
+    [src]="currentTrack?.src"
+    (canplay)="canplay()"
+    (ended)="ended()"
+    (error)="error()"
+  >
+  </audio>
 </div>

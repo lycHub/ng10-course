@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AlbumInfo, Track} from '../apis/types';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {AlbumService} from '../apis/album.service';
+import {MessageService} from '../../share/components/message/message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,10 @@ export class PlayerService {
   private currentTrack$ = new BehaviorSubject<Track>(null);
   private album$ = new BehaviorSubject<AlbumInfo>(null);
   private playing$ = new BehaviorSubject<boolean>(false);
-  constructor() { }
+  constructor(
+    private albumServe: AlbumService,
+    private messageServe: MessageService
+  ) { }
 
   setTracks(tracks: Track[]): void {
     this.trackList = tracks;
@@ -36,7 +41,18 @@ export class PlayerService {
 
   setCurrentTrack(track: Track): void {
     if (track) {
-      this.currentTrack$.next(track);
+      const target = this.trackList.find(item => item.trackId === track.trackId);
+      if (target) {
+        if (target.src) {
+          this.currentTrack$.next(track);
+        } else {
+          this.getAudio(track);
+        }
+      } else {
+        this.getAudio(track);
+      }
+    } else {
+
     }
   }
 
@@ -58,5 +74,18 @@ export class PlayerService {
 
   getAlbum(): Observable<AlbumInfo> {
     return this.album$.asObservable();
+  }
+
+  private getAudio(track: Track): void {
+    this.albumServe.trackAudio(track.trackId).subscribe(audio => {
+      // console.log('audio', audio);
+      if (!audio.src && audio.isPaid) {
+        this.messageServe.warning('请先购买专辑');
+      } else {
+        track.src = audio.src;
+        track.isPaid = audio.isPaid;
+        this.currentTrack$.next(track);
+      }
+    });
   }
 }

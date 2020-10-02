@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
-import {Album, AlbumInfo, Anchor, Base, Category, MetaData, RelateAlbum, SubCategory, TracksInfo} from './types';
+import {Album, AlbumInfo, Anchor, Base, Category, MetaData, RelateAlbum, SubCategory, TrackAudio, TracksInfo} from './types';
 import {stringify} from 'querystring';
 
 export interface CategoryInfo {
@@ -100,5 +100,11 @@ export class AlbumService {
     const params = new HttpParams({ fromString: stringify(args) });
     return this.http.get(`${environment.baseUrl}${this.prefix}album-tracks`, { params })
       .pipe(map((res: Base<TracksInfo>) => res.data));
+  }
+
+  // 播放地址
+  trackAudio(id: number): Observable<TrackAudio> {
+    return this.http.get(`${environment.baseUrl}${this.prefix}album-track-url/${id}`)
+      .pipe(map((res: Base<TrackAudio>) => res.data));
   }
 }
