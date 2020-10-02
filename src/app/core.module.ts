@@ -33,7 +33,7 @@ import {MessageModule} from './share/components/message/message.module';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
   ],
-  exports: [MessageModule, HeaderComponent, BreadcrumbModule, BrowserModule, AppRoutingModule, LoginComponent]
+  exports: [HeaderComponent, BreadcrumbModule, BrowserModule, AppRoutingModule, LoginComponent]
 })
 export class CoreModule {
   constructor(@SkipSelf() @Optional() parentModule: CoreModule) {

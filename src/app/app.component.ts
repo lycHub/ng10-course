@@ -10,6 +10,7 @@ import {WindowService} from './services/tools/window.service';
 import {UserService} from './services/apis/user.service';
 import {storageKeys} from './configs';
 import {ContextService} from './services/business/context.service';
+import {MessageService} from './share/components/message/message.service';
 
 @Component({
   selector: 'xm-root',
@@ -30,9 +31,14 @@ export class AppComponent implements OnInit {
     private router: Router,
     private winServe: WindowService,
     private userServe: UserService,
-    private contextServe: ContextService
+    private contextServe: ContextService,
+    private messageServe: MessageService
   ) {
 
+  }
+
+  showMsg(): void {
+    this.messageServe.create();
   }
 
   ngOnInit(): void {
