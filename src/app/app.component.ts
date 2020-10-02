@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {AlbumService} from './services/apis/album.service';
-import {Category} from './services/apis/types';
+import {AlbumInfo, Category, Track} from './services/apis/types';
 import {CategoryService} from './services/business/category.service';
 import {Router} from '@angular/router';
 import {combineLatest, empty, merge, of, Subscription} from 'rxjs';
@@ -11,6 +11,7 @@ import {UserService} from './services/apis/user.service';
 import {storageKeys} from './configs';
 import {ContextService} from './services/business/context.service';
 import {MessageService} from './share/components/message/message.service';
+import {PlayerService} from './services/business/player.service';
 
 @Component({
   selector: 'xm-root',
@@ -24,6 +25,14 @@ export class AppComponent implements OnInit {
   categoryPinyin = '';
   subCategory: string[] = [];
   showLogin = false;
+  showPlayer = false;
+  playerInfo: {
+    trackList: Track[];
+    currentIndex: number;
+    currentTrack: Track;
+    album: AlbumInfo;
+    playing: boolean;
+  };
   constructor(
     private albumServe: AlbumService,
     private cdr: ChangeDetectorRef,
@@ -32,7 +41,8 @@ export class AppComponent implements OnInit {
     private winServe: WindowService,
     private userServe: UserService,
     private contextServe: ContextService,
-    private messageServe: MessageService
+    private messageServe: MessageService,
+    private playerServe: PlayerService
   ) {
 
   }
@@ -48,7 +58,30 @@ export class AppComponent implements OnInit {
       });
     }
     this.init();
+    this.watchPlayer();
   }
+  private watchPlayer(): void {
+    combineLatest(
+      this.playerServe.getTracks(),
+      this.playerServe.getCurrentIndex(),
+      this.playerServe.getCurrentTrack(),
+      this.playerServe.getAlbum(),
+      this.playerServe.getPlaying()
+    ).subscribe(([trackList, currentIndex, currentTrack, album, playing]) => {
+      // console.log('trackList', trackList);
+      this.playerInfo = {
+        trackList,
+        currentIndex,
+        currentTrack,
+        album,
+        playing
+      }
+      if (currentTrack) {
+        this.showPlayer = true;
+      }
+    });
+  }
+
   changeCategory(category: Category): void {
     this.router.navigateByUrl('/albums/' + category.pinyin);
   }
@@ -57,7 +90,7 @@ export class AppComponent implements OnInit {
       this.categoryServe.getCategory(),
       this.categoryServe.getSubCategory()
     ).subscribe(([category, subCategory]) => {
-      console.log('get category', category);
+      // console.log('get category', category);
       if (category !== this.categoryPinyin) {
         this.categoryPinyin = category;
         if (this.categories.length) {

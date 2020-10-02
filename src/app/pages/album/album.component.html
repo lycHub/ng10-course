@@ -27,7 +27,7 @@
             <xm-tag class="meta" *ngFor="let meta of albumInfo.metas">{{ meta.metaDisplayName }}</xm-tag>
           </div>
           <div class="actions">
-            <button xmBtn [xmCircle]="true" class="btn">
+            <button xmBtn [xmCircle]="true" class="btn" (click)="playAll()">
               <i xmIcon="play1" class="icon"></i>
               播放全部
             </button>

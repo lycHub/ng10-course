@@ -6,6 +6,7 @@ import {CategoryService} from '../../services/business/category.service';
 import {AlbumInfo, Anchor, RelateAlbum, Track} from '../../services/apis/types';
 import {IconType} from '../../share/directives/icon/type';
 import {first} from 'rxjs/operators';
+import {PlayerService} from '../../services/business/player.service';
 
 interface MoreState {
   full: boolean;
@@ -42,8 +43,16 @@ export class AlbumComponent implements OnInit {
     private route: ActivatedRoute,
     private albumServe: AlbumService,
     private categoryServe: CategoryService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private playerServe: PlayerService
   ) { }
+
+  playAll(): void {
+    console.log(this.tracks);
+    this.playerServe.setTracks(this.tracks);
+    this.playerServe.setCurrentIndex(0);
+    this.playerServe.setAlbum(this.albumInfo);
+  }
 
   toggleMore(): void {
     this.moreState.full = !this.moreState.full;
