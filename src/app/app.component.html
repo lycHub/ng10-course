@@ -2,6 +2,9 @@
   <xm-header (login)="showLogin = true" (logout)="logout()"></xm-header>
   <div class="test-message">
     <button (click)="showMsg()">show message</button>
+    <button (click)="showMsg('success')">success message</button>
+    <button (click)="showMsg('warning')">warning message</button>
+    <button (click)="showMsg('error')">error message</button>
   </div>
   <div class="content">
     <div class="container">

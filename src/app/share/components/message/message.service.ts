@@ -33,7 +33,23 @@ export class MessageService {
     this.rd2 = this.rd2Factory.createRenderer(null, null);
   }
 
-  create(content: string | TemplateRef<void>, options?: XmMessageOptions): XmMessageItemData {
+  info(content: string | TemplateRef<void>, options?: XmMessageOptions): XmMessageItemData {
+    return this.create(content, { ...options, type: 'info' });
+  }
+
+  warning(content: string | TemplateRef<void>, options?: XmMessageOptions): XmMessageItemData {
+    return this.create(content, { ...options, type: 'warning' });
+  }
+
+  success(content: string | TemplateRef<void>, options?: XmMessageOptions): XmMessageItemData {
+    return this.create(content, { ...options, type: 'success' });
+  }
+
+  error(content: string | TemplateRef<void>, options?: XmMessageOptions): XmMessageItemData {
+    return this.create(content, { ...options, type: 'error' });
+  }
+
+  private create(content: string | TemplateRef<void>, options?: XmMessageOptions): XmMessageItemData {
     const messageItemData: XmMessageItemData = {
       messageId: uniqueId('message-'),
       content,

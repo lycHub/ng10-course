@@ -37,10 +37,9 @@ export class AppComponent implements OnInit {
 
   }
 
-  showMsg(): void {
-    const message = this.messageServe.create('一段提示', {
+  showMsg(type = 'info'): void {
+    const message = this.messageServe[type]('一段提示' + type, {
       showClose: true,
-      type: 'success',
       pauseOnHover: true
     });
     // console.log('message', message);

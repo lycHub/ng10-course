@@ -12,7 +12,8 @@ export class MessageComponent implements OnInit {
     type: 'info',
     duration: 3000,
     showClose: false,
-    pauseOnHover: false
+    pauseOnHover: false,
+    maxStack: 5
   }
   messages: XmMessageItemData[] = [];
   empty = new EventEmitter();
@@ -23,6 +24,9 @@ export class MessageComponent implements OnInit {
 
   createMessage(message: XmMessageItemData): void {
     message.options = { ...this.defaultConfig, ...message.options };
+    if (message.options.maxStack > 0 && this.messages.length >= message.options.maxStack) {
+      this.removeMessage(this.messages[0].messageId);
+    }
     this.messages.push(message);
     this.cdr.markForCheck();
     // console.log('messages', this.messages);
