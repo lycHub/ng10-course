@@ -1,0 +1,30 @@
+<div class="xm-player-box" xmDrag>
+  <div class="xm-player" #player>
+    <div class="thumbnail">
+      <img xmDragHandler src="../../../assets/images/default-pic.jpg" />
+    </div>
+    <div class="middle">
+      <div class="operate">
+        <i class="icon icon-prev" xmIcon="previous"></i>
+        <i class="icon icon-toggle" xmIcon="play"></i>
+        <i class="icon icon-next" xmIcon="next"></i>
+      </div>
+    </div>
+    <div class="list">
+      <i class="icon" xmIcon="mulu"></i>
+    </div>
+    <div class="close">
+      <i class="icon" xmIcon="Close"></i>
+    </div>
+  </div>
+  <div class="xm-player-panel">
+    <div class="panel-wrap">
+      <ul>
+        <li *ngFor="let n of 99 | numberLoop; index as i">
+          <p class="title ellipsis">{{ 'title' + i }}</p>
+          <i class="icon" xmIcon="delete"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

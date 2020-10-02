@@ -37,18 +37,6 @@ export class AppComponent implements OnInit {
 
   }
 
-  showMsg(type = 'info'): void {
-    const message = this.messageServe[type]('一段提示' + type, {
-      showClose: true,
-      pauseOnHover: true,
-      animate: true
-    });
-    // console.log('message', message);
-    message.onClose.subscribe(() => {
-      console.log('close 回调', message.messageId);
-    });
-  }
-
   ngOnInit(): void {
     if (this.winServe.getStorage(storageKeys.remember)) {
       this.userServe.userInfo().subscribe(({ user, token }) => {

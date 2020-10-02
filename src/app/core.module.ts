@@ -12,11 +12,13 @@ import {CheckboxModule} from './share/components/checkbox/checkbox.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InterceptorService} from './services/apis/interceptor.service';
 import {MessageModule} from './share/components/message/message.module';
+import { PlayerComponent } from './layouts/player/player.component';
+import {PipesModule} from './share/pipes/pipes.module';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, LoginComponent],
+  declarations: [HeaderComponent, LoginComponent, PlayerComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -28,12 +30,13 @@ import {MessageModule} from './share/components/message/message.module';
     CheckboxModule,
     FormsModule,
     ReactiveFormsModule,
-    MessageModule
+    MessageModule,
+    PipesModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
   ],
-  exports: [HeaderComponent, BreadcrumbModule, BrowserModule, AppRoutingModule, LoginComponent]
+  exports: [HeaderComponent, BreadcrumbModule, BrowserModule, AppRoutingModule, LoginComponent, PlayerComponent]
 })
 export class CoreModule {
   constructor(@SkipSelf() @Optional() parentModule: CoreModule) {

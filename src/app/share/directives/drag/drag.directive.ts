@@ -84,6 +84,7 @@ export class DragDirective implements AfterViewInit {
     const diffX = event.clientX - this.startPosition.x;
     const diffY = event.clientY - this.startPosition.y;
     const { left, top } = this.calculate(diffX, diffY);
+    this.rd2.setStyle(this.hostEl, 'right', 'unset');
     this.rd2.setStyle(this.hostEl, 'left', left + 'px');
     this.rd2.setStyle(this.hostEl, 'top', top + 'px');
   }
