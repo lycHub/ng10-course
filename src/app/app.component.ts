@@ -38,7 +38,11 @@ export class AppComponent implements OnInit {
   }
 
   showMsg(): void {
-    this.messageServe.create('一段提示', { showClose: true, type: 'success' });
+    const message = this.messageServe.create('一段提示', { showClose: true, type: 'success' });
+    // console.log('message', message);
+    message.onClose.subscribe(() => {
+      console.log('close 回调', message.messageId);
+    });
   }
 
   ngOnInit(): void {

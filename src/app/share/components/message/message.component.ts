@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter} from '@angular/core';
 import {XmMessageItemData, XmMessageOptions} from './types';
 
 @Component({
@@ -14,6 +14,7 @@ export class MessageComponent implements OnInit {
     showClose: false
   }
   messages: XmMessageItemData[] = [];
+  empty = new EventEmitter();
   constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -24,5 +25,18 @@ export class MessageComponent implements OnInit {
     this.messages.push(message);
     this.cdr.markForCheck();
     // console.log('messages', this.messages);
+  }
+
+  removeMessage(id: string): void {
+    // console.log('removeMessage', id);
+    const targetIndex = this.messages.findIndex(item => item.messageId === id);
+    if (targetIndex > -1) {
+      this.messages[targetIndex].onClose.next();
+      this.messages[targetIndex].onClose.complete();
+      this.messages.splice(targetIndex, 1);
+    }
+    if (this.messages.length === 0) {
+      this.empty.emit();
+    }
   }
 }

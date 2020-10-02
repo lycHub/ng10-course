@@ -1,5 +1,6 @@
 import {Component, OnInit, ChangeDetectionStrategy, Input} from '@angular/core';
 import {XmMessageItemData} from '../types';
+import {MessageComponent} from '../message.component';
 
 @Component({
   selector: 'xm-message-item',
@@ -10,9 +11,13 @@ import {XmMessageItemData} from '../types';
 export class MessageItemComponent implements OnInit {
   @Input() index = 0;
   @Input() message: XmMessageItemData;
-  constructor() { }
+  constructor(private parent: MessageComponent) { }
 
   ngOnInit(): void {
+  }
+
+  close(): void {
+    this.parent.removeMessage(this.message.messageId);
   }
 
   get itemCls(): string {

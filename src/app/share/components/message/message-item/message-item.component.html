@@ -3,6 +3,6 @@
     <div class="content">
       {{ message.content }}
     </div>
-    <i xmIcon="Close" class="close" *ngIf="message.options.showClose"></i>
+    <i xmIcon="Close" class="close" (click)="close()" *ngIf="message.options.showClose"></i>
   </div>
 </div>

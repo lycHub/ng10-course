@@ -11,7 +11,7 @@ import {
 import {MessageModule} from './message.module';
 import {MessageComponent} from './message.component';
 import {DOCUMENT} from '@angular/common';
-import {XmMessageOptions} from './types';
+import {XmMessageItemData, XmMessageOptions} from './types';
 import {Subject} from 'rxjs';
 import { uniqueId } from 'lodash';
 
@@ -32,16 +32,18 @@ export class MessageService {
     this.rd2 = this.rd2Factory.createRenderer(null, null);
   }
 
-  create(content: string | TemplateRef<void>, options?: XmMessageOptions): void {
+  create(content: string | TemplateRef<void>, options?: XmMessageOptions): XmMessageItemData {
     if (!this.message) {
       this.message = this.getMessage();
     }
-    this.message.createMessage({
+    const messageItemData: XmMessageItemData = {
       messageId: uniqueId('message-'),
       content,
       onClose: new Subject<void>(),
       options
-    });
+    }
+    this.message.createMessage(messageItemData);
+    return messageItemData;
   }
 
   private getMessage(): MessageComponent {
@@ -49,6 +51,18 @@ export class MessageService {
     this.componentRef = factory.create(this.injector);
     this.appRef.attachView(this.componentRef.hostView);
     this.rd2.appendChild(this.doc.body, this.componentRef.location.nativeElement);
-    return this.componentRef.instance;
+    const { instance } = this.componentRef;
+    this.componentRef.onDestroy(() => {
+      console.log('已销毁');
+    });
+    instance.empty.subscribe(() => {
+      this.destory();
+    });
+    return instance;
+  }
+
+  private destory(): void {
+    this.componentRef.destroy();
+    this.message = null;
   }
 }
