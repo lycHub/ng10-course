@@ -4,13 +4,13 @@ import {
   ComponentRef,
   Inject,
   Injectable,
-  Injector,
+  Injector, PLATFORM_ID,
   Renderer2,
   RendererFactory2, TemplateRef
 } from '@angular/core';
 import {MessageModule} from './message.module';
 import {MessageComponent} from './message.component';
-import {DOCUMENT} from '@angular/common';
+import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 import {XmMessageItemData, XmMessageOptions} from './types';
 import {Subject} from 'rxjs';
 import { uniqueId } from 'lodash';
@@ -24,6 +24,7 @@ export class MessageService {
   private rd2: Renderer2;
   constructor(
     @Inject(DOCUMENT) private doc: Document,
+    @Inject(PLATFORM_ID) private platformId: object,
     private cfr: ComponentFactoryResolver,
     private injector: Injector,
     private appRef: ApplicationRef,
@@ -33,16 +34,18 @@ export class MessageService {
   }
 
   create(content: string | TemplateRef<void>, options?: XmMessageOptions): XmMessageItemData {
-    if (!this.message) {
-      this.message = this.getMessage();
-    }
     const messageItemData: XmMessageItemData = {
       messageId: uniqueId('message-'),
       content,
       onClose: new Subject<void>(),
       options
     }
-    this.message.createMessage(messageItemData);
+    if (isPlatformBrowser(this.platformId)) {
+      if (!this.message) {
+        this.message = this.getMessage();
+      }
+      this.message.createMessage(messageItemData);
+    }
     return messageItemData;
   }
 

@@ -11,7 +11,8 @@ export class MessageComponent implements OnInit {
   readonly defaultConfig: Required<XmMessageOptions> = {
     type: 'info',
     duration: 3000,
-    showClose: false
+    showClose: false,
+    pauseOnHover: false
   }
   messages: XmMessageItemData[] = [];
   empty = new EventEmitter();
@@ -34,6 +35,7 @@ export class MessageComponent implements OnInit {
       this.messages[targetIndex].onClose.next();
       this.messages[targetIndex].onClose.complete();
       this.messages.splice(targetIndex, 1);
+      this.cdr.markForCheck();
     }
     if (this.messages.length === 0) {
       this.empty.emit();

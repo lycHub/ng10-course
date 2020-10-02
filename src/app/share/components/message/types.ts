@@ -7,6 +7,7 @@ export interface XmMessageOptions {
   type?: XmMessageType;
   duration?: number;
   showClose?: boolean;
+  pauseOnHover?: boolean;
 }
 
 

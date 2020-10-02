@@ -1,4 +1,8 @@
-<div class="xm-message-wrap">
+<div
+  class="xm-message-wrap"
+  (mouseenter)="enter()"
+  (mouseleave)="leave()"
+>
   <div [class]="itemCls">
     <div class="content">
       {{ message.content }}
