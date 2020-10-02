@@ -40,7 +40,8 @@ export class AppComponent implements OnInit {
   showMsg(type = 'info'): void {
     const message = this.messageServe[type]('一段提示' + type, {
       showClose: true,
-      pauseOnHover: true
+      pauseOnHover: true,
+      animate: true
     });
     // console.log('message', message);
     message.onClose.subscribe(() => {
@@ -96,7 +97,7 @@ export class AppComponent implements OnInit {
     this.userServe.logout().subscribe(() => {
       this.contextServe.setUser(null);
       this.clearStorage();
-      alert('退出成功');
+      this.messageServe.success('退出成功');
     });
   }
   private clearStorage(): void {

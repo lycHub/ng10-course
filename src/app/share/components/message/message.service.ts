@@ -53,6 +53,7 @@ export class MessageService {
     const messageItemData: XmMessageItemData = {
       messageId: uniqueId('message-'),
       content,
+      state: 'enter',
       onClose: new Subject<void>(),
       options
     }

@@ -13,7 +13,8 @@ export class MessageComponent implements OnInit {
     duration: 3000,
     showClose: false,
     pauseOnHover: false,
-    maxStack: 5
+    maxStack: 5,
+    animate: true
   }
   messages: XmMessageItemData[] = [];
   empty = new EventEmitter();

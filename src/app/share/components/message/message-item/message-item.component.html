@@ -2,7 +2,9 @@
   class="xm-message-wrap"
   (mouseenter)="enter()"
   (mouseleave)="leave()"
->
+  [@.disabled]="!message.options.animate"
+  [@moveUpMotion]="message.state"
+  (@moveUpMotion.done)="animationDone($event)">
   <div [class]="itemCls">
     <div class="content">
       {{ message.content }}

@@ -20,6 +20,7 @@ import {UserService} from '../../services/apis/user.service';
 import {WindowService} from '../../services/tools/window.service';
 import {storageKeys} from '../../configs';
 import {ContextService} from '../../services/business/context.service';
+import {MessageService} from '../../share/components/message/message.service';
 
 @Component({
   selector: 'xm-login',
@@ -72,7 +73,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
     private userServe: UserService,
     private winServe: WindowService,
     private contextServe: ContextService,
-    private rd2: Renderer2) { }
+    private rd2: Renderer2,
+    private messageServe: MessageService) { }
 
   ngOnInit(): void {
   }
@@ -98,7 +100,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnChanges {
           this.winServe.setStorage(storageKeys.remember, 'true');
         }
         this.hide.emit();
-        alert('登陆成功');
+        this.messageServe.success('登陆成功');
       });
     }
   }

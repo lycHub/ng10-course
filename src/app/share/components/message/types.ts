@@ -9,6 +9,7 @@ export interface XmMessageOptions {
   showClose?: boolean;
   pauseOnHover?: boolean;
   maxStack?: number;
+  animate?: boolean;
 }
 
 
@@ -16,5 +17,6 @@ export interface XmMessageItemData {
   messageId: string;
   content: string | TemplateRef<void>;
   onClose: Subject<void>;
+  state: 'enter' | 'leave',
   options?: XmMessageOptions;
 }
