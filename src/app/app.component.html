@@ -1,5 +1,8 @@
 <div id="xm">
   <xm-header (login)="showLogin = true" (logout)="logout()"></xm-header>
+  <div class="test-message">
+    <button xmBtn>show message</button>
+  </div>
   <div class="content">
     <div class="container">
       <div class="breadcrumb-wrap">
@@ -28,11 +31,4 @@
   </div>
 </div>
 <xm-login [show]="showLogin" (hide)="showLogin = false"></xm-login>
-
-<!--<div class="test-box" xmDrag [limitInWindow]="true">
-  <div class="sec">sec</div>
-  <div class="sec sec2">
-    <p xmDragHandler>sec2 中的p</p>
-  </div>
-  <div class="sec sec3" xmDragHandler>sec3</div>
-</div>-->
+<xm-message></xm-message>

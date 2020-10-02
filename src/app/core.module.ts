@@ -11,6 +11,7 @@ import {DirectivesModule} from './share/directives/directives.module';
 import {CheckboxModule} from './share/components/checkbox/checkbox.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InterceptorService} from './services/apis/interceptor.service';
+import {MessageModule} from './share/components/message/message.module';
 
 
 
@@ -26,12 +27,13 @@ import {InterceptorService} from './services/apis/interceptor.service';
     DirectivesModule,
     CheckboxModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MessageModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
   ],
-  exports: [HeaderComponent, BreadcrumbModule, BrowserModule, AppRoutingModule, LoginComponent, DirectivesModule]
+  exports: [MessageModule, HeaderComponent, BreadcrumbModule, BrowserModule, AppRoutingModule, LoginComponent]
 })
 export class CoreModule {
   constructor(@SkipSelf() @Optional() parentModule: CoreModule) {
