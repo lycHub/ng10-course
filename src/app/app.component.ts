@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
   }
 
   showMsg(): void {
-    this.messageServe.create();
+    this.messageServe.create('一段提示', { showClose: true, type: 'success' });
   }
 
   ngOnInit(): void {

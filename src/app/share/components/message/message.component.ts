@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {XmMessageItemData, XmMessageOptions} from './types';
 
 @Component({
   selector: 'xm-message',
@@ -7,10 +8,21 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessageComponent implements OnInit {
-
-  constructor() { }
+  readonly defaultConfig: Required<XmMessageOptions> = {
+    type: 'info',
+    duration: 3000,
+    showClose: false
+  }
+  messages: XmMessageItemData[] = [];
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
 
+  createMessage(message: XmMessageItemData): void {
+    message.options = { ...this.defaultConfig, ...message.options };
+    this.messages.push(message);
+    this.cdr.markForCheck();
+    // console.log('messages', this.messages);
+  }
 }

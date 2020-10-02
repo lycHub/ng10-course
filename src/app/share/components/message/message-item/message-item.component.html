@@ -1,8 +1,8 @@
 <div class="xm-message-wrap">
-  <div class="xm-message clearfix">
+  <div [class]="itemCls">
     <div class="content">
-      <ng-container>content</ng-container>
+      {{ message.content }}
     </div>
-    <i xmIcon="Close" class="close"></i>
+    <i xmIcon="Close" class="close" *ngIf="message.options.showClose"></i>
   </div>
 </div>

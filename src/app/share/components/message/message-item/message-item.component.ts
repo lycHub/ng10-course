@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, Input} from '@angular/core';
+import {XmMessageItemData} from '../types';
 
 @Component({
   selector: 'xm-message-item',
@@ -7,10 +8,14 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessageItemComponent implements OnInit {
-
+  @Input() index = 0;
+  @Input() message: XmMessageItemData;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  get itemCls(): string {
+    return 'xm-message clearfix ' + this.message.options.type;
+  }
 }

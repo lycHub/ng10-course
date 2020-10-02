@@ -6,11 +6,14 @@ import {
   Injectable,
   Injector,
   Renderer2,
-  RendererFactory2
+  RendererFactory2, TemplateRef
 } from '@angular/core';
 import {MessageModule} from './message.module';
 import {MessageComponent} from './message.component';
 import {DOCUMENT} from '@angular/common';
+import {XmMessageOptions} from './types';
+import {Subject} from 'rxjs';
+import { uniqueId } from 'lodash';
 
 @Injectable({
   providedIn: MessageModule
@@ -29,11 +32,16 @@ export class MessageService {
     this.rd2 = this.rd2Factory.createRenderer(null, null);
   }
 
-  create(): void {
+  create(content: string | TemplateRef<void>, options?: XmMessageOptions): void {
     if (!this.message) {
       this.message = this.getMessage();
     }
-    console.log('message', this.message);
+    this.message.createMessage({
+      messageId: uniqueId('message-'),
+      content,
+      onClose: new Subject<void>(),
+      options
+    });
   }
 
   private getMessage(): MessageComponent {
