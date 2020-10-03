@@ -8,13 +8,15 @@ import {
   Output,
   EventEmitter,
   OnChanges,
-  SimpleChanges
+  SimpleChanges, Inject, Renderer2
 } from '@angular/core';
 import {AlbumInfo, Track} from '../../services/apis/types';
 import {PlayerService} from '../../services/business/player.service';
 import {animate, style, transition, trigger} from '@angular/animations';
+import {DOCUMENT} from '@angular/common';
 
 const PANEL_HEIGHT = 280;
+const THUMBNAIL_WIDTH = 50;
 
 @Component({
   selector: 'xm-player',
@@ -55,10 +57,14 @@ export class PlayerComponent implements OnInit, OnChanges {
   private audioEl: HTMLAudioElement;
   showPanel = false;
   isDown = true;
+  putAway = false;
+  private hostEl: HTMLElement;
   @Output() closed = new EventEmitter<void>();
   @ViewChild('player', { static: true }) readonly playerRef: ElementRef;
   @ViewChild('audio', { static: true }) readonly audioRef: ElementRef;
   constructor(
+    @Inject(DOCUMENT) private doc: Document,
+    private rd2: Renderer2,
     private playerServe: PlayerService
   ) { }
 
@@ -186,7 +192,8 @@ export class PlayerComponent implements OnInit, OnChanges {
   }
 
   ended(): void {
-
+    this.playerServe.setPlaying(false);
+    this.next(this.currentIndex + 1);
   }
   error(): void {
     this.playerServe.setPlaying(false);
@@ -194,5 +201,32 @@ export class PlayerComponent implements OnInit, OnChanges {
 
   trackByTracks(index: number, item: Track): number {
     return item.trackId;
+  }
+
+  dragEnd(host: HTMLElement): void {
+    console.log('dragEnd', host);
+    this.hostEl = host;
+    const { width, height, left, top } = host.getBoundingClientRect();
+    const clientWidth = this.doc.documentElement.clientWidth;
+    const maxTop = this.doc.documentElement.clientHeight - height;
+    this.rd2.setStyle(host, 'transition', 'all .2s');
+    if (top < 0) {
+      this.rd2.setStyle(host, 'top', 0);
+    }
+    if (top > maxTop) {
+      this.rd2.setStyle(host, 'top', maxTop + 'px');
+    }
+    if (clientWidth - left <= width / 2) {
+      this.rd2.setStyle(host, 'left', (clientWidth - THUMBNAIL_WIDTH) + 'px');
+      this.putAway = true;
+    }
+  }
+
+  hoverHost(): void {
+    if (this.putAway) {
+      const maxLeft = this.doc.documentElement.clientWidth - this.hostEl.getBoundingClientRect().width;
+      this.rd2.setStyle(this.hostEl, 'left', maxLeft + 'px');
+      this.putAway = false;
+    }
   }
 }

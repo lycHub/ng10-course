@@ -2,9 +2,9 @@ import {
   AfterViewInit,
   ContentChildren,
   Directive,
-  ElementRef,
+  ElementRef, EventEmitter,
   HostListener,
-  Inject, Input,
+  Inject, Input, Output,
   PLATFORM_ID,
   QueryList,
   Renderer2
@@ -30,6 +30,7 @@ export class DragDirective implements AfterViewInit {
   private movable = false;
   private dragMoveHandler: () => void;
   private dragEndHandler: () => void;
+  @Output() finished = new EventEmitter<HTMLElement>();
   @ContentChildren(DragHandlerDirective, { descendants: true }) private handlers: QueryList<DragHandlerDirective>;
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -52,6 +53,7 @@ export class DragDirective implements AfterViewInit {
         event.preventDefault();
         event.stopPropagation();
         const { left, top } = this.hostEl.getBoundingClientRect();
+        this.rd2.setStyle(this.hostEl, 'transition', 'none');
         this.startPosition = {
           x: event.clientX,
           y: event.clientY,
@@ -75,6 +77,7 @@ export class DragDirective implements AfterViewInit {
       if (this.dragEndHandler) {
         this.dragEndHandler();
       }
+      this.finished.emit(this.hostEl);
     }
   }
 

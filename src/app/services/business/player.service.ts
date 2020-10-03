@@ -10,7 +10,6 @@ import {MessageService} from '../../share/components/message/message.service';
 export class PlayerService {
   private trackList: Track[] = [];
   private currentIndex = 0;
-  private playing = false;
   private trackList$ = new BehaviorSubject<Track[]>([]);
   private currentIndex$ = new BehaviorSubject<number>(0);
   private currentTrack$ = new BehaviorSubject<Track>(null);

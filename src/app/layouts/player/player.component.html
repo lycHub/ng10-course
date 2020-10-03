@@ -1,4 +1,4 @@
-<div class="xm-player-box" xmDrag>
+<div class="xm-player-box" xmDrag (finished)="dragEnd($event)" (mouseenter)="hoverHost()">
   <div class="xm-player" #player>
     <div class="thumbnail">
       <img xmDragHandler [src]="album.cover || '../../../assets/images/default-pic.jpg'" />
@@ -34,7 +34,6 @@
     [src]="currentTrack?.src"
     (canplay)="canplay()"
     (ended)="ended()"
-    (error)="error()"
-  >
+    (error)="error()">
   </audio>
 </div>
