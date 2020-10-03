@@ -35,7 +35,7 @@ export class PlayerComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    console.log('currentTrack', this.currentTrack);
+    // console.log('currentTrack', this.currentTrack);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -129,8 +129,8 @@ export class PlayerComponent implements OnInit, OnChanges {
     this.play();
   }
 
-  togglePanel(hide: boolean): void {
-    this.showPanel = hide;
+  togglePanel(show: boolean): void {
+    this.showPanel = show;
   }
 
   private updateIndex(index: number, canPlay = false): void {

@@ -110,7 +110,7 @@ export class DragDirective implements AfterViewInit {
   }
 
   private setHandlerMouseStyle(): void {
-    console.log('handlers', this.handlers);
+    // console.log('handlers', this.handlers);
     if (this.handlers.length) {
       this.handlers.forEach(item => this.rd2.setStyle(item.el.nativeElement, 'cursor', 'move'));
     } else {

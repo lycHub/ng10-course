@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
         album,
         playing
       }
-      if (currentTrack) {
+      if (trackList.length) {
         this.showPlayer = true;
         this.cdr.markForCheck();
       }

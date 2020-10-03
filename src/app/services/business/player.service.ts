@@ -91,6 +91,32 @@ export class PlayerService {
     }
   }
 
+  addTracks(tracks: Track[]): void {
+    if (this.trackList.length) {
+      const newTracks = this.trackList.slice();
+      let needUpdateTracks = false;
+      tracks.forEach(track => {
+        const target = this.trackList.find(item => item.trackId === track.trackId);
+        if (!target) {
+          newTracks.push(track);
+          needUpdateTracks = true;
+        }
+      });
+      if (needUpdateTracks) {
+        this.setTracks(newTracks);
+      }
+    } else {
+      this.setTracks(tracks.slice());
+    }
+  }
+
+  playTracks(tracks: Track[], index = 0): void {
+    this.addTracks(tracks);
+    const playIndex = this.trackList.findIndex(item => item.trackId === tracks[index].trackId);
+    // console.log('playIndex', playIndex);
+    this.setCurrentIndex(playIndex);
+  }
+
   private getAudio(track: Track): void {
     this.albumServe.trackAudio(track.trackId).subscribe(audio => {
       // console.log('audio', audio);

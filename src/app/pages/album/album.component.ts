@@ -7,6 +7,7 @@ import {AlbumInfo, Anchor, RelateAlbum, Track} from '../../services/apis/types';
 import {IconType} from '../../share/directives/icon/type';
 import {first, takeUntil} from 'rxjs/operators';
 import {PlayerService} from '../../services/business/player.service';
+import {MessageService} from '../../share/components/message/message.service';
 
 interface MoreState {
   full: boolean;
@@ -47,7 +48,8 @@ export class AlbumComponent implements OnInit, OnDestroy {
     private albumServe: AlbumService,
     private categoryServe: CategoryService,
     private cdr: ChangeDetectorRef,
-    private playerServe: PlayerService
+    private playerServe: PlayerService,
+    private messageServe: MessageService
   ) { }
 
   playAll(): void {
@@ -61,10 +63,29 @@ export class AlbumComponent implements OnInit, OnDestroy {
     if (act === 'pause') {
       this.playerServe.setPlaying(false);
     } else {
-      if (!this.currentTrack) {
-        this.playerServe.setAlbum(this.albumInfo);
-      }
+      this.setAlbumInfo();
       this.playerServe.playTrack(track);
+    }
+  }
+
+  play(needPlay): void {
+    if (this.selectedTracks.length) {
+      if (needPlay) {
+        this.playerServe.playTracks(this.selectedTracks);
+      } else {
+        this.playerServe.addTracks(this.selectedTracks);
+        this.messageServe.info('已添加');
+      }
+      this.setAlbumInfo();
+      this.checkAllChange(false);
+    } else {
+      this.messageServe.warning('未选中任何曲目');
+    }
+  }
+
+  private setAlbumInfo(): void {
+    if (!this.currentTrack) {
+      this.playerServe.setAlbum(this.albumInfo);
     }
   }
 

@@ -74,8 +74,8 @@
           <tr>
             <th><label xm-checkbox [ngModel]="isCheckedAll()" (ngModelChange)="checkAllChange($event)"></label></th>
             <th class="item-name">
-              <button xmBtn [xmCircle]="true">播放选中歌曲</button>
-              <button class="btn-add" xmBtn [xmCircle]="true">添加到播放列表</button>
+              <button xmBtn [xmCircle]="true" [disabled]="!selectedTracks.length" (click)="play(true)">播放选中歌曲</button>
+              <button class="btn-add" xmBtn [disabled]="!selectedTracks.length" [xmCircle]="true" (click)="play(false)">添加到播放列表</button>
             </th>
           </tr>
           </tfoot>
