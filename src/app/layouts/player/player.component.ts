@@ -16,6 +16,7 @@ export class PlayerComponent implements OnInit {
   @Input() playing = false;
   private canPlay = false;
   private audioEl: HTMLAudioElement;
+  hidePanel = true;
   @ViewChild('audio', { static: true }) readonly audioRef: ElementRef;
   constructor(
     private playerServe: PlayerService
@@ -23,6 +24,27 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('currentTrack', this.currentTrack);
+  }
+
+  prev(index: number): void {
+    if (this.trackList.length === 1) {
+      this.loop();
+    } else {
+      const newIndex = index < 0 ? this.trackList.length - 1 : index;
+      this.updateIndex(newIndex);
+    }
+  }
+
+  next(index: number): void {
+    // if (!this.canPlay) {
+    //   return;
+    // }
+    if (this.trackList.length === 1) {
+      this.loop();
+    } else {
+      const newIndex = index > this.trackList.length - 1 ? 0 : index;
+      this.updateIndex(newIndex);
+    }
   }
 
   togglePlay(): void {
@@ -43,9 +65,24 @@ export class PlayerComponent implements OnInit {
     }
   }
 
-  private updateIndex(index: number): void {
+  changePlay(index: number): void {
+    if (this.currentIndex !== index) {
+      this.updateIndex(index);
+    }
+  }
+
+  private loop(): void {
+    this.audioEl.currentTime = 0;
+    this.play();
+  }
+
+  togglePanel(hide: boolean): void {
+    this.hidePanel = hide;
+  }
+
+  private updateIndex(index: number, canPlay = false): void {
     this.playerServe.setCurrentIndex(index);
-    this.canPlay = false;
+    this.canPlay = canPlay;
   }
 
   canplay(): void {

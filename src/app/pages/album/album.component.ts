@@ -49,7 +49,7 @@ export class AlbumComponent implements OnInit {
 
   playAll(): void {
     console.log(this.tracks);
-    this.playerServe.setTracks(this.tracks);
+    this.playerServe.setTracks(this.tracks.slice(0, 6));
     this.playerServe.setCurrentIndex(0);
     this.playerServe.setAlbum(this.albumInfo);
   }
