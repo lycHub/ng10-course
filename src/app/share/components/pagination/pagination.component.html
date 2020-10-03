@@ -20,6 +20,6 @@
   </ul>
   <div class="xm-page-navigate">
     <input type="number" class="xm-input" #to (keyup.enter)="inputVal(+to.value)" [min]="1" [max]="lastNum" />
-    <button xmBtn (click)="inputVal(+to.value)">跳转</button>
+    <button xmBtn xmRipples (click)="inputVal(+to.value)">跳转</button>
   </div>
 </div>

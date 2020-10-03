@@ -1,0 +1,24 @@
+.xm-ripples {
+  position: absolute;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  border-radius: 50%;
+  animation: ripples .5s linear;
+  &:after {
+    display: block;
+    content: '';
+    padding-top: 100%;
+  }
+}
+
+@keyframes ripples {
+  from {
+    width: 0;
+    opacity: .5;
+  }
+  to {
+    width: 200%;
+    opacity: 0;
+  }
+}

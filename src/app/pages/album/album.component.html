@@ -27,7 +27,7 @@
             <xm-tag class="meta" *ngFor="let meta of albumInfo.metas">{{ meta.metaDisplayName }}</xm-tag>
           </div>
           <div class="actions">
-            <button xmBtn [xmCircle]="true" class="btn" (click)="playAll()">
+            <button xmBtn xmRipples [xmCircle]="true" class="btn" (click)="playAll()">
               <i xmIcon="play1" class="icon"></i>
               播放全部
             </button>
@@ -74,8 +74,8 @@
           <tr>
             <th><label xm-checkbox [ngModel]="isCheckedAll()" (ngModelChange)="checkAllChange($event)"></label></th>
             <th class="item-name">
-              <button xmBtn [xmCircle]="true" [disabled]="!selectedTracks.length" (click)="play(true)">播放选中歌曲</button>
-              <button class="btn-add" xmBtn [disabled]="!selectedTracks.length" [xmCircle]="true" (click)="play(false)">添加到播放列表</button>
+              <button xmBtn xmRipples [xmCircle]="true" [disabled]="!selectedTracks.length" (click)="play(true)">播放选中歌曲</button>
+              <button class="btn-add" xmBtn xmRipples [disabled]="!selectedTracks.length" [xmCircle]="true" (click)="play(false)">添加到播放列表</button>
             </th>
           </tr>
           </tfoot>
@@ -107,7 +107,7 @@
           <div class="anchor-info">
             <div class="anchor-head">
               <div class="photo">
-                <img [src]="anchor.anchorCover" [alt]="anchor.anchorName" />
+                <img [xmImgLazy]="anchor.anchorCover" [alt]="anchor.anchorName" />
               </div>
               <span class="name">{{ anchor.anchorName }}</span>
             </div>
@@ -131,7 +131,7 @@
           <div class="albums">
             <div class="album-item" [routerLink]="'../' + item.albumId" *ngFor="let item of anchor.anchorAlbumList">
               <div class="thumbnail">
-                <img [src]="item.cover" [alt]="item.albumTitle">
+                <img [xmImgLazy]="item.cover" [alt]="item.albumTitle">
               </div>
               <div class="content">
                 <div class="title">{{ item.albumTitle }}</div>
@@ -153,7 +153,7 @@
         <div class="albums">
           <div class="album-item" [routerLink]="'../' + item.id" *ngFor="let item of relateAlbums">
             <div class="thumbnail">
-              <img style="height: 100%;" [src]="'//imagev2.xmcdn.com/' + item.coverPath" [alt]="item.title">
+              <img style="height: 100%;" [xmImgLazy]="'//imagev2.xmcdn.com/' + item.coverPath" [alt]="item.title">
             </div>
             <div class="content">
               <div class="title">{{ item.title }}</div>
