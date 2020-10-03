@@ -126,4 +126,9 @@ export class AppComponent implements OnInit {
     this.winServe.removeStorage(storageKeys.remember);
     this.winServe.removeStorage(storageKeys.auth);
   }
+
+  closePlayer(): void {
+    this.playerServe.clear();
+    this.showPlayer = false;
+  }
 }

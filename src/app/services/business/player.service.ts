@@ -52,7 +52,7 @@ export class PlayerService {
         this.getAudio(track);
       }
     } else {
-
+      this.currentTrack$.next(null);
     }
   }
 
@@ -87,5 +87,13 @@ export class PlayerService {
         this.currentTrack$.next(track);
       }
     });
+  }
+
+  clear(): void {
+    this.setAlbum(null);
+    this.setPlaying(false);
+    this.setTracks([]);
+    this.setCurrentIndex(0);
+    this.setCurrentTrack(null);
   }
 }

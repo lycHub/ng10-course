@@ -34,5 +34,6 @@
   [currentTrack]="playerInfo.currentTrack"
   [album]="playerInfo.album"
   [playing]="playerInfo.playing"
+  (closed)="closePlayer()"
   *ngIf="showPlayer">
 </xm-player>

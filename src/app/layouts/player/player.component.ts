@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ElementRef, Output, EventEmitter} from '@angular/core';
 import {AlbumInfo, Track} from '../../services/apis/types';
 import {PlayerService} from '../../services/business/player.service';
 
@@ -16,7 +16,8 @@ export class PlayerComponent implements OnInit {
   @Input() playing = false;
   private canPlay = false;
   private audioEl: HTMLAudioElement;
-  hidePanel = true;
+  showPanel = false;
+  @Output() closed = new EventEmitter<void>();
   @ViewChild('audio', { static: true }) readonly audioRef: ElementRef;
   constructor(
     private playerServe: PlayerService
@@ -45,6 +46,36 @@ export class PlayerComponent implements OnInit {
       const newIndex = index > this.trackList.length - 1 ? 0 : index;
       this.updateIndex(newIndex);
     }
+  }
+
+  delete(delIndex: number): void {
+    let newTracks = this.trackList.slice();
+    let canPlay = true;
+    let newIndex = this.currentIndex;
+    if (newTracks.length <= 1) {
+      newIndex = -1;
+      newTracks = [];
+    } else {
+      if (delIndex < this.currentIndex) {
+        newIndex--;
+      }
+      if (delIndex === this.currentIndex) {
+        if (this.playing) {
+          if (this.trackList[delIndex + 1]) {
+            // 不用处理，后面的曲目会顶上来
+          } else {
+            newIndex--;
+            canPlay = false;
+          }
+        } else {
+          newIndex = -1;
+          canPlay = false;
+        }
+      }
+      newTracks.splice(delIndex, 1);
+    }
+    this.playerServe.setTracks(newTracks);
+    this.updateIndex(newIndex, canPlay);
   }
 
   togglePlay(): void {
@@ -77,7 +108,7 @@ export class PlayerComponent implements OnInit {
   }
 
   togglePanel(hide: boolean): void {
-    this.hidePanel = hide;
+    this.showPanel = hide;
   }
 
   private updateIndex(index: number, canPlay = false): void {

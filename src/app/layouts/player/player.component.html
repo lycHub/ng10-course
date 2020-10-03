@@ -10,23 +10,21 @@
         <i class="icon icon-next" xmIcon="next" (click)="next(currentIndex + 1)"></i>
       </div>
     </div>
-    <div class="list" (click)="togglePanel(!hidePanel)">
+    <div class="list" (click)="togglePanel(!showPanel)">
       <i class="icon" xmIcon="mulu"></i>
     </div>
-    <div class="close">
+    <div class="close" (click)="closed.emit()">
       <i class="icon" xmIcon="Close"></i>
     </div>
   </div>
-  <div class="xm-player-panel down" [hidden]="hidePanel">
+  <div class="xm-player-panel down" *ngIf="trackList.length && showPanel">
     <div class="panel-wrap">
       <ul>
         <li
           *ngFor="let item of trackList; index as i; trackBy: trackByTracks"
-          [class.current]="item.trackId === currentTrack?.trackId"
-          (click)="changePlay(i)"
-        >
-          <p class="title ellipsis" [title]="item.title">{{ item.title }}</p>
-          <i class="icon" xmIcon="delete"></i>
+          [class.current]="item.trackId === currentTrack?.trackId">
+          <p class="title ellipsis" [title]="item.title" (click)="changePlay(i)">{{ item.title }}</p>
+          <i class="icon" xmIcon="delete" (click)="delete(i)"></i>
         </li>
       </ul>
     </div>
