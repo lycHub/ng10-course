@@ -53,7 +53,6 @@ export class AlbumComponent implements OnInit, OnDestroy {
   ) { }
 
   playAll(): void {
-    console.log(this.tracks);
     this.playerServe.setTracks(this.tracks);
     this.playerServe.setCurrentIndex(0);
     this.playerServe.setAlbum(this.albumInfo);

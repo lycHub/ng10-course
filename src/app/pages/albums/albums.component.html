@@ -50,7 +50,7 @@
         <div class="cover">
           <!--    图片地址加上!strip=1&quality=7&magick=webp&op_type=3&columns=290&rows=290，尺寸就会变为140 * 140      -->
           <img class="thumbnail" [src]="album.coverPath + '!strip=1&quality=7&magick=webp&op_type=3&columns=290&rows=290'" [alt]="[album.title]">
-          <img class="icon-play" src="../../../assets/images/icon-play-cover.png" />
+          <img class="icon-play" (click)="playAlbum($event, album.albumId)" src="../../../assets/images/icon-play-cover.png" />
           <p class="listen-count">
             <i xmIcon="headset" class="icon"></i>
             <span>{{ album.playCount | numberFormat }}</span>

@@ -1,12 +1,13 @@
 import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {AlbumArgs, AlbumService, AlbumsInfo, CategoryInfo} from '../../services/apis/album.service';
-import {Album, MetaData, MetaValue, SubCategory} from '../../services/apis/types';
+import {Album, AlbumInfo, MetaData, MetaValue, SubCategory} from '../../services/apis/types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryService} from '../../services/business/category.service';
 import {combineLatest, forkJoin} from 'rxjs';
 import {withLatestFrom} from 'rxjs/operators';
 import {WindowService} from '../../services/tools/window.service';
 import {storageKeys} from '../../configs';
+import {PlayerService} from '../../services/business/player.service';
 
 interface CheckedMeta {
   metaRowId: number;
@@ -42,7 +43,8 @@ export class AlbumsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private categoryServe: CategoryService,
-    private winServe: WindowService
+    private winServe: WindowService,
+    private playerServe: PlayerService
   ) { }
 
   ngOnInit(): void {
@@ -71,6 +73,15 @@ export class AlbumsComponent implements OnInit {
         }
       }
       this.updatePageData(needSetStatus);
+    });
+  }
+
+  playAlbum(event: MouseEvent, albumId: number): void {
+    event.stopPropagation();
+    this.albumServe.album(albumId.toString()).subscribe(({ mainInfo, tracksInfo }) => {
+      this.playerServe.setTracks(tracksInfo.tracks);
+      this.playerServe.setCurrentIndex(0);
+      this.playerServe.setAlbum({ ...mainInfo, albumId });
     });
   }
 
