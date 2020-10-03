@@ -17,7 +17,7 @@
       <i class="icon" xmIcon="Close"></i>
     </div>
   </div>
-  <div class="xm-player-panel down" *ngIf="trackList.length && showPanel">
+  <div class="xm-player-panel" @playerPanel [class.down]="isDown" *ngIf="trackList.length && showPanel">
     <div class="panel-wrap">
       <ul>
         <li

@@ -12,12 +12,24 @@ import {storageKeys} from './configs';
 import {ContextService} from './services/business/context.service';
 import {MessageService} from './share/components/message/message.service';
 import {PlayerService} from './services/business/player.service';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'xm-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('fadePlayer', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('.2s', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('.2s', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class AppComponent implements OnInit {
   currentCategory: Category;

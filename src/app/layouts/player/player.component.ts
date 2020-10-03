@@ -12,12 +12,38 @@ import {
 } from '@angular/core';
 import {AlbumInfo, Track} from '../../services/apis/types';
 import {PlayerService} from '../../services/business/player.service';
+import {animate, style, transition, trigger} from '@angular/animations';
+
+const PANEL_HEIGHT = 280;
 
 @Component({
   selector: 'xm-player',
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('playerPanel', [
+      transition(':enter', [
+        style({
+          opacity: 0,
+          height: 0
+        }),
+        animate('.2s', style({
+          opacity: 1,
+          height: '*'
+        }))
+      ]),
+      transition(':leave', [
+        style({
+          overflow: 'hidden'
+        }),
+        animate('.2s', style({
+          opacity: 0,
+          height: 0
+        }))
+      ])
+    ])
+  ]
 })
 export class PlayerComponent implements OnInit, OnChanges {
   @Input() trackList: Track[] = [];
@@ -28,7 +54,9 @@ export class PlayerComponent implements OnInit, OnChanges {
   private canPlay = false;
   private audioEl: HTMLAudioElement;
   showPanel = false;
+  isDown = true;
   @Output() closed = new EventEmitter<void>();
+  @ViewChild('player', { static: true }) readonly playerRef: ElementRef;
   @ViewChild('audio', { static: true }) readonly audioRef: ElementRef;
   constructor(
     private playerServe: PlayerService
@@ -130,7 +158,13 @@ export class PlayerComponent implements OnInit, OnChanges {
   }
 
   togglePanel(show: boolean): void {
-    this.showPanel = show;
+    if (show) {
+      const { top } = this.playerRef.nativeElement.getBoundingClientRect();
+      this.isDown = top < PANEL_HEIGHT - 10;
+      this.showPanel = true;
+    } else {
+      this.showPanel = false;
+    }
   }
 
   private updateIndex(index: number, canPlay = false): void {
