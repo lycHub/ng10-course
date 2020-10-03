@@ -31,6 +31,7 @@ export class PlayerService {
   }
 
   setCurrentIndex(index: number): void {
+    this.currentIndex = index;
     this.currentIndex$.next(index);
     this.setCurrentTrack(this.trackList[index]);
   }
@@ -74,6 +75,20 @@ export class PlayerService {
 
   getAlbum(): Observable<AlbumInfo> {
     return this.album$.asObservable();
+  }
+
+  playTrack(track: Track): void {
+    const targetIndex = this.trackList.findIndex(item => item.trackId === track.trackId);
+    if (targetIndex > -1) {
+      if (targetIndex === this.currentIndex) {
+        this.setPlaying(true);
+      } else {
+        this.setCurrentIndex(targetIndex);
+      }
+    } else {
+      this.setTracks(this.trackList.concat(track));
+      this.setCurrentIndex(this.trackList.length - 1);
+    }
   }
 
   private getAudio(track: Track): void {

@@ -55,10 +55,10 @@
           <tbody>
           <tr *ngFor="let track of tracks; trackBy: trackByTracks">
             <td class="item-checkbox"><label xm-checkbox [ngModel]="isChecked(track.trackId)" (ngModelChange)="checkedChange($event, track)"></label></td>
-            <td class="item-name">
+            <td [class]="itemCls(track.trackId)">
               <span class="prefix number">{{ track.index }}</span>
-              <i xmIcon="'play1'" class="prefix icon icon-play"></i>
-              <i xmIcon="'pause'" class="prefix icon icon-pause"></i>
+              <i xmIcon="'play1'" (click)="toggleTrack(track, 'play')" class="prefix icon icon-play"></i>
+              <i xmIcon="'pause'" (click)="toggleTrack(track, 'pause')" class="prefix icon icon-pause"></i>
               <div class="prefix icon icon-playing"><i></i><i></i><i></i><i></i></div>
               <span>{{ track.title }}</span>
             </td>

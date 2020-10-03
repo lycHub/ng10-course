@@ -1,4 +1,15 @@
-import {Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ElementRef, Output, EventEmitter} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  ViewChild,
+  ElementRef,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import {AlbumInfo, Track} from '../../services/apis/types';
 import {PlayerService} from '../../services/business/player.service';
 
@@ -8,7 +19,7 @@ import {PlayerService} from '../../services/business/player.service';
   styleUrls: ['./player.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerComponent implements OnInit {
+export class PlayerComponent implements OnInit, OnChanges {
   @Input() trackList: Track[] = [];
   @Input() currentIndex = 0;
   @Input() currentTrack: Track;
@@ -25,6 +36,17 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('currentTrack', this.currentTrack);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const { playing } = changes;
+    if (playing && !playing.firstChange) {
+      if (playing.currentValue) {
+        this.audioEl.play();
+      } else {
+        this.audioEl.pause();
+      }
+    }
   }
 
   prev(index: number): void {
