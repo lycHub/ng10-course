@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, TemplateRef} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AlbumService, AlbumTrackArgs} from '../../services/apis/album.service';
 import {combineLatest, forkJoin, Subject} from 'rxjs';
@@ -43,6 +43,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
   private playing = false;
   private currentTrack: Track;
   private destory$ = new Subject<void>();
+  @ViewChild('msgTpl') private msgTpl: TemplateRef<void>;
   constructor(
     private route: ActivatedRoute,
     private albumServe: AlbumService,

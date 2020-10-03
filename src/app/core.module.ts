@@ -13,7 +13,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InterceptorService} from './services/apis/interceptor.service';
 import {MessageModule} from './share/components/message/message.module';
 import { PlayerComponent } from './layouts/player/player.component';
-import {PipesModule} from './share/pipes/pipes.module';
 
 
 
@@ -30,8 +29,7 @@ import {PipesModule} from './share/pipes/pipes.module';
     CheckboxModule,
     FormsModule,
     ReactiveFormsModule,
-    MessageModule,
-    PipesModule
+    MessageModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
