@@ -1,5 +1,8 @@
-<div class="xm-back-top" (click)="clickBackTo()">
-  <div class="content">
-    <div class="icon"></div>
-  </div>
+<div class="xm-back-top" (click)="clickBackTo()" *ngIf="visible" @fadeShow>
+  <ng-template #defTpl>
+    <div class="content">
+      <div class="icon"></div>
+    </div>
+  </ng-template>
+  <ng-container *ngTemplateOutlet="tpl || defTpl"></ng-container>
 </div>

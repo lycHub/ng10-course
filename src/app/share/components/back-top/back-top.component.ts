@@ -1,85 +1,92 @@
-import {Component, OnInit, ChangeDetectionStrategy, Inject, PLATFORM_ID, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Inject,
+  PLATFORM_ID,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  AfterViewInit, ChangeDetectorRef, OnDestroy, TemplateRef
+} from '@angular/core';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
-
-
-export type EasyingFn = (t: number, b: number, c: number, d: number) => number;
-export type ScrollEl = HTMLElement | Window;
-
-function easeInOutCubic(t: number, b: number, c: number, d: number): number {
-  const cc = c - b;
-  let tt = t / (d / 2);
-  if (tt < 1) {
-    return (cc / 2) * tt * tt * tt + b;
-  } else {
-    return (cc / 2) * ((tt -= 2) * tt * tt + 2) + b;
-  }
-}
+import {fromEvent, Subscription} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
+import {animate, style, transition, trigger} from '@angular/animations';
+import {ScrollEl, ScrollService} from '../../../services/tools/scroll.service';
 
 
 @Component({
   selector: 'xm-back-top',
   templateUrl: './back-top.component.html',
   styleUrls: ['./back-top.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('fadeShow', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('.2s', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('.2s', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
-export class BackTopComponent implements OnInit, OnChanges {
+export class BackTopComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() target: string | HTMLElement;
+  @Input() visibleHeight = 450;
+  @Input() tpl: TemplateRef<any>;
   private scrollTarget: HTMLElement;
+  visible = false;
+  scrollHandler: Subscription;
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
-    @Inject(DOCUMENT) private doc: Document
-  ) {
-  }
+    @Inject(DOCUMENT) private doc: Document,
+    private cdr: ChangeDetectorRef,
+    private scrollServe: ScrollService
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     const { target } = changes;
     if (target) {
-      const tempTarget = typeof target.currentValue === 'string' ? this.doc.querySelector(target.currentValue) : target.currentValue;
-      this.scrollTarget = tempTarget || window;
+      this.scrollTarget = typeof target.currentValue === 'string' ? this.doc.querySelector(target.currentValue) : target.currentValue;
     }
   }
 
   ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.listenScrollEvent();
+    }
   }
 
   clickBackTo(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.scrollTo(this.scrollTarget);
+      this.scrollServe.scrollTo(this.getTarget());
     }
   }
 
-  private scrollTo(container: ScrollEl, targetTop = 0, easing?: EasyingFn, callback?: () => void): void {
-    const target = container || window;
-    const scrollTop = this.getScroll(target);
-    // console.log('scrollTop', scrollTop);
-    const startTime = Date.now();
-    const frameFunc = () => {
-      const duration = Date.now() - startTime;
-      const topValue = (easing || easeInOutCubic)(duration, scrollTop, targetTop, 450);
-      this.setScrollTop(container, topValue);
-      if (duration < 450) {
-        requestAnimationFrame(frameFunc);
-      } else {
-        if (callback) {
-          callback();
-        }
-      }
-    }
-    requestAnimationFrame(frameFunc);
+  private getTarget(): ScrollEl {
+    return this.scrollTarget || window;
   }
 
-  private setScrollTop(el: ScrollEl, topValue = 0): void {
-    if (el === window) {
-      this.doc.body.scrollTop = topValue;
-      this.doc.documentElement.scrollTop = topValue;
-    } else {
-      (el as HTMLElement).scrollTop = topValue;
-    }
+  private listenScrollEvent(): void {
+    this.scrollHandler = fromEvent(this.getTarget(), 'scroll')
+      .pipe(debounceTime(200))
+      .subscribe(() => {
+        const currentScrollValue = this.scrollServe.getScroll(this.getTarget());
+        this.visible = currentScrollValue > this.visibleHeight;
+        this.cdr.markForCheck();
+      });
   }
 
-  private getScroll(el: ScrollEl, top = true): number {
-    const prop = top ? 'pageYOffset' : 'pageXOffset'; // window
-    const method = top ? 'scrollTop' : 'scrollLeft'; // dom
-    return el === window ? el[prop] : el[method];
+  ngOnDestroy(): void {
+    if (this.scrollHandler) {
+      this.scrollHandler.unsubscribe();
+    }
   }
 }
