@@ -204,7 +204,6 @@ export class PlayerComponent implements OnInit, OnChanges {
   }
 
   dragEnd(host: HTMLElement): void {
-    console.log('dragEnd', host);
     this.hostEl = host;
     const { width, height, left, top } = host.getBoundingClientRect();
     const clientWidth = this.doc.documentElement.clientWidth;

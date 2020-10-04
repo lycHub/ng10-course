@@ -30,16 +30,6 @@ export type CheckboxValue = number | string;
 export class CheckboxGroupComponent implements OnInit, ControlValueAccessor {
   private checkboxes: CheckboxComponent[] = [];
   private current: CheckboxValue[] = [];
- /* @Input()
-  set initCurrent(checks: CheckboxValue[]) {
-    console.log('init', checks);
-    this.current = checks;
-    if (checks.length) {
-      setTimeout(() => {
-        this.updateCheckBox(checks);
-      }, 0);
-    }
-  }*/
   constructor() { }
 
   ngOnInit(): void {
@@ -70,7 +60,6 @@ export class CheckboxGroupComponent implements OnInit, ControlValueAccessor {
         newCurrent.splice(targetIndex, 1);
       }
     }
-    console.log('newCurrent', newCurrent);
     this.writeValue(newCurrent);
   }
 

@@ -20,7 +20,6 @@ export class ToggleMoreDirective implements OnChanges {
     if (content?.currentValue) {
       timer(100).subscribe(() => {
         this.trueHeight = this.hiddenDomRect(this.el.nativeElement).height;
-        console.log('trueHeight', this.trueHeight);
         this.initTrueHeight.emit(this.trueHeight);
       });
     }

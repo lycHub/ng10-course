@@ -93,7 +93,6 @@ export class AlbumsComponent implements OnInit {
   }
 
   changeSubCategory(subCategory?: SubCategory): void {
-    console.log('subCategory', subCategory);
     if (subCategory) {
       this.searchParams.subcategory = subCategory.code;
       this.categoryServe.setSubCategory([subCategory.displayValue]);
@@ -151,7 +150,6 @@ export class AlbumsComponent implements OnInit {
         result += item.metaRowId + '_' + item.metaId + '-';
       });
     }
-    console.log('meta params', result.slice(0, -1));
     return result.slice(0, -1);
   }
 
@@ -196,14 +194,12 @@ export class AlbumsComponent implements OnInit {
 
   private setStatus({ metadata, subcategories }: CategoryInfo): void {
     const subCategory = subcategories.find(item => item.code === this.searchParams.subcategory);
-    console.log('metadata', metadata);
     if (subCategory) {
       this.categoryServe.setSubCategory([subCategory.displayValue]);
     }
     if (this.searchParams.meta) {
       // 19_156-22_4433
       const metasMap = this.searchParams.meta.split('-').map(item => item.split('_'));
-      console.log('metasMap', metasMap);
       metasMap.forEach(meta => {
         const targetRow = metadata.find(row => row.id === Number(meta[0]));
         // console.log('targetRow', targetRow);

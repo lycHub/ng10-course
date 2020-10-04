@@ -8,7 +8,6 @@ export class WindowService {
   readonly isBrowser: boolean;
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    console.log('isBrowser', this.isBrowser);
   }
 
   setStorage(key: string, value: string): void {
