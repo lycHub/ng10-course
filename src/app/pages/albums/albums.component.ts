@@ -8,6 +8,7 @@ import {withLatestFrom} from 'rxjs/operators';
 import {WindowService} from '../../services/tools/window.service';
 import {storageKeys} from '../../configs';
 import {PlayerService} from '../../services/business/player.service';
+import {PageService} from '../../services/tools/page.service';
 
 interface CheckedMeta {
   metaRowId: number;
@@ -44,7 +45,8 @@ export class AlbumsComponent implements OnInit {
     private router: Router,
     private categoryServe: CategoryService,
     private winServe: WindowService,
-    private playerServe: PlayerService
+    private playerServe: PlayerService,
+    private pageServe: PageService
   ) { }
 
   ngOnInit(): void {
@@ -74,6 +76,11 @@ export class AlbumsComponent implements OnInit {
       }
       this.updatePageData(needSetStatus);
     });
+    this.pageServe.setPageInfo(
+      '专辑列表',
+      'angular10仿喜马拉雅',
+      '小说，音乐，教育...'
+    );
   }
 
   playAlbum(event: MouseEvent, albumId: number): void {

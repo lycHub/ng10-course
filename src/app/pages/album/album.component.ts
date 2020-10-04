@@ -8,6 +8,7 @@ import {IconType} from '../../share/directives/icon/type';
 import {first, takeUntil} from 'rxjs/operators';
 import {PlayerService} from '../../services/business/player.service';
 import {MessageService} from '../../share/components/message/message.service';
+import {PageService} from '../../services/tools/page.service';
 
 interface MoreState {
   full: boolean;
@@ -50,7 +51,8 @@ export class AlbumComponent implements OnInit, OnDestroy {
     private categoryServe: CategoryService,
     private cdr: ChangeDetectorRef,
     private playerServe: PlayerService,
-    private messageServe: MessageService
+    private messageServe: MessageService,
+    private pageServe: PageService
   ) { }
 
   playAll(): void {
@@ -196,21 +198,11 @@ export class AlbumComponent implements OnInit, OnDestroy {
       this.albumServe.albumScore(this.trackParams.albumId),
       this.albumServe.relateAlbums(this.trackParams.albumId),
     ]).pipe(first()).subscribe(([albumInfo, score, relateAlbums]) => {
-      // console.log('albumInfo', albumInfo);
-      // console.log('score', score);
-      // console.log('relateAlbum', relateAlbum);
       this.albumInfo = { ...albumInfo.mainInfo, albumId: albumInfo.albumId };
       this.score = score / 2;
       this.anchor = albumInfo.anchorInfo;
-      // this.tracks = albumInfo.tracksInfo.tracks;
-      // this.total = albumInfo.tracksInfo.trackTotalCount;
       this.updateTracks();
       this.relateAlbums = relateAlbums.slice(0, 10);
-     /* const category = localStorage.getItem('categoryPinyin');
-      const { categoryPinyin } = this.albumInfo.crumbs;
-      if (category !== categoryPinyin) {
-        this.categoryServe.setCategory(categoryPinyin);
-      }*/
       this.categoryServe.getCategory().pipe(first()).subscribe(category => {
         const { categoryPinyin } = this.albumInfo.crumbs;
         if (category !== categoryPinyin) {
@@ -218,6 +210,11 @@ export class AlbumComponent implements OnInit, OnDestroy {
         }
       });
       this.categoryServe.setSubCategory([this.albumInfo.albumTitle]);
+      this.pageServe.setPageInfo(
+        this.albumInfo.albumTitle,
+        '专辑详情',
+        '小说，音乐，教育...'
+      );
       this.cdr.markForCheck();
     });
   }
