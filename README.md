@@ -1,27 +1,30 @@
-# Xmly
+# Anaular10完全解读
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0.
+### 课程试看
+[bilibili]()
 
-## Development server
+### 课程购买
+请添加我微信：FernalLikeWorld <br>
+备注：ng10 <br>
+价格: ¥226 <br>
+可以**半价**单独购买实战部分，加微信时备注：ng实战 <br>
+购买后发百度云盘
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### 接口
+接口源码和课程视频在一起，下载后在根目录下: <br/>
+- npm i
+- npm start
+- 访问localhost:3333/docs <br>
+视频8.1有演示
 
-## Code scaffolding
+### 实战效果预览：
+在根目录下npm i
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### dev
+- npm start
+- 访问localhost:4300
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+#### production
+- npm run build
+- npm run server
+- 访问localhost:8080
