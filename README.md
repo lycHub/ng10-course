@@ -1,7 +1,7 @@
-# Anaular10完全解读
+TTc# Anaular10完全解读
 
 ### 课程试看
-[bilibili]()
+[bilibili](https://www.bilibili.com/video/BV1zy4y1k7Dw)
 
 ### 课程购买
 请添加我微信：FernalLikeWorld <br>
