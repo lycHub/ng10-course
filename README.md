@@ -1,4 +1,7 @@
-TTc# Anaular10完全解读
+# Anaular10完全解读
+
+### ngrx
+**新增ngrx章节，购买过课程的同学刷新下网盘链接就有了，[代码地址](https://github.com/lycHub/ngrx-course)**
 
 ### 课程试看
 [bilibili](https://www.bilibili.com/video/BV1zy4y1k7Dw)
