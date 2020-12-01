@@ -4,7 +4,7 @@ import {UserService} from './user.service';
 import {AccountService} from './account.service';
 import {AuthKey} from '../configs/constant';
 import {Observable, of} from 'rxjs';
-import {first, switchMap} from 'rxjs/operators';
+import {mergeMap, switchMap} from 'rxjs/operators';
 import {Hero} from '../configs/types';
 
 @Injectable({
@@ -17,20 +17,16 @@ export class ContextService {
     private accountServe: AccountService
   ) { }
   setContext(): Observable<Hero | false> {
-    const auth = this.windowServe.getStorage(AuthKey);
-    return new Observable(observer => {
-      // console.log('auth', auth);
-      if (auth) {
-        this.userServe.user$.pipe(
-          switchMap(user => {
-            if (user) {
-              return of(user);
-            }
-            // console.log('set account', auth);
-            return this.accountServe.account();
-          }),
-          first()
-        ).subscribe(res => {
+    const cacheAuth = this.windowServe.getStorage(AuthKey);
+    if (cacheAuth) {
+      return this.userServe.user$.pipe(
+        mergeMap(user => {
+          if (user) {
+            return of(user);
+          }
+          return this.accountServe.account();
+        }),
+        switchMap(res => {
           let user: Hero;
           if ('token' in res) {
             this.windowServe.setStorage(AuthKey, res.token);
@@ -39,12 +35,10 @@ export class ContextService {
           } else {
             user = res;
           }
-          observer.next(user);
-        });
-      } else {
-        observer.next(false);
-      }
-      observer.complete();
-    });
+          return of(user);
+        })
+      );
+    }
+    return of(false);
   }
 }

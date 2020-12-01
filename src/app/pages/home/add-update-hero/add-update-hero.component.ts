@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HeroService} from '../../../services/hero.service';
 import {WindowService} from '../../../services/window.service';
 import {LogService} from '../../../services/log.service';
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-add-update-hero',
@@ -68,12 +69,12 @@ export class AddUpdateHeroComponent implements OnInit {
     this.submitted = true;
     if (this.formValues.valid) {
       if (this.id) {
-        this.heroServe.updateHero(this.id, this.formValues.value).subscribe(() => {
+        this.heroServe.updateHero(this.id, this.formValues.value).pipe(first()).subscribe(() => {
           this.windowServe.alert('修改成功');
           this.cancel();
         });
       } else {
-        this.heroServe.addHero(this.formValues.value).subscribe(() => {
+        this.heroServe.addHero(this.formValues.value).pipe(first()).subscribe(() => {
           this.windowServe.alert('新增成功');
           this.cancel();
         });
@@ -82,7 +83,7 @@ export class AddUpdateHeroComponent implements OnInit {
   }
 
   getHeroInfo() {
-    this.heroServe.hero(this.id).subscribe(hero => {
+    this.heroServe.hero(this.id).pipe(first()).subscribe(hero => {
       // console.log('hero', hero);
       this.formValues.patchValue(hero);
       this.cdr.markForCheck();
