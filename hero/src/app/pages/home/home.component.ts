@@ -40,7 +40,7 @@ import {animate, animateChild, group, query, style, transition, trigger} from '@
           ], { optional: true })
         ]),
         // 进入或离开页面后，执行页面中的动画
-        query(':enter', animateChild())
+        query(':enter', animateChild(), { optional: true })
       ])
     ])
   ]
@@ -61,7 +61,6 @@ export class HomeComponent implements OnInit {
       filter(event => event instanceof NavigationEnd),
       switchMap(() => this.route.firstChild.data)
     ).subscribe(data => {
-      console.log('NavigationEnd');
       if (data.breadcrumb?.length) {
         this.breadcrumb = data.breadcrumb;
       }

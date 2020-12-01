@@ -7,6 +7,7 @@ import {UserService} from '../../services/user.service';
 import {AuthKey} from '../../configs/constant';
 import {WindowService} from '../../services/window.service';
 import {LogService} from '../../services/log.service';
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-login',
@@ -24,12 +25,11 @@ export class LoginComponent implements OnInit {
 
   constructor(private LogServe: LogService, private router: Router, private windowServe: WindowService, private accountServe: AccountService, private userServe: UserService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.accountServe.login(form.value).subscribe(({ user, token }) => {
+      this.accountServe.login(form.value).pipe(first()).subscribe(({ user, token }) => {
         this.windowServe.setStorage(AuthKey, token);
         this.userServe.setUser(user);
         this.windowServe.alert('登陆成功');

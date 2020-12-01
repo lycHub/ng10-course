@@ -1,12 +1,5 @@
-import { Injectable } from '@angular/core';
-import {WindowService} from './window.service';
-import {UserService} from './user.service';
-import {AccountService} from './account.service';
-import {AuthKey} from '../configs/constant';
-import {Observable, of} from 'rxjs';
-import {mergeMap, switchMap} from 'rxjs/operators';
-import {Hero} from '../configs/types';
-
+contest.service.ts:
+```typescript
 @Injectable({
   providedIn: 'root'
 })
@@ -42,3 +35,41 @@ export class ContextService {
     return of(false);
   }
 }
+
+```
+
+app.component:
+```typescript
+construct() {
+  this.contextServe.setContext().pipe(first()).subscribe();
+}
+```
+
+
+login-auth.guard:
+```typescript
+@Injectable({
+  providedIn: 'root'
+})
+export class LoginAuthGuard implements CanActivate {
+  constructor(
+    private userServe: UserService,
+    private contextServe: ContextService,
+    private windowServe: WindowService,
+    private router: Router) {}
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    return this.contextServe.setContext().pipe(
+      switchMap(user => {
+        if (user) {
+          this.router.navigateByUrl('/home/heroes').then(() => {
+            this.windowServe.alert('您已登陆，不需要重复登陆');
+          });
+          return of(false);
+        }
+        return of(true);
+      })
+    );
+  }
+}
+
+```

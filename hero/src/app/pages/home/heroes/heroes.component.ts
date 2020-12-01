@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {Hero, HeroArg} from '../../../configs/types';
 import {HeroService} from '../../../services/hero.service';
 import {WindowService} from '../../../services/window.service';
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-heroes',
@@ -42,7 +43,7 @@ export class HeroesComponent implements OnInit {
   delHero(id: string) {
     const confirm = this.windowServe.confirm('确定删除该英雄?');
     if (confirm) {
-      this.heroServe.delHero(id).subscribe(() => {
+      this.heroServe.delHero(id).pipe(first()).subscribe(() => {
         this.windowServe.alert('删除成功');
         this.getList();
       });
@@ -51,13 +52,14 @@ export class HeroesComponent implements OnInit {
 
   getList() {
     this.showSpin = true;
-    this.heroServe.heroes(this.searchParams).subscribe(heroes => {
-      this.heroes = heroes;
-      this.showSpin = false;
-      this.cdr.markForCheck();
-    }, () => {
-      this.showSpin = false;
-      this.cdr.markForCheck();
+    this.heroServe.heroes(this.searchParams).pipe(first()).subscribe({
+      next: heroes => {
+        this.heroes = heroes;
+      },
+      complete: () => {
+        this.showSpin = false;
+        this.cdr.markForCheck();
+      }
     });
   }
 }
